@@ -1,3 +1,4 @@
+```yaml
 name: Update MechNova YouTube Videos
 
 on:
@@ -10,16 +11,19 @@ permissions:
 
 jobs:
   update-feed:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.x'
+
       - name: Fetch latest public uploads
         run: python scripts/update_youtube_feed.py
+
       - name: Commit updated feed data
         run: |
           git config user.name "github-actions[bot]"
@@ -31,3 +35,4 @@ jobs:
           else
             echo "No feed changes to commit"
           fi
+```
