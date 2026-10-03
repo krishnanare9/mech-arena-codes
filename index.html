@@ -177,7 +177,71 @@ footer{border-color:#1c5273}
 .cms-editor label{display:grid;gap:6px;color:#b9d5e8;font-size:12px;font-weight:700}
 .cms-editor input,.cms-editor select,.cms-editor textarea{width:100%;min-width:0;padding:10px;background:#0a1322;color:#f4f8ff;border:1px solid #285574;border-radius:8px;font:inherit}
 .cms-editor input[type=color]{height:42px;padding:4px}
+.cms-editor input[type=file]{font-size:12px;padding:8px;background:#0a1322;border:1px dashed #39708f}
+.upload-help{font-size:11px;color:var(--muted);font-weight:400}
 .cms-editor textarea{resize:vertical}
+.cms-editor summary{padding:5px 0 10px;list-style-position:inside}
+.pack-editor .admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}
+.pack-editor .admin-form label{display:grid;gap:6px;color:#b9d5e8;font-size:12px;font-weight:700}
+.pack-editor .admin-form input,.pack-editor .admin-form select,.pack-editor .admin-form textarea{width:100%;min-width:0;padding:10px;background:#0a1322;color:#f4f8ff;border:1px solid #285574;border-radius:8px;font:inherit}
+.pack-editor .admin-form .check-row input{width:auto}
+.pack-editor .admin-actions .delete{border-color:#8c394b;color:#ffdce2}
+@media(max-width:600px){.pack-editor .admin-form{grid-template-columns:1fr}}
+
+/* Integrated visual pack manager */
+.pack-manager-board{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0 20px}
+.pack-manager-column{min-width:0;border:1px solid #2457dc;border-radius:14px;padding:12px;background:linear-gradient(145deg,rgba(25,38,117,.72),rgba(18,18,65,.8))}
+.pack-manager-column.bonus-column{border-color:#d18b18;background:linear-gradient(145deg,rgba(100,48,19,.55),rgba(48,24,48,.82))}
+.pack-manager-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.pack-manager-heading>div{display:flex;align-items:center;gap:10px;min-width:0}
+.pack-manager-icon{display:grid;place-items:center;width:42px;height:42px;border:1px solid #168bff;border-radius:50%;font-size:23px;flex:none;background:#172b72}
+.bonus-column .pack-manager-icon{border-color:#e99b13;background:#59300d}
+.pack-manager-heading h3{font-size:20px;line-height:1.2;margin:0;color:#28bfff}
+.bonus-column .pack-manager-heading h3{color:#ffb323}
+.pack-manager-heading p{font-size:11px;opacity:.8;margin:4px 0 0}
+.pack-add{white-space:nowrap;font-size:12px!important;padding:9px 11px!important;background:linear-gradient(90deg,#174ee9,#2469ff)!important}
+.bonus-column .pack-add{background:linear-gradient(90deg,#ed9411,#ffbb27)!important;color:#261500!important}
+.pack-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.cms-pack-card{min-width:0;overflow:hidden;border:1px solid rgba(130,104,255,.55);border-radius:10px;background:linear-gradient(160deg,#3a2083,#25165a);display:flex;flex-direction:column}
+.bonus-column .cms-pack-card{border-color:rgba(236,157,38,.55);background:linear-gradient(160deg,#553019,#2e1b43)}
+.cms-pack-image{width:100%;height:135px;object-fit:contain;background:radial-gradient(ellipse at center,#5430a0,#2b1a69);display:block}
+.bonus-column .cms-pack-image{background:radial-gradient(ellipse at center,#75451e,#321e43)}
+.cms-pack-image.empty{opacity:.45}
+.cms-pack-name{font-size:12px;font-weight:800;padding:6px 7px;background:#1768ed;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bonus-column .cms-pack-name{background:#a85e12}
+.cms-pack-rewards{padding:7px;display:flex;flex-direction:column;gap:3px;min-height:73px;font-size:10px;line-height:1.3;color:#eee6ff}
+.cms-pack-rewards span{overflow-wrap:anywhere}
+.cms-pack-actions{display:flex;align-items:center;gap:5px;padding:6px;margin-top:auto;border-top:1px solid #ffffff20}
+.cms-pack-actions button{font-size:10px!important;padding:6px 7px!important;min-width:0}
+.cms-pack-actions .cms-pack-edit{flex:1;background:#6434d7!important}
+.cms-pack-actions .cms-pack-delete{background:#862b42!important}
+.cms-pack-actions label{display:flex;align-items:center;gap:3px;font-size:10px;white-space:nowrap}
+.cms-pack-actions input{accent-color:#16c9f5}
+.cms-pack-hidden{font-size:9px;font-weight:800;color:#ffb3b3;padding:3px 7px;background:#862b42;align-self:flex-start;border-radius:0 0 5px 0}
+.pack-form-heading{font-size:16px;font-weight:800;margin:12px 0;color:#35dfff}
+@media(max-width:850px){.pack-manager-board{grid-template-columns:1fr}.pack-card-grid{grid-template-columns:repeat(auto-fit,minmax(125px,1fr))}}
+@media(max-width:480px){.pack-manager-heading{align-items:flex-start;flex-direction:column}.pack-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cms-pack-image{height:120px}}
+
+/* Full-width visual admin workspace inspired by the supplied MechNova reference */
+.admin-panel.visible{display:block;width:100%}
+#adminDashboard{width:100%;}
+.admin-topbar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:18px 20px;margin:0 0 14px;border:1px solid #28265b;border-radius:15px;background:linear-gradient(110deg,#10112d,#17103c 58%,#21113b);box-shadow:0 14px 34px #0005}
+.admin-topbar h2{margin:3px 0;font-size:clamp(20px,2.3vw,29px);color:#f7f4ff}.admin-topbar h2 span{color:#b18aff}.admin-topbar p{margin:4px 0 0;color:#c6c0e8;font-size:12px}.admin-kicker{font-size:10px;letter-spacing:2px;font-weight:900;color:#9e80ff}.admin-top-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.admin-top-actions .btn{margin:0}.admin-top-actions #adminLogout{background:linear-gradient(135deg,#922747,#5e1838);border:1px solid #bd3659;color:#fff;padding:10px 15px;border-radius:9px}
+.admin-shell{display:grid;grid-template-columns:185px minmax(0,1fr);gap:14px;align-items:start}.admin-side-nav{position:sticky;top:14px;min-height:520px;padding:12px 9px;border:1px solid #28265b;border-radius:14px;background:linear-gradient(180deg,#10112e,#100d27);display:flex;flex-direction:column;gap:6px}.admin-side-brand{display:flex;align-items:center;gap:9px;padding:8px 5px 16px;margin-bottom:7px;border-bottom:1px solid #ffffff18}.admin-side-brand>span{font-size:26px;color:#a879ff}.admin-side-brand b{display:block;font-size:14px;letter-spacing:1px;color:#fff}.admin-side-brand small{display:block;font-size:9px;color:#a9a4d0}.admin-nav-item{display:flex;align-items:center;gap:10px;text-align:left;border:0;border-radius:8px;padding:11px 10px;background:transparent;color:#c6c1e9;font:inherit;font-size:12px;font-weight:600;cursor:pointer}.admin-nav-item:hover,.admin-nav-item.active{background:linear-gradient(90deg,#36216c,#271b50);color:#fff;box-shadow:inset 2px 0 #b879ff}.admin-nav-item:first-of-type{margin-top:4px}.admin-side-foot{margin-top:auto;padding:12px 6px 5px;border-top:1px solid #ffffff18;color:#8f8ab4;font-size:10px;line-height:1.7}.admin-main-content{min-width:0;padding:3px 0}.admin-content-section,.admin-main-content>.cms-editor{margin:0 0 15px!important;border:1px solid #34306f!important;border-radius:14px!important;padding:15px!important;background:linear-gradient(145deg,#11143a,#10112c 62%,#1c1238)!important;box-shadow:0 12px 28px #0004}.admin-section-heading h3{margin:0;color:#f7f3ff;font-size:19px}.admin-section-heading p{margin:5px 0 12px}.admin-main-content>.cms-editor>summary{font-size:17px!important;color:#e4d7ff!important;border-bottom:1px solid #ffffff17;margin-bottom:8px}.admin-main-content .pack-manager-board{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 17px}.admin-main-content .pack-manager-column{padding:10px;border-radius:13px}.admin-main-content .pack-card-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.admin-main-content .cms-pack-image{height:clamp(100px,12vw,160px)}.admin-main-content .cms-pack-card{box-shadow:0 8px 16px #07051e66}.admin-main-content .pack-form-heading{padding-top:10px;border-top:1px solid #ffffff1c}.admin-main-content .admin-form{gap:11px}.admin-main-content .admin-form input,.admin-main-content .admin-form select,.admin-main-content .admin-form textarea{background:#11113a;border-color:#49409b}.admin-main-content .cms-editor label{color:#e0d9ff}.admin-main-content .pack-editor .admin-form{background:linear-gradient(120deg,#151746,#1d1240);padding:13px;border:1px solid #34306f;border-radius:11px}.admin-main-content .admin-actions{padding-top:4px}.admin-main-content .admin-actions #cmsPackSave,.admin-main-content #saveSiteSettings{background:linear-gradient(90deg,#07833d,#0aa85a);border:0;color:white}.admin-main-content .btn.secondary{background:#342078;border-color:#5b43a9;color:#fff}.admin-main-content .btn:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:1000px){.admin-shell{grid-template-columns:150px minmax(0,1fr)}.admin-main-content .pack-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-main-content .pack-manager-board{grid-template-columns:1fr}}
+@media(max-width:680px){.admin-topbar{align-items:flex-start;flex-direction:column;padding:14px}.admin-shell{grid-template-columns:1fr}.admin-side-nav{position:static;min-height:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px}.admin-side-brand{grid-column:1/-1;padding-bottom:9px}.admin-side-foot{display:none}.admin-nav-item{font-size:11px;padding:10px 7px}.admin-main-content .pack-manager-board{grid-template-columns:1fr}.admin-main-content .pack-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.admin-main-content .pack-editor .admin-form{grid-template-columns:1fr}}
+
+/* Public home layout with responsive left slidebar */
+.public-shell{display:grid;grid-template-columns:218px minmax(0,1fr);gap:20px;align-items:start;max-width:1440px!important}
+.public-page-content{min-width:0}
+.public-side-nav{position:sticky;top:92px;align-self:start;min-height:calc(100vh - 115px);max-height:calc(100vh - 110px);overflow:auto;padding:16px 12px;border:1px solid #30245d;border-radius:16px;background:linear-gradient(180deg,#12122f,#1b1240 58%,#10172e);box-shadow:0 14px 35px #0005;display:flex;flex-direction:column;gap:7px}
+.public-side-brand{display:flex;align-items:center;gap:10px;padding:5px 6px 17px;border-bottom:1px solid #ffffff18;margin-bottom:7px}.public-side-mark{display:grid;place-items:center;width:39px;height:39px;border-radius:12px;background:linear-gradient(145deg,#672bd8,#a13aff);color:#fff;font-size:23px;box-shadow:0 0 18px #823cff55}.public-side-brand b{display:block;color:#fff;font-size:16px;letter-spacing:.8px}.public-side-brand small{display:block;color:#aaa4d7;font-size:9px;letter-spacing:1px;margin-top:3px}.public-side-label{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#817db2;padding:8px 10px 4px}.public-side-link{display:flex;align-items:center;gap:11px;padding:11px 12px;border:1px solid transparent;border-radius:10px;color:#c9c5e8;text-decoration:none;font-size:13px;font-weight:650;transition:.18s}.public-side-link span{width:20px;text-align:center;font-size:16px;color:#a59bf0}.public-side-link:hover,.public-side-link.active{background:linear-gradient(100deg,#5822b5aa,#39247777);border-color:#8a55f555;color:#fff}.public-side-link.active{box-shadow:inset 3px 0 #a64bff}.public-side-bottom{display:grid;gap:8px;margin-top:auto;padding:15px 10px 5px;border-top:1px solid #ffffff18;color:#aaa4d7;font-size:11px}.public-side-bottom b{color:#eee9ff;font-size:12px;margin-bottom:3px}.public-side-bottom a{color:#bcb5ec;text-decoration:none}.public-side-bottom a:hover{color:#fff}.public-menu-toggle{display:none;border:1px solid #6e4bd0;background:#26164f;color:#fff;border-radius:9px;padding:9px 11px;font-weight:700;cursor:pointer}.public-sidebar-overlay{display:none}
+@media(max-width:900px){.public-shell{grid-template-columns:minmax(0,1fr);gap:0}.public-side-nav{position:fixed;z-index:1002;left:12px;top:12px;bottom:12px;width:min(285px,84vw);max-height:none;min-height:0;border-radius:15px;transform:translateX(calc(-100% - 22px));transition:transform .25s ease}.public-shell.sidebar-open .public-side-nav{transform:translateX(0)}.public-shell.sidebar-open .public-sidebar-overlay{display:block;position:fixed;inset:0;z-index:1001;background:#030611b8;border:0;width:100%;height:100%}.public-menu-toggle{display:inline-block}.public-page-content{width:100%}}
+@media(max-width:540px){.public-menu-toggle{padding:8px 9px;font-size:11px}.nav-right{gap:6px}.public-side-nav{width:min(270px,86vw)}}
+
+.earning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.earning-card{padding:16px;border:1px solid var(--border);border-radius:13px;background:linear-gradient(145deg,#0d1d31,#11152b);display:flex;flex-direction:column;gap:9px;min-width:0}.earning-card h3{margin:0;font-size:16px}.earning-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;overflow-wrap:anywhere}.earning-card .btn{align-self:flex-start;margin-top:auto}.earning-admin-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));align-items:stretch}.earning-field{border:1px solid #3d377a;border-radius:11px;padding:12px;min-width:0;display:grid;gap:9px;background:#111333}.earning-field legend{padding:0 6px;font-weight:800;color:#e6ddff}.earning-field label{display:grid;gap:5px;font-size:12px;color:#e0d9ff}.earning-field input:not([type=checkbox]),.earning-field textarea{width:100%;min-width:0;background:#0a1322;border:1px solid #49409b;border-radius:8px;padding:10px;color:#f4f8ff;font:inherit}.earning-field .check-row{display:flex;align-items:center;gap:8px}.earning-field .check-row input{width:auto}.earning-field small{font-size:11px;line-height:1.5;color:#aaa6cb}.earning-save-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;grid-column:1/-1}
+@media(max-width:600px){.earning-admin-form{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -193,11 +257,25 @@ footer{border-color:#1c5273}
    <a href="#faq" data-en="FAQ" data-hi="अक्सर पूछे जाने वाले सवाल">FAQ</a>
    <a href="#about" data-en="About" data-hi="हमारे बारे में">About</a>
   </nav>
-  <div class="nav-right"><div id="google_translate_element" aria-label="Choose website language"><span class="small">Choose language / भाषा चुनें</span></div><button class="btn secondary admin-top" id="adminToggle" type="button" data-en="Admin Login" data-hi="एडमिन लॉगिन">Admin Login</button></div>
+  <div class="nav-right"><button class="public-menu-toggle" id="publicMenuToggle" type="button" aria-label="Open website menu" aria-expanded="false">☰ Menu</button><div id="google_translate_element" aria-label="Choose website language"><span class="small">Choose language / भाषा चुनें</span></div><button class="btn secondary admin-top" id="adminToggle" type="button" data-en="Admin Login" data-hi="एडमिन लॉगिन">Admin Login</button></div>
  </div>
 </header>
 
-<main class="container" id="home">
+<main class="container public-shell" id="home">
+ <aside class="public-side-nav" id="publicSideNav" aria-label="Website menu">
+  <div class="public-side-brand"><span class="public-side-mark">♛</span><div><b>MECHNOVA</b><small>MECH ARENA REWARDS</small></div></div>
+  <div class="public-side-label">MAIN MENU</div>
+  <a class="public-side-link active" href="#home"><span>⌂</span> Home</a>
+  <a class="public-side-link" href="#packs"><span>🎁</span> Packs &amp; Offers</a>
+  <a class="public-side-link" href="#codes"><span>⌘</span> Promo Codes</a>
+  <a class="public-side-link" href="#redeem"><span>▤</span> Game Guide</a>
+  <a class="public-side-link" href="#videos"><span>▶</span> Videos &amp; Gameplay</a>
+  <a class="public-side-link" href="#faq"><span>?</span> FAQ</a>
+  <a class="public-side-link" href="#about"><span>ⓘ</span> About MechNova</a>
+  <div class="public-side-bottom"><b>Stay Connected</b><a href="https://discord.gg/W5vGjBkgz" target="_blank" rel="noopener">◈ Discord ↗</a><a href="https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==" target="_blank" rel="noopener">◎ Instagram ↗</a><a href="https://www.youtube.com/@MechNova" target="_blank" rel="noopener">▶ YouTube ↗</a></div>
+ </aside>
+ <button class="public-sidebar-overlay" id="publicSidebarOverlay" type="button" aria-label="Close website menu"></button>
+ <div class="public-page-content">
 
 <section class="hero">
  <span class="tag">✦ MECH ARENA • MECHNOVA REWARDS HUB ✦</span>
@@ -264,7 +342,7 @@ footer{border-color:#1c5273}
   </div>
   <div class="code-category" id="allPlayersSection"><div class="category-title"><h3>🟢 All Players Codes</h3><button class="mini-btn category-view" type="button" data-filter="allplayers">View Codes →</button><small>For eligible new and existing accounts</small></div><div class="code-grid" id="allPlayersGrid"></div></div>
   <div class="code-category" id="newPlayersSection"><div class="category-title"><h3>🟣 New Players Codes</h3><button class="mini-btn category-view" type="button" data-filter="newplayers">View Codes →</button><small>Eligibility restrictions may apply</small></div><div class="code-grid" id="newPlayersGrid"></div></div>
-  <div class="code-category" id="expiredSection"><div class="category-title"><h3>🔴 Expired Codes</h3><button class="mini-btn category-view" type="button" data-filter="expired">View Codes →</button><small>Shown separately for reference only</small></div><div class="code-grid" id="expiredGrid"></div></div>
+  <div class="code-category" id="expiredSection" hidden><div class="category-title"><h3>🔴 Expired Codes</h3><button class="mini-btn category-view" type="button" data-filter="expired">View Codes →</button><small>Shown separately for reference only</small></div><div class="code-grid" id="expiredGrid"></div></div>
   <div class="notice">⚠️ Status is based on the source list dated September 30, 2026. Live redemption has not been independently verified. Eligibility and availability can change.</div>
  </div>
 </section>
@@ -285,6 +363,12 @@ footer{border-color:#1c5273}
  <div class="notice">Avoid unofficial sites asking for your password or OTP. Multiple invalid code attempts may temporarily restrict code entry. Platform redemption steps can differ.</div>
 </section>
 
+
+
+<section class="section" id="monetizationHub" hidden>
+ <div class="section-head"><h2>✦ Support & Partner with MechNova</h2><div class="sub">Explore ways to support the independent MechNova gaming community.</div></div>
+ <div class="earning-grid" id="earningPublicCards"></div>
+</section>
 
 <section class="section" id="faq">
  <div class="section-head"><h2 data-en="Frequently Asked Questions" data-hi="अक्सर पूछे जाने वाले सवाल">Frequently Asked Questions</h2><div class="sub" data-en="Everything you need to know about Mech Arena promo codes." data-hi="Mech Arena प्रोमो कोड के बारे में ज़रूरी जानकारी।">Everything you need to know about Mech Arena promo codes.</div></div>
@@ -320,9 +404,22 @@ footer{border-color:#1c5273}
     </form>
    </div>
    <div id="adminDashboard" hidden>
-    <div class="row" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3>Manage Promo Codes</h3><button class="mini-btn" id="adminLogout" type="button">Logout</button></div>
-    <p class="sub">Changes are saved to Cloud Firestore and appear on the public code list.</p>
-    <form id="codeForm" class="admin-form">
+    <div class="admin-topbar"><div><div class="admin-kicker">MECHNOVA CONTROL CENTER</div><h2>Admin Panel <span>— Pack Manager</span></h2><p>Manage website content, earning sections, Starter Packs, Bonus Packs and promo codes.</p></div><div class="admin-top-actions"><a class="btn secondary" href="#home">◉ View Website</a><button class="mini-btn" id="adminLogout" type="button">⇥ Logout</button></div></div>
+    <div class="admin-shell">
+     <aside class="admin-side-nav" aria-label="Admin sections">
+      <div class="admin-side-brand"><span>♛</span><div><b>MECHNOVA</b><small>Mech Arena Fan Project</small></div></div>
+      <button type="button" class="admin-nav-item active" data-admin-target="adminPromoArea">▦ <span>Promo Codes</span></button>
+      <button type="button" class="admin-nav-item" data-admin-target="adminWebsiteEditor">⚙ <span>Website Settings</span></button>
+      <button type="button" class="admin-nav-item" data-admin-target="adminEarningEditor">$ <span>Earning Setup</span></button>
+      <button type="button" class="admin-nav-item" data-admin-target="adminPackEditor" data-pack-tab="starter">🎁 <span>Starter Pack</span></button>
+      <button type="button" class="admin-nav-item" data-admin-target="adminPackEditor" data-pack-tab="bonus">🎁 <span>Bonus Pack</span></button>
+      <button type="button" class="admin-nav-item" data-admin-target="adminPromoArea">✦ <span>Promo Codes</span></button>
+      <div class="admin-side-foot">Independent fan project<br>Admin access only</div>
+     </aside>
+     <div class="admin-main-content">
+     <section id="adminPromoArea" class="admin-content-section">
+      <div class="admin-section-heading"><div><h3>Manage Promo Codes</h3><p class="sub">Changes are saved to Cloud Firestore and appear on the public code list.</p></div></div>
+      <form id="codeForm" class="admin-form">
      <input id="editCode" placeholder="Promo code" maxlength="80" required>
      <select id="editType" required><option value="allplayers">All Players</option><option value="newplayers">New Players</option><option value="expired">Expired</option></select>
      <input id="editReward" placeholder="Reward details" maxlength="500" required>
@@ -331,14 +428,16 @@ footer{border-color:#1c5273}
     </form>
     <div class="admin-status" id="adminStatus" role="status"></div>
     <div class="admin-list" id="adminCodeList"></div>
-    <details class="cms-editor" open style="margin-top:24px;border:1px solid #24506e;border-radius:12px;padding:16px;background:#07182a">
+     </section>
+    <details id="adminWebsiteEditor" class="cms-editor" open style="margin-top:24px;border:1px solid #24506e;border-radius:12px;padding:16px;background:#07182a">
      <summary style="cursor:pointer;font-weight:800;color:#35dfff;font-size:18px">🌐 Full Website Control — Website Editor</summary>
-     <p class="sub">यहाँ बदलाव सेव करने पर सार्वजनिक वेबसाइट पर लागू होंगे। तस्वीरों के लिए सार्वजनिक image URL दें।</p>
+     <p class="sub">यहाँ बदलाव सेव करने पर सार्वजनिक वेबसाइट पर लागू होंगे। तस्वीरों के लिए public HTTPS URL या GitHub repo का images/filename.png path दें।</p>
      <form id="siteSettingsForm" class="admin-form">
       <label>ब्रांड नाम<input id="cmsBrand" maxlength="60" placeholder="MechNova"></label>
+      <label>वेबसाइट लोगो URL<input id="cmsLogoUrl" type="text" placeholder="https://...logo.png"><small class="upload-help">Public HTTPS URL या GitHub images/logo.png जैसा path दें।</small></label>
       <label>होम बैनर शीर्षक<input id="cmsHeroTitle" maxlength="100" placeholder="MECH ARENA MECHNOVA"></label>
       <label>होम विवरण<input id="cmsHeroDesc" maxlength="300" placeholder="Promo Codes • Packs • Guides • Gameplay"></label>
-      <label>बैनर पृष्ठभूमि चित्र URL<input id="cmsHeroBg" type="url" placeholder="https://...image.jpg"></label>
+      <label>बैनर पृष्ठभूमि चित्र URL<input id="cmsHeroBg" type="text" placeholder="https://...image.jpg"><small class="upload-help">Public HTTPS URL या images/banner.jpg जैसा path दें।</small></label>
       <label>मुख्य पृष्ठभूमि रंग<input id="cmsBg" type="color" value="#061323"></label>
       <label>मुख्य चमकीला रंग<input id="cmsAccent" type="color" value="#21d5ff"></label>
       <label>दूसरा चमकीला रंग<input id="cmsSecondary" type="color" value="#a78bfa"></label>
@@ -357,6 +456,54 @@ footer{border-color:#1c5273}
      </form>
      <div class="small">सुरक्षा के लिए यह एडिटर केवल टेक्स्ट, रंग और लिंक बदलता है; मनमाना HTML/JavaScript जोड़ने की अनुमति नहीं देता।</div>
     </details>
+
+    <details id="adminEarningEditor" class="cms-editor" open style="margin-top:18px;border:1px solid #24506e;border-radius:12px;padding:16px;background:#07182a">
+     <summary style="cursor:pointer;font-weight:800;color:#35dfff;font-size:18px">💰 Earning Methods & Public Sections</summary>
+     <p class="sub">Enable the sections you are ready to show. Add only your own verified links. Saving writes these settings to Firestore; this does not activate third-party ads or process payments by itself.</p>
+     <form id="earningSettingsForm" class="admin-form earning-admin-form">
+      <fieldset class="earning-field"><legend>📢 Website Ads / AdSense</legend><label class="check-row"><input id="earnAdsEnabled" type="checkbox"> Show ad information section</label><label>Ad display note<textarea id="earnAdsText" rows="2" maxlength="350" placeholder="Ads may appear here after approval and integration."></textarea></label><small>AdSense approval and official ad code are required separately. Do not paste scripts here.</small></fieldset>
+      <fieldset class="earning-field"><legend>🛒 Affiliate Marketing</legend><label class="check-row"><input id="earnAffiliateEnabled" type="checkbox"> Show affiliate card</label><label>Card title<input id="earnAffiliateTitle" maxlength="80" placeholder="Gaming Setup Recommendations"></label><label>Description<textarea id="earnAffiliateText" rows="2" maxlength="350" placeholder="Explore gaming accessories we recommend."></textarea></label><label>Affiliate destination URL<input id="earnAffiliateUrl" type="url" placeholder="https://..."></label><small>Use only affiliate links you are authorized to share and disclose commissions.</small></fieldset>
+      <fieldset class="earning-field"><legend>🤝 Sponsorships / Brand Deals</legend><label class="check-row"><input id="earnSponsorEnabled" type="checkbox"> Show sponsorship card</label><label>Card title<input id="earnSponsorTitle" maxlength="80" placeholder="Partner with MechNova"></label><label>Description<textarea id="earnSponsorText" rows="2" maxlength="350" placeholder="For gaming collaborations and sponsored campaigns, contact us."></textarea></label><label>Contact email<input id="earnSponsorEmail" type="email" maxlength="120" placeholder="business@example.com"></label></fieldset>
+      <fieldset class="earning-field"><legend>💜 Donations / Support</legend><label class="check-row"><input id="earnDonationEnabled" type="checkbox"> Show support card</label><label>Card title<input id="earnDonationTitle" maxlength="80" placeholder="Support MechNova"></label><label>Description<textarea id="earnDonationText" rows="2" maxlength="350" placeholder="Support the time and effort behind community updates."></textarea></label><label>Payment / support page URL<input id="earnDonationUrl" type="url" placeholder="https://..."></label><small>Use a legitimate payment provider or your permitted public support page. Never collect card details on this site.</small></fieldset>
+      <fieldset class="earning-field"><legend>⭐ Premium Guides / Membership</legend><label class="check-row"><input id="earnPremiumEnabled" type="checkbox"> Show premium card</label><label>Card title<input id="earnPremiumTitle" maxlength="80" placeholder="Premium Gaming Guides"></label><label>Description<textarea id="earnPremiumText" rows="2" maxlength="350" placeholder="Optional advanced guides and community extras."></textarea></label><label>Membership / product URL<input id="earnPremiumUrl" type="url" placeholder="https://..."></label><small>Paid features should provide additional value; keep public promo-code information accessible.</small></fieldset>
+      <fieldset class="earning-field"><legend>▶ YouTube / Creator Channel</legend><label class="check-row"><input id="earnYoutubeEnabled" type="checkbox" checked> Show YouTube card</label><label>Channel URL<input id="earnYoutubeUrl" type="url" placeholder="https://www.youtube.com/@MechNova"></label><label>Description<textarea id="earnYoutubeText" rows="2" maxlength="350" placeholder="Watch code updates, gameplay and guides on YouTube."></textarea></label></fieldset>
+      <div class="earning-save-row"><button class="btn" type="submit">Save Earning Settings</button><button class="btn secondary" id="reloadEarningSettings" type="button">Reload Saved Settings</button></div>
+     </form>
+     <div class="small">Security: only the authorized admin can save these settings under the current Firestore rules. Do not enter passwords, private keys, bank credentials or payment card data here.</div>
+    </details>
+
+    <details id="adminPackEditor" class="cms-editor pack-editor" open style="margin-top:18px;border:1px solid #24506e;border-radius:12px;padding:16px;background:#07182a">
+     <summary style="cursor:pointer;font-weight:800;color:#35dfff;font-size:18px">📦 Starter & Bonus Pack Manager</summary>
+     <p class="sub">Manage Starter Packs for new players and Bonus Packs for all players. Edit cards below; changes save to Firestore.</p>
+     <div class="pack-manager-board">
+      <section class="pack-manager-column starter-column">
+       <div class="pack-manager-heading"><div><span class="pack-manager-icon">🎁</span><div><h3>Starter Pack</h3><p>Packs for NEW players (via registration link)</p></div></div><button class="btn pack-add" type="button" data-pack-new="starter">＋ Add New Pack</button></div>
+       <div class="pack-card-grid" id="cmsStarterCards"></div>
+      </section>
+      <section class="pack-manager-column bonus-column">
+       <div class="pack-manager-heading"><div><span class="pack-manager-icon">🎁</span><div><h3>Bonus Pack</h3><p>Packs for ALL players (via promo codes)</p></div></div><button class="btn pack-add" type="button" data-pack-new="bonus">＋ Add New Pack</button></div>
+       <div class="pack-card-grid" id="cmsBonusCards"></div>
+      </section>
+     </div>
+     <div class="pack-form-heading">✏️ Edit / Add Pack</div>
+     <div class="admin-form">
+      <label>Pack Category<select id="cmsPackType"><option value="starter">Starter Pack</option><option value="bonus">Bonus Pack</option></select></label>
+      <label>Existing Pack<select id="cmsPackSelect"></select></label>
+      <label>Pack Name<input id="cmsPackName" maxlength="80" placeholder="Enter pack name"></label>
+      <label>Pack Image URL<input id="cmsPackImage" type="text" placeholder="https://...image.jpg"><small class="upload-help">Public HTTPS URL या images/banner.jpg जैसा path दें।</small></label>
+      <label style="grid-column:1/-1">Rewards (one reward per line)<textarea id="cmsPackRewards" rows="5" maxlength="1500" placeholder="200 A-Coins&#10;100,000 Credits&#10;1 Prodigy Crate"></textarea></label>
+      <label class="check-row" style="display:flex;align-items:center;gap:8px"><input id="cmsPackVisible" type="checkbox" checked> Show this pack on public website</label>
+      <div class="admin-actions" style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap">
+       <button class="btn" id="cmsPackSave" type="button">Save Pack</button>
+       <button class="btn secondary" id="cmsPackNew" type="button">New Pack</button>
+       <button class="btn secondary delete" id="cmsPackDelete" type="button">Delete Pack</button>
+       <button class="btn secondary" id="cmsPackReload" type="button">Reload Saved Packs</button>
+      </div>
+     </div>
+     <div class="small">Image के लिए public HTTPS URL या images/surge.png जैसा GitHub path दें। Repo में images folder बनाकर image upload करें। Removing a pack deletes it from saved pack settings.</div>
+    </details>
+     </div>
+    </div>
    </div>
   </div>
  </div>
@@ -375,6 +522,7 @@ footer{border-color:#1c5273}
  </div>
 </section>
 
+</div>
 </main>
 
 <footer>
@@ -432,7 +580,7 @@ const codes = [
  {code:"MIDGAME",type:"expired",reward:"Expired code"}
 ];
 
-const starterPacks = {
+let starterPacks = {
  "Surge":["Case Pilot ×1","Revoker 8 ×2","200 A-Coins","75,000 Credits"],
  "Brickhouse":["Impulse Pilot ×1","Cryo Launcher 8 ×2","500 A-Coins","10,000 Credits"],
  "Scorpius":["Nova Pilot ×1","Missile Rack 6 ×2","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"],
@@ -443,7 +591,7 @@ const starterPacks = {
  "Maverick Pilot":["Gauss Rifle 6 ×2","Gauss Rifle Reload ×1","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"]
 };
 
-const bonusPacks = {
+let bonusPacks = {
  "Guardian":["50,000 Credits","200 A-Coins","1 Prodigy Crate"],
  "Blockhorn":["100,000 Credits","200 A-Coins","1 Prodigy Crate"],
  "Lacewing":["100,000 Credits","200 A-Coins","1 Prodigy Crate"],
@@ -457,6 +605,7 @@ const labels = {allplayers:"ALL PLAYERS",newplayers:"NEW PLAYERS",expired:"EXPIR
 // Initialize language state before first renderCodes() call.
 let currentLang = "en";
 
+let expiredRevealed = false;
 function renderCodes(){
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
@@ -467,7 +616,7 @@ function renderCodes(){
  const groups=[{type:"allplayers",grid:"allPlayersGrid",section:"allPlayersSection"},{type:"newplayers",grid:"newPlayersGrid",section:"newPlayersSection"},{type:"expired",grid:"expiredGrid",section:"expiredSection"}];
  groups.forEach(group=>{
   const root=$(group.grid); root.replaceChildren();
-  const visible=filter==="all"||filter===group.type;
+  const visible=group.type==="expired" ? (filter==="expired" || (filter==="all" && expiredRevealed)) : (filter==="all"||filter===group.type);
   $(group.section).hidden=!visible;
   if(!visible)return;
   const list=codes.filter(c=>c.type===group.type&&(c.code.toLowerCase().includes(term)||c.reward.toLowerCase().includes(term)));
@@ -478,34 +627,56 @@ function renderCodes(){
    const name=document.createElement("div");name.className="code-name";name.textContent=c.code;
    const badge=document.createElement("span");badge.className="pill "+c.type;badge.textContent=currentLang==="hi"?({allplayers:"सभी खिलाड़ी",newplayers:"नए खिलाड़ी",expired:"समाप्त"}[c.type]):labels[c.type];top.append(name,badge);
    const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+c.reward;
-   const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code";
-   btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(c.code);btn.textContent=currentLang==="hi"?"कॉपी हो गया!":"Copied!";setTimeout(()=>btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code",1400);}catch(e){window.prompt("Copy this code:",c.code);}});
-   card.append(top,reward,btn);root.append(card);
+   card.append(top,reward);
+   if(c.type!=="expired"){
+    const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code";
+    btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(c.code);btn.textContent=currentLang==="hi"?"कॉपी हो गया!":"Copied!";setTimeout(()=>btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code",1400);}catch(e){window.prompt("Copy this code:",c.code);}});
+    card.append(btn);
+   }
+   root.append(card);
   });
  });
+ const expiredButton=document.querySelector('.category-view[data-filter="expired"]');
+ if(expiredButton)expiredButton.textContent=(filter==="expired"||(filter==="all"&&expiredRevealed))?(currentLang==="hi"?"Expired Codes छिपाएँ":"Hide Expired Codes"):(currentLang==="hi"?"Expired Codes दिखाएँ":"Show Expired Codes");
 }
 
-function fillSelect(id,data){
- Object.keys(data).forEach(name=>{
-  const opt=document.createElement("option");
-  opt.value=name;
-  opt.textContent=name;
-  $(id).appendChild(opt);
- });
+const packVisibility={starter:{},bonus:{}};
+function visiblePackNames(type){const data=type==="starter"?starterPacks:bonusPacks;return Object.keys(data).filter(name=>packVisibility[type]?.[name]!==false);}
+function fillSelect(id,data,type){
+ const select=$(id);select.replaceChildren();
+ const names=type?visiblePackNames(type):Object.keys(data);
+ names.forEach(name=>{const opt=document.createElement("option");opt.value=name;opt.textContent=name;select.appendChild(opt);});
+ if(!names.length){const opt=document.createElement("option");opt.value="";opt.textContent="No packs currently available";select.appendChild(opt);}
 }
-const packImages={
+let packImages={
  "Surge":"https://moduletd.com/wp-content/uploads/2026/07/surge-1-225x300.png",
  "Blockhorn":"https://moduletd.com/wp-content/uploads/2026/08/Blockhorn-200x300.png",
  "Lacewing":"https://moduletd.com/wp-content/uploads/2026/07/lacewing-1-225x300.png"
 };
+function refreshPublicPacks(){
+ const starterPrevious=$("starterSelect").value,bonusPrevious=$("bonusSelect").value;
+ fillSelect("starterSelect",starterPacks,"starter");fillSelect("bonusSelect",bonusPacks,"bonus");
+ if(visiblePackNames("starter").includes(starterPrevious))$("starterSelect").value=starterPrevious;
+ if(visiblePackNames("bonus").includes(bonusPrevious))$("bonusSelect").value=bonusPrevious;
+ showPack("starterSelect",starterPacks,"starterRewards");showPack("bonusSelect",bonusPacks,"bonusRewards");
+}
+function applyPackSettings(raw={}){
+ if(raw.starterPacks&&typeof raw.starterPacks==="object")starterPacks=raw.starterPacks;
+ if(raw.bonusPacks&&typeof raw.bonusPacks==="object")bonusPacks=raw.bonusPacks;
+ if(raw.packImages&&typeof raw.packImages==="object")packImages=raw.packImages;
+ if(raw.packVisibility&&typeof raw.packVisibility==="object")packVisibility.starter=raw.packVisibility.starter||{},packVisibility.bonus=raw.packVisibility.bonus||{};
+ refreshPublicPacks();
+}
+
 const rewardImages={
  "A-Coins":"https://moduletd.com/wp-content/uploads/2025/11/icon_hard_currency_large-55x55.png",
  "Credits":"https://moduletd.com/wp-content/uploads/2026/01/Credits-large-55x55.png"
 };
 function showPack(selectId,data,outputId){
  const name=$(selectId).value,box=$(outputId);box.replaceChildren();
+ if(!name||!data[name]){box.textContent="No pack is currently published in this category.";return;}
  const art=document.createElement("div");art.className="pack-visual";
- if(packImages[name]){const img=document.createElement("img");img.className="mech-art";img.src=packImages[name];img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="mech-placeholder";ph.textContent=name.slice(0,3).toUpperCase();img.replaceWith(ph);};art.append(img);}
+ if(safeImageSrc(packImages[name])){const img=document.createElement("img");img.className="mech-art";img.src=safeImageSrc(packImages[name]);img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="mech-placeholder";ph.textContent=name.slice(0,3).toUpperCase();img.replaceWith(ph);};art.append(img);}
  else {const ph=document.createElement("div");ph.className="mech-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
  const heading=document.createElement("div");const title=document.createElement("div");title.className="pack-name";title.textContent=name;const kind=document.createElement("div");kind.className="pack-kind";kind.textContent=selectId==="starterSelect"?"STARTER PACK · LISTED LOADOUT":"BONUS PACK · LISTED REWARDS";heading.append(title,kind);art.append(heading);box.append(art);
  const items=document.createElement("div");items.className="reward-items";
@@ -520,14 +691,11 @@ function showPack(selectId,data,outputId){
 
 $("search").addEventListener("input",renderCodes);
 $("filter").addEventListener("change",renderCodes);
-document.querySelectorAll(".category-view").forEach(btn=>btn.addEventListener("click",()=>{$("filter").value=btn.dataset.filter;renderCodes();$("codes").scrollIntoView({behavior:"smooth"});}));
+document.querySelectorAll(".category-view").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.filter==="expired"){expiredRevealed=!(expiredRevealed||$("filter").value==="expired");$("filter").value=expiredRevealed?"all":"all";}else{$("filter").value=btn.dataset.filter;}renderCodes();$("codes").scrollIntoView({behavior:"smooth"});}));
 
-fillSelect("starterSelect",starterPacks);
-fillSelect("bonusSelect",bonusPacks);
+refreshPublicPacks();
 $("starterSelect").addEventListener("change",()=>showPack("starterSelect",starterPacks,"starterRewards"));
 $("bonusSelect").addEventListener("change",()=>showPack("bonusSelect",bonusPacks,"bonusRewards"));
-showPack("starterSelect",starterPacks,"starterRewards");
-showPack("bonusSelect",bonusPacks,"bonusRewards");
 renderCodes();
 
 function updateGenerator(){
@@ -565,21 +733,40 @@ if(typeof firebase === "undefined" || !firebase.initializeApp){
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
-const SITE_DEFAULTS={brand:"MechNova",heroTitle:"MECH ARENA\nMECHNOVA",heroDesc:"Promo Codes • Packs • Guides • Gameplay — Find rewards, explore offers, and stay updated with MechNova.",heroBg:"",bg:"#061323",accent:"#21d5ff",secondary:"#a78bfa",font:"Inter,Arial,sans-serif",video1:"https://youtu.be/T9oooL3MBuI",videoTitle1:"Latest Promo Codes & Free Rewards",video2:"https://youtu.be/01UJPZTwUn4",videoTitle2:"MechNova Mech Arena Showcase",youtube:"https://www.youtube.com/@MechNova",discord:"https://discord.gg/W5vGjBkgz",instagram:"https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==",customTitle:"",customText:""};
+const SITE_DEFAULTS={brand:"MechNova",heroTitle:"MECH ARENA\nMECHNOVA",heroDesc:"Promo Codes • Packs • Guides • Gameplay — Find rewards, explore offers, and stay updated with MechNova.",heroBg:"",logoUrl:"",bg:"#061323",accent:"#21d5ff",secondary:"#a78bfa",font:"Inter,Arial,sans-serif",video1:"https://youtu.be/T9oooL3MBuI",videoTitle1:"Latest Promo Codes & Free Rewards",video2:"https://youtu.be/01UJPZTwUn4",videoTitle2:"MechNova Mech Arena Showcase",youtube:"https://www.youtube.com/@MechNova",discord:"https://discord.gg/W5vGjBkgz",instagram:"https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==",customTitle:"",customText:""};
 function safeUrl(value){try{const u=new URL(value);return ["http:","https:"].includes(u.protocol)?u.href:""}catch(_){return ""}}
+// Accept public HTTPS image URLs or relative image paths stored in the GitHub repo's /images folder.
+function safeImageSrc(value){
+ const v=String(value||"").trim();
+ const external=safeUrl(v); if(external)return external;
+ const relative=v.replace(/^\.\//,"");
+ if(/^images\/[A-Za-z0-9][A-Za-z0-9._/-]*$/.test(relative) && !relative.split("/").includes(".."))return relative;
+ return "";
+}
 function applySiteSettings(raw={}){
  const c={...SITE_DEFAULTS,...raw};
- const brand=document.querySelector(".logo"); if(brand && c.brand) {brand.childNodes[0].textContent=c.brand;}
+ applyPackSettings(raw);
+ const brand=document.querySelector(".logo"); if(brand && c.brand) {
+  let logoImg=brand.querySelector(".cms-brand-logo");
+  if(!logoImg){logoImg=document.createElement("img");logoImg.className="cms-brand-logo";logoImg.alt="MechNova logo";logoImg.style.cssText="max-height:42px;max-width:150px;object-fit:contain;vertical-align:middle;margin-right:8px";brand.prepend(logoImg);}
+  const logoUrl=safeImageSrc(c.logoUrl);logoImg.hidden=!logoUrl;if(logoUrl)logoImg.src=logoUrl;else logoImg.removeAttribute("src");
+  const brandText=Array.from(brand.childNodes).find(n=>n.nodeType===Node.TEXT_NODE);if(brandText)brandText.textContent=c.brand;
+ }
  const title=$("publicHeroTitle"); if(title){title.replaceChildren();const lines=String(c.heroTitle||SITE_DEFAULTS.heroTitle).split("\n");lines.forEach((line,i)=>{if(i)title.append(document.createElement("br"));const span=document.createElement("span");span.textContent=line;title.append(span);});}
  if($("publicHeroDesc"))$("publicHeroDesc").textContent=c.heroDesc||"";
  document.documentElement.style.setProperty("--bg",c.bg||SITE_DEFAULTS.bg);document.documentElement.style.setProperty("--cyan",c.accent||SITE_DEFAULTS.accent);document.documentElement.style.setProperty("--purple",c.secondary||SITE_DEFAULTS.secondary);document.body.style.fontFamily=c.font||SITE_DEFAULTS.font;
- const hero=document.querySelector(".hero");if(hero){const bg=safeUrl(c.heroBg);hero.style.backgroundImage=bg?`linear-gradient(90deg,#04101be8,#04101b88),url("${bg}")`:"";hero.style.backgroundSize="cover";hero.style.backgroundPosition="center";}
+ const hero=document.querySelector(".hero");if(hero){const bg=safeImageSrc(c.heroBg);hero.style.backgroundImage=bg?`linear-gradient(90deg,#04101be8,#04101b88),url("${bg}")`:"";hero.style.backgroundSize="cover";hero.style.backgroundPosition="center";}
  const videos=document.querySelectorAll(".creator-videos .video-card");[1,2].forEach(n=>{const a=videos[n-1];const url=safeUrl(c["video"+n]);if(a&&url){a.href=url;const id=(url.match(/(?:youtu\.be\/|v=)([\w-]{6,})/)||[])[1];const img=a.querySelector("img");if(img&&id)img.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg";const b=a.querySelector("strong");if(b)b.textContent=c["videoTitle"+n]||"MechNova Video";}});
  document.querySelectorAll(".social-links a").forEach(a=>{const t=a.textContent.toLowerCase();const key=t.includes("youtube")?"youtube":t.includes("discord")?"discord":t.includes("instagram")?"instagram":null;if(key){const u=safeUrl(c[key]);if(u)a.href=u;}});
  const custom=$("customCmsSection");if(custom){custom.hidden=!(c.customTitle||c.customText);$("customCmsTitle").textContent=c.customTitle||"";$("customCmsText").textContent=c.customText||"";}
 }
-function fillSiteEditor(raw={}){const c={...SITE_DEFAULTS,...raw};const map={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};Object.entries(map).forEach(([k,id])=>{if($(id))$(id).value=c[k]??"";});}
-async function loadSiteSettings(){try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};applySiteSettings(data);fillSiteEditor(data);}catch(err){console.warn("Website settings could not load",err);applySiteSettings();fillSiteEditor();}}
+function fillSiteEditor(raw={}){const c={...SITE_DEFAULTS,...raw};const map={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",logoUrl:"cmsLogoUrl",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};Object.entries(map).forEach(([k,id])=>{if($(id))$(id).value=c[k]??"";});}
+
+const EARNING_DEFAULTS={adsEnabled:false,adsText:"Ads may appear here after approval and integration.",affiliateEnabled:false,affiliateTitle:"Gaming Setup Recommendations",affiliateText:"Explore gaming accessories we recommend.",affiliateUrl:"",sponsorEnabled:false,sponsorTitle:"Partner with MechNova",sponsorText:"For gaming collaborations and sponsored campaigns, contact us.",sponsorEmail:"",donationEnabled:false,donationTitle:"Support MechNova",donationText:"Support the time and effort behind community updates.",donationUrl:"",premiumEnabled:false,premiumTitle:"Premium Gaming Guides",premiumText:"Optional advanced guides and community extras.",premiumUrl:"",youtubeEnabled:true,youtubeUrl:"https://www.youtube.com/@MechNova",youtubeText:"Watch code updates, gameplay and guides on YouTube."};
+function fillEarningEditor(raw={}){const c={...EARNING_DEFAULTS,...(raw.monetization||{})};const map={adsEnabled:"earnAdsEnabled",adsText:"earnAdsText",affiliateEnabled:"earnAffiliateEnabled",affiliateTitle:"earnAffiliateTitle",affiliateText:"earnAffiliateText",affiliateUrl:"earnAffiliateUrl",sponsorEnabled:"earnSponsorEnabled",sponsorTitle:"earnSponsorTitle",sponsorText:"earnSponsorText",sponsorEmail:"earnSponsorEmail",donationEnabled:"earnDonationEnabled",donationTitle:"earnDonationTitle",donationText:"earnDonationText",donationUrl:"earnDonationUrl",premiumEnabled:"earnPremiumEnabled",premiumTitle:"earnPremiumTitle",premiumText:"earnPremiumText",premiumUrl:"earnPremiumUrl",youtubeEnabled:"earnYoutubeEnabled",youtubeUrl:"earnYoutubeUrl",youtubeText:"earnYoutubeText"};Object.entries(map).forEach(([k,id])=>{const el=$(id);if(el){if(el.type==="checkbox")el.checked=!!c[k];else el.value=c[k]??"";}});}
+function renderEarningCards(raw={}){const c={...EARNING_DEFAULTS,...(raw.monetization||{})};const host=$("earningPublicCards"),section=$("monetizationHub");if(!host||!section)return;host.replaceChildren();const entries=[{enabled:c.adsEnabled,title:"Website Ads",text:c.adsText,href:"",button:"Ad information"},{enabled:c.affiliateEnabled,title:c.affiliateTitle,text:c.affiliateText,href:safeUrl(c.affiliateUrl),button:"Explore products"},{enabled:c.sponsorEnabled,title:c.sponsorTitle,text:c.sponsorText,href:c.sponsorEmail&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.sponsorEmail)?"mailto:"+c.sponsorEmail:"",button:"Contact for partnerships"},{enabled:c.donationEnabled,title:c.donationTitle,text:c.donationText,href:safeUrl(c.donationUrl),button:"Support MechNova"},{enabled:c.premiumEnabled,title:c.premiumTitle,text:c.premiumText,href:safeUrl(c.premiumUrl),button:"View membership"},{enabled:c.youtubeEnabled,title:"MechNova on YouTube",text:c.youtubeText,href:safeUrl(c.youtubeUrl),button:"Watch videos"}];let visible=0;for(const item of entries){if(!item.enabled)continue;const card=document.createElement("article");card.className="earning-card";const h=document.createElement("h3");h.textContent=item.title||"MechNova";const p=document.createElement("p");p.textContent=item.text||"";card.append(h,p);if(item.href){const a=document.createElement("a");a.className="btn secondary";a.href=item.href;a.textContent=item.button;a.rel="noopener noreferrer";if(!item.href.startsWith("mailto:")){a.target="_blank";}card.append(a);}else if(item.title==="Website Ads"){const note=document.createElement("span");note.className="small";note.textContent="Advertising setup is pending approval and integration.";card.append(note);}else{const note=document.createElement("span");note.className="small";note.textContent="Contact details or a valid destination link are not configured yet.";card.append(note);}host.append(card);visible++;}section.hidden=visible===0;}
+
+async function loadSiteSettings(){try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};applySiteSettings(data);fillSiteEditor(data);fillEarningEditor(data);renderEarningCards(data);refreshPackEditorSelect();}catch(err){console.warn("Website settings could not load",err);applySiteSettings();fillSiteEditor();fillEarningEditor();renderEarningCards();}}
 let adminDocs = [];
 let editingDocId = null;
 const adminPanel = $("adminPanel");
@@ -685,16 +872,109 @@ $("codeForm").addEventListener("submit",async event=>{
   }catch(err){setAdminStatus(err.message||"Could not save code.",true);}
 });
 
+// Admin pack editor
+let packEditorOriginalName=null;
+function renderCmsPackCards(){
+ const render=(type,containerId,data)=>{
+  const root=$(containerId);if(!root)return;root.replaceChildren();
+  Object.keys(data||{}).sort((a,b)=>a.localeCompare(b)).forEach(name=>{
+   const card=document.createElement("article");card.className="cms-pack-card";
+   const img=document.createElement("img");img.className="cms-pack-image";img.alt=name;img.loading="lazy";
+   const imageUrl=packImages?.[name]||"";if(imageUrl&&safeImageSrc(imageUrl)){img.src=safeImageSrc(imageUrl);img.onerror=()=>{img.removeAttribute("src");img.classList.add("empty");};}else{img.classList.add("empty");img.alt="Pack image URL not set";}
+   if(packVisibility[type]?.[name]===false){const hidden=document.createElement("span");hidden.className="cms-pack-hidden";hidden.textContent="HIDDEN";card.appendChild(hidden);}
+   const title=document.createElement("div");title.className="cms-pack-name";title.textContent=name;
+   const rewards=document.createElement("div");rewards.className="cms-pack-rewards";(Array.isArray(data[name])?data[name]:[]).slice(0,5).forEach(reward=>{const line=document.createElement("span");line.textContent=reward;rewards.appendChild(line);});
+   const actions=document.createElement("div");actions.className="cms-pack-actions";
+   const edit=document.createElement("button");edit.type="button";edit.className="btn cms-pack-edit";edit.textContent="✎ Edit";edit.addEventListener("click",()=>{$("cmsPackType").value=type;refreshPackEditorSelect(name);$("cmsPackName").scrollIntoView({behavior:"smooth",block:"center"});$("cmsPackName").focus();});
+   const del=document.createElement("button");del.type="button";del.className="btn cms-pack-delete";del.textContent="🗑";del.title="Delete pack";del.addEventListener("click",()=>{$("cmsPackType").value=type;refreshPackEditorSelect(name);$("cmsPackDelete").click();});
+   const showLabel=document.createElement("label"),show=document.createElement("input");show.type="checkbox";show.checked=packVisibility[type]?.[name]!==false;show.title="Show on public website";show.addEventListener("change",async()=>{const next=show.checked,previous=!next;packVisibility[type]=packVisibility[type]||{};packVisibility[type][name]=next;try{await persistPackSettings();setAdminStatus("Pack visibility saved.");}catch(err){show.checked=previous;packVisibility[type][name]=previous;setAdminStatus("Visibility was not saved: "+(err.message||"Check Firestore Rules."),true);}});showLabel.append(show,document.createTextNode("Show"));
+   actions.append(edit,del,showLabel);card.append(img,title,rewards,actions);root.appendChild(card);
+  });
+  if(!Object.keys(data||{}).length){const empty=document.createElement("p");empty.className="small";empty.textContent="No packs added yet.";root.appendChild(empty);}
+ };
+ render("starter","cmsStarterCards",starterPacks);render("bonus","cmsBonusCards",bonusPacks);
+}
+function currentPackData(){return $("cmsPackType").value==="starter"?starterPacks:bonusPacks;}
+function currentPackType(){return $("cmsPackType").value;}
+function refreshPackEditorSelect(preferred=""){
+ const type=currentPackType(),data=currentPackData(),select=$("cmsPackSelect");select.replaceChildren();
+ Object.keys(data).sort((a,b)=>a.localeCompare(b)).forEach(name=>{const opt=document.createElement("option");opt.value=name;opt.textContent=name;select.appendChild(opt);});
+ if(!Object.keys(data).length){const opt=document.createElement("option");opt.value="";opt.textContent="No saved packs";select.appendChild(opt);}
+ if(preferred&&data[preferred])select.value=preferred;
+ loadPackEditorFields();renderCmsPackCards();
+}
+function loadPackEditorFields(){
+ const name=$("cmsPackSelect").value,type=currentPackType(),data=currentPackData();
+ packEditorOriginalName=name||null;
+ $("cmsPackName").value=name||"";
+ $("cmsPackRewards").value=name&&Array.isArray(data[name])?data[name].join("\n"):"";
+ $("cmsPackImage").value=name?(packImages[name]||""):"";
+ $("cmsPackVisible").checked=!name||packVisibility[type]?.[name]!==false;
+ $("cmsPackDelete").disabled=!name;
+}
+function startNewPack(){packEditorOriginalName=null;$("cmsPackSelect").value="";$("cmsPackName").value="";$("cmsPackRewards").value="";$("cmsPackImage").value="";$("cmsPackVisible").checked=true;$("cmsPackDelete").disabled=true;$("cmsPackName").focus();}
+async function persistPackSettings(){
+ if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)throw new Error("Only the authorized admin can save packs.");
+ await db.collection("siteSettings").doc("public").set({starterPacks,bonusPacks,packImages,packVisibility},{merge:true});
+ refreshPublicPacks();refreshPackEditorSelect($("cmsPackName").value.trim());
+}
+document.querySelectorAll("[data-pack-new]").forEach(button=>button.addEventListener("click",()=>{$("cmsPackType").value=button.dataset.packNew;startNewPack();$("cmsPackName").scrollIntoView({behavior:"smooth",block:"center"});}));
+$("cmsPackType").addEventListener("change",()=>refreshPackEditorSelect());
+$("cmsPackSelect").addEventListener("change",loadPackEditorFields);
+$("cmsPackNew").addEventListener("click",startNewPack);
+$("cmsPackReload").addEventListener("click",async()=>{try{const snap=await db.collection("siteSettings").doc("public").get();applyPackSettings(snap.exists?snap.data():{});refreshPackEditorSelect();setAdminStatus("Saved packs reloaded from Firestore.");}catch(err){setAdminStatus(err.message||"Could not reload packs.",true);}});
+$("cmsPackSave").addEventListener("click",async()=>{
+ const type=currentPackType(),data=currentPackData(),oldName=packEditorOriginalName,name=$("cmsPackName").value.trim(),rewards=$("cmsPackRewards").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),img=$("cmsPackImage").value.trim();
+ if(!name){setAdminStatus("Enter a pack name.",true);return;}
+ if(!rewards.length){setAdminStatus("Add at least one reward, one per line.",true);return;}
+ if(img&&!safeImageSrc(img)){setAdminStatus("Use a public HTTPS image URL or a valid images/filename.png path.",true);return;}
+ if(oldName&&oldName!==name&&data[name]){setAdminStatus("A pack with this name already exists.",true);return;}
+ if(oldName&&oldName!==name){delete data[oldName];delete packVisibility[type][oldName];}
+ data[name]=rewards;packVisibility[type][name]=$("cmsPackVisible").checked;
+ if(img)packImages[name]=img;else delete packImages[name];
+ try{await persistPackSettings();setAdminStatus("Pack saved to Firestore and public preview updated.");}
+ catch(err){setAdminStatus("Pack was not saved: "+(err.message||"Check Firestore Rules."),true);}
+});
+$("cmsPackDelete").addEventListener("click",async()=>{
+ const type=currentPackType(),data=currentPackData(),name=packEditorOriginalName;
+ if(!name||!data[name])return;
+ if(!confirm("Delete pack "+name+"?"))return;
+ delete data[name];delete packVisibility[type][name];delete packImages[name];
+ try{await persistPackSettings();startNewPack();setAdminStatus("Pack deleted.");}
+ catch(err){setAdminStatus("Pack deletion was not saved: "+(err.message||"Check Firestore Rules."),true);}
+});
+refreshPackEditorSelect();
+
 $("siteSettingsForm").addEventListener("submit",async event=>{
  event.preventDefault();
  if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){setAdminStatus("केवल अधिकृत एडमिन बदलाव सेव कर सकता है।",true);return;}
- const keys={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};
+ const keys={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",logoUrl:"cmsLogoUrl",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};
  const data={};for(const [key,id] of Object.entries(keys)){data[key]=$(id).value.trim();}
- for(const key of ["heroBg","video1","video2","youtube","discord","instagram"]){if(data[key]&&!safeUrl(data[key])){setAdminStatus("कृपया सही http/https लिंक डालें: "+key,true);return;}}
+ for(const key of ["heroBg","logoUrl"]){if(data[key]&&!safeImageSrc(data[key])){setAdminStatus("Logo और Banner के लिए public HTTPS URL या images/filename.png path दें: "+key,true);return;}}
+ for(const key of ["video1","video2","youtube","discord","instagram"]){if(data[key]&&!safeUrl(data[key])){setAdminStatus("कृपया सही http/https लिंक डालें: "+key,true);return;}}
  try{await db.collection("siteSettings").doc("public").set(data,{merge:true});applySiteSettings(data);setAdminStatus("वेबसाइट की सेटिंग सेव हो गईं। सार्वजनिक पेज रिफ्रेश करके जाँचें।");}
  catch(err){setAdminStatus("सेव नहीं हुआ: "+(err.message||"Firestore Rules जाँचें"),true);}
 });
-$("resetSiteSettings").addEventListener("click",async()=>{try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};fillSiteEditor(data);applySiteSettings(data);setAdminStatus("Firestore से सेव की गई सेटिंग लोड हुईं।");}catch(err){setAdminStatus(err.message||"सेटिंग लोड नहीं हुईं।",true);}});
+
+$("earningSettingsForm").addEventListener("submit",async event=>{
+ event.preventDefault();if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){setAdminStatus("केवल अधिकृत एडमिन earning settings सेव कर सकता है।",true);return;}
+ const fields={adsEnabled:"earnAdsEnabled",adsText:"earnAdsText",affiliateEnabled:"earnAffiliateEnabled",affiliateTitle:"earnAffiliateTitle",affiliateText:"earnAffiliateText",affiliateUrl:"earnAffiliateUrl",sponsorEnabled:"earnSponsorEnabled",sponsorTitle:"earnSponsorTitle",sponsorText:"earnSponsorText",sponsorEmail:"earnSponsorEmail",donationEnabled:"earnDonationEnabled",donationTitle:"earnDonationTitle",donationText:"earnDonationText",donationUrl:"earnDonationUrl",premiumEnabled:"earnPremiumEnabled",premiumTitle:"earnPremiumTitle",premiumText:"earnPremiumText",premiumUrl:"earnPremiumUrl",youtubeEnabled:"earnYoutubeEnabled",youtubeUrl:"earnYoutubeUrl",youtubeText:"earnYoutubeText"};
+ const monetization={};for(const [key,id] of Object.entries(fields)){const el=$(id);monetization[key]=el.type==="checkbox"?el.checked:el.value.trim();}
+ for(const key of ["affiliateUrl","donationUrl","premiumUrl","youtubeUrl"]){if(monetization[key]&&!safeUrl(monetization[key])){setAdminStatus("कृपया सही HTTP/HTTPS लिंक डालें: "+key,true);return;}}
+ if(monetization.sponsorEmail&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(monetization.sponsorEmail)){setAdminStatus("Sponsorship के लिए valid email डालें।",true);return;}
+ try{await db.collection("siteSettings").doc("public").set({monetization},{merge:true});renderEarningCards({monetization});setAdminStatus("Earning settings Firestore में सेव हो गईं। Third-party approval और payment setup अलग से करना होगा.");}catch(err){setAdminStatus("Earning settings सेव नहीं हुईं: "+(err.message||"Firestore Rules जाँचें"),true);}
+});
+$("reloadEarningSettings").addEventListener("click",async()=>{try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};fillEarningEditor(data);renderEarningCards(data);setAdminStatus("Saved earning settings reloaded from Firestore.");}catch(err){setAdminStatus(err.message||"Earning settings load नहीं हुईं।",true);}});
+
+$("resetSiteSettings").addEventListener("click",async()=>{try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};fillSiteEditor(data);applySiteSettings(data);fillEarningEditor(data);renderEarningCards(data);setAdminStatus("Firestore से सेव की गई सेटिंग लोड हुईं।");}catch(err){setAdminStatus(err.message||"सेटिंग लोड नहीं हुईं।",true);}});
+
+document.querySelectorAll("[data-admin-target]").forEach(button=>button.addEventListener("click",()=>{
+ const target=$(button.dataset.adminTarget);if(!target)return;
+ document.querySelectorAll(".admin-nav-item").forEach(item=>item.classList.toggle("active",item===button));
+ if(target.tagName.toLowerCase()==="details")target.open=true;
+ if(button.dataset.packTab){$("cmsPackType").value=button.dataset.packTab;refreshPackEditorSelect();}
+ target.scrollIntoView({behavior:"smooth",block:"start"});
+}));
 
 auth.onAuthStateChanged(async user=>{
   if(user && user.uid===ADMIN_UID){
@@ -710,6 +990,15 @@ auth.onAuthStateChanged(async user=>{
 });
 loadPublicCodes();
 loadSiteSettings();
+
+// Responsive public sidebar menu
+const publicShell=document.querySelector('.public-shell');
+const publicMenuToggle=document.getElementById('publicMenuToggle');
+const publicSidebarOverlay=document.getElementById('publicSidebarOverlay');
+function closePublicSidebar(){if(!publicShell)return;publicShell.classList.remove('sidebar-open');if(publicMenuToggle)publicMenuToggle.setAttribute('aria-expanded','false');}
+if(publicMenuToggle&&publicShell){publicMenuToggle.addEventListener('click',()=>{const open=publicShell.classList.toggle('sidebar-open');publicMenuToggle.setAttribute('aria-expanded',String(open));});}
+if(publicSidebarOverlay)publicSidebarOverlay.addEventListener('click',closePublicSidebar);
+document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListener('click',()=>{closePublicSidebar();document.querySelectorAll('.public-side-link').forEach(item=>item.classList.toggle('active',item===link));}));
 
 </script>
 <script>window.googleTranslateElementInit=googleTranslateElementInit;</script>
