@@ -151,6 +151,9 @@ footer{border-color:#1c5273}
 .creator-main,.creator-side{border:1px solid #235778;border-radius:15px;background:linear-gradient(145deg,#0b2843,#07182a);padding:16px;box-shadow:0 12px 30px #0004}
 .creator-main h2,.creator-side h3{margin-bottom:8px}
 .creator-videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}
+.video-feed-group{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.video-feed-heading{grid-column:1/-1;margin:8px 0 0;color:#d8ecff;font-size:14px}
+.video-kind{display:inline-block;margin:0 9px 8px;padding:3px 7px;border-radius:5px;background:#123653;color:#bfe4ff;font-size:10px;font-weight:700;letter-spacing:.5px}
 .video-card{display:block;overflow:hidden;border:1px solid #245578;border-radius:12px;background:#061728;color:#f4f8ff}
 .video-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 .video-card strong{display:block;padding:9px;font-size:12px;line-height:1.4}
@@ -245,6 +248,182 @@ footer{border-color:#1c5273}
 .earning-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.earning-card{padding:16px;border:1px solid var(--border);border-radius:13px;background:linear-gradient(145deg,#0d1d31,#11152b);display:flex;flex-direction:column;gap:9px;min-width:0}.earning-card h3{margin:0;font-size:16px}.earning-card p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;overflow-wrap:anywhere}.earning-card .btn{align-self:flex-start;margin-top:auto}.earning-admin-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));align-items:stretch}.earning-field{border:1px solid #3d377a;border-radius:11px;padding:12px;min-width:0;display:grid;gap:9px;background:#111333}.earning-field legend{padding:0 6px;font-weight:800;color:#e6ddff}.earning-field label{display:grid;gap:5px;font-size:12px;color:#e0d9ff}.earning-field input:not([type=checkbox]),.earning-field textarea{width:100%;min-width:0;background:#0a1322;border:1px solid #49409b;border-radius:8px;padding:10px;color:#f4f8ff;font:inherit}.earning-field .check-row{display:flex;align-items:center;gap:8px}.earning-field .check-row input{width:auto}.earning-field small{font-size:11px;line-height:1.5;color:#aaa6cb}.earning-save-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;grid-column:1/-1}
 @media(max-width:600px){.earning-admin-form{grid-template-columns:1fr}}
 
+
+/* MechNova responsive full-width layout overrides */
+:root { --mn-gutter: clamp(12px, 2.4vw, 38px); }
+html { width:100%; max-width:100%; overflow-x:clip; }
+body { width:100%; max-width:100%; overflow-x:clip; }
+img, video, iframe, canvas, svg { max-width:100%; }
+.container { width:calc(100% - (var(--mn-gutter) * 2)); max-width:1760px; margin-inline:auto; }
+main, section, .section, .panel, .admin-main-content, .portal-main { min-width:0; }
+.section { padding-block:clamp(18px,2.4vw,36px); }
+.creator-videos, .code-grid, .pack-grid, .pack-card-grid, .earning-grid, .faq-grid {
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));
+}
+.video-card, .code-card, .pack-card, .stat, .panel { min-width:0; }
+.video-card img, .creator-videos img { width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; }
+.portal-layout { grid-template-columns:minmax(0,1fr) minmax(300px,24vw); gap:clamp(12px,1.8vw,26px); }
+.portal-sidebar { justify-self:end; width:100%; max-width:380px; }
+.admin-shell { grid-template-columns:minmax(180px,230px) minmax(0,1fr); gap:clamp(12px,1.8vw,26px); }
+.admin-main-content, .admin-content-section { width:100%; min-width:0; }
+.admin-form, .earning-admin-form { grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr)); }
+input, select, textarea, button { max-width:100%; }
+pre, code { overflow-wrap:anywhere; }
+@media (min-width:1500px) {
+  .container { width:calc(100% - 64px); }
+  .creator-videos { grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+@media (max-width:760px) {
+  .portal-layout { grid-template-columns:minmax(0,1fr); }
+  .portal-sidebar { position:static; justify-self:stretch; width:100%; max-width:none; max-height:none; overflow:visible; }
+  .admin-shell { grid-template-columns:minmax(0,1fr); }
+  .admin-side-nav { display:flex; flex-wrap:wrap; gap:8px; }
+  .admin-nav-item { flex:1 1 145px; }
+}
+@media (max-width:760px) {
+  :root { --mn-gutter:14px; }
+  .container { width:calc(100% - 28px); }
+  .nav { flex-wrap:wrap; gap:10px; }
+  .nav-links { max-width:100%; overflow-x:auto; flex-wrap:nowrap; white-space:nowrap; -webkit-overflow-scrolling:touch; }
+  .nav-right { max-width:100%; flex-wrap:wrap; }
+  .hero { padding:clamp(30px,8vw,52px) 0 28px; }
+  .hero p { padding-inline:4px; }
+  .panel { padding:clamp(12px,3vw,20px); }
+  .stats { grid-template-columns:repeat(auto-fit,minmax(105px,1fr)); }
+  .creator-videos { grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); }
+  .admin-topbar { gap:10px; }
+}
+@media (max-width:480px) {
+  :root { --mn-gutter:10px; }
+  .container { width:calc(100% - 20px); }
+  h1 { font-size:clamp(30px,10vw,44px); }
+  h2 { font-size:clamp(20px,6vw,25px); }
+  .nav { align-items:flex-start; }
+  .nav-links { gap:12px; font-size:12px; }
+  .hero-actions { align-items:stretch; }
+  .hero-actions .btn { flex:1 1 130px; }
+  .creator-videos, .code-grid, .pack-grid, .pack-card-grid, .earning-grid, .faq-grid { grid-template-columns:minmax(0,1fr); }
+  .pack-visual { flex-wrap:wrap; }
+  .toolbar { align-items:stretch; }
+  .toolbar > * { width:100%; }
+  .public-side-nav { width:min(88vw,320px); max-width:100%; }
+  .admin-actions, .admin-top-actions { flex-wrap:wrap; }
+  .admin-nav-item { flex:1 1 100%; }
+}
+
+/* Keep Videos & Gameplay flush to the far-right rail on desktop */
+@media (min-width:761px) {
+  .portal-layout { grid-template-columns:minmax(0,1fr) minmax(300px,24vw); }
+  .portal-sidebar { grid-column:2; grid-row:1; justify-self:end; align-self:start; }
+}
+
+/* Align the channel rail beside the top navigation on desktop */
+@media (min-width: 1100px) {
+  .portal-sidebar {
+    position: fixed !important;
+    top: 78px !important;
+    right: max(16px, calc((100vw - 1760px) / 2 + 16px)) !important;
+    width: min(300px, 22vw) !important;
+    max-width: 300px !important;
+    max-height: calc(100vh - 92px) !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 4 !important;
+    padding: 8px 0 10px !important;
+    align-content: start;
+  }
+}
+@media (max-width: 1099px) {
+  .portal-sidebar { position: static !important; width: 100% !important; max-width: none !important; max-height: none !important; overflow: visible !important; }
+}
+/* Place Videos & Gameplay in the right column directly below the hero banner */
+@media (min-width: 761px) {
+  /* Keep the video rail in the far-right edge of the full content container,
+     directly below the hero banner, without viewport-fixed positioning. */
+  .portal-layout {
+    display: grid !important;
+    width: 100% !important;
+    max-width: none !important;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, min(32vw, 480px)) !important;
+    gap: clamp(14px, 1.8vw, 26px) !important;
+    align-items: start !important;
+    margin-inline: 0 !important;
+  }
+  .portal-main { grid-column: 1; grid-row: 1; min-width: 0; }
+  .portal-sidebar {
+    position: static !important;
+    inset: auto !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    justify-self: end !important;
+    align-self: start !important;
+    width: 100% !important;
+    max-width: none !important;
+    max-height: none !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    margin: 0 0 0 auto !important;
+    z-index: auto !important;
+  }
+}
+@media (max-width: 760px) {
+  .portal-layout { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; }
+  .portal-main, .portal-sidebar { grid-column: 1 !important; grid-row: auto !important; }
+  .portal-sidebar { position: static !important; inset: auto !important; width: 100% !important; max-width: none !important; max-height: none !important; overflow: visible !important; padding: 0 !important; margin: 0 !important; }
+}
+
+/* Public pack showcase cards inspired by the supplied reference */
+.pack-showcase{display:grid;gap:22px;margin-top:14px}
+.pack-showcase-group{min-width:0;padding:13px;border:1px solid rgba(149,111,255,.42);border-radius:15px;background:linear-gradient(145deg,rgba(58,31,119,.5),rgba(25,18,67,.58))}
+.bonus-showcase{border-color:rgba(236,157,38,.45);background:linear-gradient(145deg,rgba(94,51,25,.34),rgba(40,23,64,.55))}
+.pack-showcase-title{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.pack-showcase-title>span{display:grid;place-items:center;width:36px;height:36px;flex:none;border-radius:10px;background:#38216d;font-size:20px}
+.bonus-showcase .pack-showcase-title>span{background:#684017}
+.pack-showcase-title h3{margin:0;color:#f8f4ff;font-size:17px;line-height:1.2}
+.pack-showcase-title p{margin:4px 0 0;color:#c9bee9;font-size:11px}
+.showcase-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.showcase-pack-card{position:relative;display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid rgba(164,133,255,.55);border-radius:12px;background:linear-gradient(160deg,#48278d,#30206d 70%,#281957);box-shadow:0 8px 18px #08051e66;transition:transform .18s,border-color .18s,box-shadow .18s}
+.showcase-pack-card.is-bonus{border-color:rgba(238,166,68,.58);background:linear-gradient(160deg,#63401f,#42254f 72%,#301c55)}
+.showcase-pack-card:hover{transform:translateY(-3px);border-color:#36dfff;box-shadow:0 10px 24px #050a2c99}
+.showcase-pack-art{position:relative;display:grid;place-items:center;height:190px;padding:10px 8px 3px;background:radial-gradient(ellipse at 50% 48%,#6844ac,#432780 68%,#39206d);}
+.showcase-pack-card.is-bonus .showcase-pack-art{background:radial-gradient(ellipse at 50% 48%,#865326,#5c3829 65%,#442552)}
+.showcase-pack-art img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 7px 8px #100b2a99)}
+.showcase-pack-placeholder{display:grid;place-items:center;width:100%;height:100%;font-size:38px;font-weight:900;color:#d7c8ff;text-shadow:0 0 16px #a38aff}
+.showcase-pack-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);padding:4px 13px;border-radius:0 0 7px 7px;background:#d9ef38;color:#202900;font-size:9px;font-weight:1000;letter-spacing:1px;box-shadow:0 2px 12px #d9ef3866}
+.showcase-pack-name{padding:7px 9px;background:linear-gradient(100deg,#247ce8,#3975df);color:#fff;font-size:12px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.showcase-pack-card.is-bonus .showcase-pack-name{background:linear-gradient(100deg,#b66a1d,#d58a29)}
+.showcase-rewards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:7px;align-content:start;flex:1}
+.showcase-reward{display:flex;align-items:center;gap:5px;min-width:0;min-height:42px;padding:5px;border:1px solid #ffffff20;border-radius:8px;background:#ffffff0b;color:#f6efff;font-size:9px;line-height:1.2}
+.showcase-reward img,.showcase-reward-icon{width:27px;height:27px;flex:none;object-fit:contain}
+.showcase-reward-icon{display:grid;place-items:center;border-radius:6px;background:#ffffff15;font-size:13px;font-weight:900;color:#e7dcff}
+.showcase-reward-copy{min-width:0;overflow-wrap:anywhere}
+.showcase-reward-copy b{display:block;font-size:9px;color:#fff;font-weight:800}
+.showcase-reward-copy small{display:block;color:#d5c8f2;font-size:8px;margin-top:2px}
+.showcase-pack-card.is-selected{outline:2px solid #40e5ff;outline-offset:-2px}
+.pack-legacy-controls{display:none!important}
+@media(max-width:1100px){.showcase-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.showcase-pack-art{height:165px}}
+@media(max-width:760px){.showcase-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pack-showcase-group{padding:10px}}
+@media(max-width:440px){.showcase-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.showcase-pack-art{height:135px}.showcase-rewards{gap:4px;padding:5px}.showcase-reward{gap:4px;padding:4px}.showcase-reward img,.showcase-reward-icon{width:23px;height:23px}}
+
+
+/* Pack cards: vertical artwork + separate reward area, responsive four-column desktop grid */
+.portal-main { container-type: inline-size; }
+#packShowcase { display:grid; grid-template-columns:minmax(0,1fr); gap:18px; min-width:0; }
+#packShowcase .pack-showcase-group { min-width:0; }
+#packShowcase .showcase-card-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; align-items:stretch; }
+#packShowcase .showcase-pack-card { display:flex; flex-direction:column; min-width:0; height:100%; overflow:hidden; }
+#packShowcase .showcase-pack-art { position:relative; width:100%; height:clamp(145px,15vw,220px); flex:0 0 auto; padding:10px; overflow:hidden; }
+#packShowcase .showcase-pack-art img { display:block; width:100%; height:100%; max-width:100%; object-fit:contain; }
+#packShowcase .showcase-pack-name { flex:0 0 auto; min-height:34px; white-space:normal; overflow-wrap:anywhere; }
+#packShowcase .showcase-rewards { position:relative; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px; padding:8px; align-content:start; flex:1 0 auto; min-width:0; }
+#packShowcase .showcase-reward { display:flex; align-items:center; min-width:0; max-width:100%; overflow:hidden; }
+#packShowcase .showcase-reward img, #packShowcase .showcase-reward-icon { flex:0 0 27px; width:27px; height:27px; object-fit:contain; }
+#packShowcase .showcase-reward-copy { flex:1 1 auto; min-width:0; overflow-wrap:anywhere; word-break:normal; }
+#packShowcase .showcase-reward-copy b, #packShowcase .showcase-reward-copy small { white-space:normal; overflow-wrap:anywhere; }
+@container (max-width: 1050px) { #packShowcase .showcase-card-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+@container (max-width: 760px) { #packShowcase .showcase-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } #packShowcase .showcase-pack-art { height:clamp(135px,27vw,185px); } }
+@container (max-width: 440px) { #packShowcase .showcase-card-grid { grid-template-columns:minmax(0,1fr); gap:9px; } #packShowcase .showcase-pack-card { display:flex; flex-direction:column; } #packShowcase .showcase-pack-art { height:165px; min-height:0; } #packShowcase .showcase-pack-name { min-height:34px; } #packShowcase .showcase-rewards { grid-template-columns:repeat(2,minmax(0,1fr)); padding:6px; } #packShowcase .showcase-reward { gap:4px; padding:4px; } #packShowcase .showcase-reward img, #packShowcase .showcase-reward-icon { flex-basis:22px; width:22px; height:22px; } }
+
 </style>
 </head>
 <body>
@@ -300,19 +479,19 @@ footer{border-color:#1c5273}
   <h2>⚡ Packs & Offers</h2>
   <div class="sub">Select a pack to see its listed contents.</div>
  </div>
- <div class="pack-grid">
-  <div class="panel">
-   <h3>🚀 Starter Packs</h3>
-   <div class="sub">Choose a Starter Pack option.</div>
-   <select id="starterSelect" class="pack-select"></select>
-   <div class="reward-box" id="starterRewards"></div>
-  </div>
-  <div class="panel">
-   <h3>🎯 Bonus Packs</h3>
-   <div class="sub">Choose a Bonus Pack option.</div>
-   <select id="bonusSelect" class="pack-select"></select>
-   <div class="reward-box" id="bonusRewards"></div>
-  </div>
+ <div class="pack-showcase" id="packShowcase">
+  <section class="pack-showcase-group starter-showcase" aria-labelledby="starterShowcaseTitle">
+   <div class="pack-showcase-title"><span>🚀</span><div><h3 id="starterShowcaseTitle">Choose Your Starter Pack</h3><p>Explore starter loadouts and rewards for eligible new players.</p></div></div>
+   <div class="showcase-card-grid" id="starterPackCards"></div>
+  </section>
+  <section class="pack-showcase-group bonus-showcase" aria-labelledby="bonusShowcaseTitle">
+   <div class="pack-showcase-title"><span>🎯</span><div><h3 id="bonusShowcaseTitle">Choose Your Bonus Pack</h3><p>Browse bonus offers and their listed rewards.</p></div></div>
+   <div class="showcase-card-grid" id="bonusPackCards"></div>
+  </section>
+ </div>
+ <div class="pack-grid pack-legacy-controls" aria-hidden="true">
+  <div class="panel"><h3>🚀 Starter Packs</h3><div class="sub">Choose a Starter Pack option.</div><select id="starterSelect" class="pack-select"></select><div class="reward-box" id="starterRewards"></div></div>
+  <div class="panel"><h3>🎯 Bonus Packs</h3><div class="sub">Choose a Bonus Pack option.</div><select id="bonusSelect" class="pack-select"></select><div class="reward-box" id="bonusRewards"></div></div>
  </div>
  <div class="panel" style="margin-top:16px">
   <h3>🔗 Offer Link Generator</h3>
@@ -652,22 +831,61 @@ function fillSelect(id,data,type){
  names.forEach(name=>{const opt=document.createElement("option");opt.value=name;opt.textContent=name;select.appendChild(opt);});
  if(!names.length){const opt=document.createElement("option");opt.value="";opt.textContent="No packs currently available";select.appendChild(opt);}
 }
-let packImages={
- "Surge":"https://moduletd.com/wp-content/uploads/2026/07/surge-1-225x300.png",
+// Mech Arena reference artwork. Images are externally hosted by their respective publishers/community sources.
+// Public HTTPS URLs are used because Firebase Storage is not enabled for this project.
+const defaultPackImages={
+ "Surge":"https://plariumplay-support.plarium.com/hc/article_attachments/15640851301020",
+ "Brickhouse":"https://res.ldrescdn.com/faq/images/en/151bb874-e3e9-4c5d-986a-f428953a5d83.jpg",
+ "Scorpius":"https://pbs.twimg.com/media/F9IlRPlXQAERwga.jpg",
+ "Vortex":"https://pbs.twimg.com/media/GBZxa31X0AMUs_z.jpg",
+ "Aegis":"https://i.ytimg.com/vi/SqWm17EpgD4/hqdefault.jpg",
+ "Stalker":"https://mecharena-support.plarium.com/hc/article_attachments/18205774573852",
+ "Guardian":"https://static.wikia.nocookie.net/mech-arena-robot-showdown/images/2/2c/NewGuardian.png/revision/latest?cb=20231003182117",
+ "Shadow":"https://i.pinimg.com/736x/cf/70/62/cf70626341b5f55555bed022f76dd55f.jpg",
  "Blockhorn":"https://moduletd.com/wp-content/uploads/2026/08/Blockhorn-200x300.png",
- "Lacewing":"https://moduletd.com/wp-content/uploads/2026/07/lacewing-1-225x300.png"
+ "Lacewing":"https://moduletd.com/wp-content/uploads/2026/07/lacewing-1-225x300.png",
+ "Redeemer":"https://mecharena-support.plarium.com/hc/article_attachments/18189549539100",
+ "Vartex":"https://pbs.twimg.com/media/GBZxa31X0AMUs_z.jpg"
 };
+let packImages={...defaultPackImages};
+function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
+ const target=$(targetId);if(!target)return;if(clearTarget)target.replaceChildren();
+ const names=visiblePackNames(type);const select=$(type==="starter"?"starterSelect":"bonusSelect");
+ names.forEach((name,index)=>{
+  const card=document.createElement("article");card.className="showcase-pack-card"+(type==="bonus"?" is-bonus":"")+(select&&select.value===name?" is-selected":"");
+  const art=document.createElement("div");art.className="showcase-pack-art";
+  if(index<2){const badge=document.createElement("span");badge.className="showcase-pack-badge";badge.textContent="FEATURED";art.append(badge);}
+  const imageUrl=safeImageSrc(packImages[name]);
+  if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};art.append(img);}
+  else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
+  const title=document.createElement("div");title.className="showcase-pack-name";title.textContent=name+(type==="starter"?" Mech":" Pack");
+  const rewards=document.createElement("div");rewards.className="showcase-rewards";
+  (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
+   const reward=document.createElement("div");reward.className="showcase-reward";
+   const key=Object.keys(rewardImages).find(k=>String(item).toLowerCase().includes(k.toLowerCase()));
+   if(key){const img=document.createElement("img");img.src=rewardImages[key];img.alt=key;img.loading="lazy";reward.append(img);}
+   else{const icon=document.createElement("span");icon.className="showcase-reward-icon";const low=String(item).toLowerCase();icon.textContent=low.includes("crate")?"▣":low.includes("pilot")?"P":/weapon|rifle|launcher|cannon|shotgun|rack/.test(low)?"⚔":low.includes("implant")?"✦":"★";reward.append(icon);}
+   const copy=document.createElement("span");copy.className="showcase-reward-copy";const b=document.createElement("b"),small=document.createElement("small");
+   const match=String(item).match(/^(.*?)(?:\s*[×x]\s*([\d,]+))?$/);b.textContent=match?match[1].trim():String(item);small.textContent=match&&match[2]?"Quantity: "+match[2]:"Included";copy.append(b,small);reward.append(copy);rewards.append(reward);
+  });
+  card.append(art,title,rewards);card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
+  const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>c.classList.remove("is-selected"));card.classList.add("is-selected");};
+  card.addEventListener("click",choose);card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose();}});target.append(card);
+ });
+ if(!names.length){const empty=document.createElement("p");empty.className="sub";empty.textContent="No packs currently available.";target.append(empty);}
+}
+function renderPackShowcase(){renderPackShowcaseGroup("starter",starterPacks,"starterPackCards",true);renderPackShowcaseGroup("bonus",bonusPacks,"bonusPackCards",true);}
 function refreshPublicPacks(){
  const starterPrevious=$("starterSelect").value,bonusPrevious=$("bonusSelect").value;
  fillSelect("starterSelect",starterPacks,"starter");fillSelect("bonusSelect",bonusPacks,"bonus");
  if(visiblePackNames("starter").includes(starterPrevious))$("starterSelect").value=starterPrevious;
  if(visiblePackNames("bonus").includes(bonusPrevious))$("bonusSelect").value=bonusPrevious;
- showPack("starterSelect",starterPacks,"starterRewards");showPack("bonusSelect",bonusPacks,"bonusRewards");
+ showPack("starterSelect",starterPacks,"starterRewards");showPack("bonusSelect",bonusPacks,"bonusRewards");renderPackShowcase();
 }
 function applyPackSettings(raw={}){
  if(raw.starterPacks&&typeof raw.starterPacks==="object")starterPacks=raw.starterPacks;
  if(raw.bonusPacks&&typeof raw.bonusPacks==="object")bonusPacks=raw.bonusPacks;
- if(raw.packImages&&typeof raw.packImages==="object")packImages=raw.packImages;
+ if(raw.packImages&&typeof raw.packImages==="object")packImages={...defaultPackImages,...raw.packImages};
  if(raw.packVisibility&&typeof raw.packVisibility==="object")packVisibility.starter=raw.packVisibility.starter||{},packVisibility.bonus=raw.packVisibility.bonus||{};
  refreshPublicPacks();
 }
@@ -1009,7 +1227,7 @@ const adminToggle=document.getElementById('adminToggle');if(adminToggle)adminTog
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closePublicSidebar();});
 document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListener('click',()=>{document.querySelectorAll('.public-side-link').forEach(item=>item.classList.toggle('active',item===link));closePublicSidebar();}));
 
-// MechNova YouTube latest uploads are refreshed by GitHub Actions into data/youtube-videos.json.
+// Latest full videos and Shorts are refreshed separately by GitHub Actions.
 (async function loadLatestYouTubeUploads(){
   const host=document.querySelector('.creator-videos');
   if(!host)return;
@@ -1018,14 +1236,27 @@ document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListen
     if(!response.ok)throw new Error('Feed data unavailable');
     const videos=await response.json();
     if(!Array.isArray(videos)||!videos.length)return;
+    const valid=videos.filter(video=>video&&typeof video.id==='string'&&typeof video.title==='string');
+    const shorts=valid.filter(video=>video.kind==='short').slice(0,4);
+    const longs=valid.filter(video=>video.kind==='video').slice(0,4);
+    if(!shorts.length&&!longs.length)return;
     host.replaceChildren();
-    videos.slice(0,8).forEach(video=>{
-      if(!video||typeof video.id!=='string'||typeof video.title!=='string')return;
-      const a=document.createElement('a');a.className='video-card';a.href='https://www.youtube.com/watch?v='+encodeURIComponent(video.id);a.target='_blank';a.rel='noopener noreferrer';
-      const img=document.createElement('img');img.src='https://i.ytimg.com/vi/'+encodeURIComponent(video.id)+'/hqdefault.jpg';img.alt='MechNova video thumbnail';img.loading='lazy';
-      const title=document.createElement('strong');title.textContent=video.title;
-      a.append(img,title);host.append(a);
-    });
+    function addGroup(label,items,kind){
+      if(!items.length)return;
+      const group=document.createElement('div');group.className='video-feed-group';
+      const heading=document.createElement('h3');heading.className='video-feed-heading';heading.textContent=label;group.append(heading);
+      items.forEach(video=>{
+        const a=document.createElement('a');a.className='video-card';
+        a.href=(kind==='short'?'https://www.youtube.com/shorts/':'https://www.youtube.com/watch?v=')+encodeURIComponent(video.id);a.target='_blank';a.rel='noopener noreferrer';
+        const img=document.createElement('img');img.src='https://i.ytimg.com/vi/'+encodeURIComponent(video.id)+'/hqdefault.jpg';img.alt=kind==='short'?'MechNova Short thumbnail':'MechNova video thumbnail';img.loading='lazy';
+        const title=document.createElement('strong');title.textContent=video.title;
+        const badge=document.createElement('span');badge.className='video-kind';badge.textContent=kind==='short'?'SHORT':'VIDEO';
+        a.append(img,badge,title);group.append(a);
+      });
+      host.append(group);
+    }
+    addGroup('Latest Shorts',shorts,'short');
+    addGroup('Latest Videos',longs,'video');
   }catch(error){console.info('Showing saved MechNova video cards until the feed refreshes.',error);}
 })();
 
