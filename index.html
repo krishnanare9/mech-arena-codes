@@ -173,6 +173,11 @@ footer{border-color:#1c5273}
 @media(max-width:760px){.portal-layout{grid-template-columns:1fr}.portal-sidebar{position:static;max-height:none;overflow:visible;grid-template-columns:repeat(2,minmax(0,1fr));padding:0}.portal-sidebar .creator-videos{grid-template-columns:1fr}.portal-sidebar .social-links{grid-template-columns:1fr}}
 @media(max-width:520px){.portal-sidebar{grid-template-columns:1fr}}
 
+
+.cms-editor label{display:grid;gap:6px;color:#b9d5e8;font-size:12px;font-weight:700}
+.cms-editor input,.cms-editor select,.cms-editor textarea{width:100%;min-width:0;padding:10px;background:#0a1322;color:#f4f8ff;border:1px solid #285574;border-radius:8px;font:inherit}
+.cms-editor input[type=color]{height:42px;padding:4px}
+.cms-editor textarea{resize:vertical}
 </style>
 </head>
 <body>
@@ -196,8 +201,8 @@ footer{border-color:#1c5273}
 
 <section class="hero">
  <span class="tag">✦ MECH ARENA • MECHNOVA REWARDS HUB ✦</span>
- <h1>MECH ARENA<br><span>MECHNOVA</span></h1>
- <p>Promo Codes • Packs • Guides • Gameplay — Find rewards, explore offers, and stay updated with MechNova.</p>
+ <h1 id="publicHeroTitle">MECH ARENA<br><span>MECHNOVA</span></h1>
+ <p id="publicHeroDesc">Promo Codes • Packs • Guides • Gameplay — Find rewards, explore offers, and stay updated with MechNova.</p>
  <div class="hero-actions">
   <a class="btn" href="#codes">🎁 Latest Codes ↓</a>
   <a class="btn secondary" href="#packs">📦 Packs & Offers</a>
@@ -326,10 +331,38 @@ footer{border-color:#1c5273}
     </form>
     <div class="admin-status" id="adminStatus" role="status"></div>
     <div class="admin-list" id="adminCodeList"></div>
+    <details class="cms-editor" open style="margin-top:24px;border:1px solid #24506e;border-radius:12px;padding:16px;background:#07182a">
+     <summary style="cursor:pointer;font-weight:800;color:#35dfff;font-size:18px">🌐 Full Website Control — Website Editor</summary>
+     <p class="sub">यहाँ बदलाव सेव करने पर सार्वजनिक वेबसाइट पर लागू होंगे। तस्वीरों के लिए सार्वजनिक image URL दें।</p>
+     <form id="siteSettingsForm" class="admin-form">
+      <label>ब्रांड नाम<input id="cmsBrand" maxlength="60" placeholder="MechNova"></label>
+      <label>होम बैनर शीर्षक<input id="cmsHeroTitle" maxlength="100" placeholder="MECH ARENA MECHNOVA"></label>
+      <label>होम विवरण<input id="cmsHeroDesc" maxlength="300" placeholder="Promo Codes • Packs • Guides • Gameplay"></label>
+      <label>बैनर पृष्ठभूमि चित्र URL<input id="cmsHeroBg" type="url" placeholder="https://...image.jpg"></label>
+      <label>मुख्य पृष्ठभूमि रंग<input id="cmsBg" type="color" value="#061323"></label>
+      <label>मुख्य चमकीला रंग<input id="cmsAccent" type="color" value="#21d5ff"></label>
+      <label>दूसरा चमकीला रंग<input id="cmsSecondary" type="color" value="#a78bfa"></label>
+      <label>फ़ॉन्ट<select id="cmsFont"><option value="Inter,Arial,sans-serif">Inter / Arial</option><option value="Arial,sans-serif">Arial</option><option value="Verdana,sans-serif">Verdana</option><option value="Georgia,serif">Georgia</option><option value="'Trebuchet MS',sans-serif">Trebuchet MS</option></select></label>
+      <label>YouTube वीडियो 1 लिंक<input id="cmsVideo1" type="url" placeholder="https://youtu.be/..."></label>
+      <label>वीडियो 1 शीर्षक<input id="cmsVideoTitle1" maxlength="100"></label>
+      <label>YouTube वीडियो 2 लिंक<input id="cmsVideo2" type="url" placeholder="https://youtu.be/..."></label>
+      <label>वीडियो 2 शीर्षक<input id="cmsVideoTitle2" maxlength="100"></label>
+      <label>YouTube चैनल लिंक<input id="cmsYoutube" type="url"></label>
+      <label>Discord लिंक<input id="cmsDiscord" type="url"></label>
+      <label>Instagram लिंक<input id="cmsInstagram" type="url"></label>
+      <label style="grid-column:1/-1">नया टेक्स्ट सेक्शन शीर्षक<input id="cmsCustomTitle" maxlength="80" placeholder="जैसे: Latest Updates"></label>
+      <label style="grid-column:1/-1">नया टेक्स्ट सेक्शन विवरण<textarea id="cmsCustomText" maxlength="800" rows="3" placeholder="यहाँ वेबसाइट पर दिखने वाला विवरण लिखें"></textarea></label>
+      <button class="btn" id="saveSiteSettings" type="submit">वेबसाइट बदलाव सेव करें</button>
+      <button class="btn secondary" id="resetSiteSettings" type="button">सेव किए गए बदलाव फिर से लोड करें</button>
+     </form>
+     <div class="small">सुरक्षा के लिए यह एडिटर केवल टेक्स्ट, रंग और लिंक बदलता है; मनमाना HTML/JavaScript जोड़ने की अनुमति नहीं देता।</div>
+    </details>
    </div>
   </div>
  </div>
 </section>
+
+<section class="section" id="customCmsSection" hidden><div class="panel"><h2 id="customCmsTitle"></h2><p class="sub" id="customCmsText"></p></div></section>
 
 <section class="section" id="about">
  <div class="panel">
@@ -532,6 +565,21 @@ if(typeof firebase === "undefined" || !firebase.initializeApp){
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+const SITE_DEFAULTS={brand:"MechNova",heroTitle:"MECH ARENA\nMECHNOVA",heroDesc:"Promo Codes • Packs • Guides • Gameplay — Find rewards, explore offers, and stay updated with MechNova.",heroBg:"",bg:"#061323",accent:"#21d5ff",secondary:"#a78bfa",font:"Inter,Arial,sans-serif",video1:"https://youtu.be/T9oooL3MBuI",videoTitle1:"Latest Promo Codes & Free Rewards",video2:"https://youtu.be/01UJPZTwUn4",videoTitle2:"MechNova Mech Arena Showcase",youtube:"https://www.youtube.com/@MechNova",discord:"https://discord.gg/W5vGjBkgz",instagram:"https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==",customTitle:"",customText:""};
+function safeUrl(value){try{const u=new URL(value);return ["http:","https:"].includes(u.protocol)?u.href:""}catch(_){return ""}}
+function applySiteSettings(raw={}){
+ const c={...SITE_DEFAULTS,...raw};
+ const brand=document.querySelector(".logo"); if(brand && c.brand) {brand.childNodes[0].textContent=c.brand;}
+ const title=$("publicHeroTitle"); if(title){title.replaceChildren();const lines=String(c.heroTitle||SITE_DEFAULTS.heroTitle).split("\n");lines.forEach((line,i)=>{if(i)title.append(document.createElement("br"));const span=document.createElement("span");span.textContent=line;title.append(span);});}
+ if($("publicHeroDesc"))$("publicHeroDesc").textContent=c.heroDesc||"";
+ document.documentElement.style.setProperty("--bg",c.bg||SITE_DEFAULTS.bg);document.documentElement.style.setProperty("--cyan",c.accent||SITE_DEFAULTS.accent);document.documentElement.style.setProperty("--purple",c.secondary||SITE_DEFAULTS.secondary);document.body.style.fontFamily=c.font||SITE_DEFAULTS.font;
+ const hero=document.querySelector(".hero");if(hero){const bg=safeUrl(c.heroBg);hero.style.backgroundImage=bg?`linear-gradient(90deg,#04101be8,#04101b88),url("${bg}")`:"";hero.style.backgroundSize="cover";hero.style.backgroundPosition="center";}
+ const videos=document.querySelectorAll(".creator-videos .video-card");[1,2].forEach(n=>{const a=videos[n-1];const url=safeUrl(c["video"+n]);if(a&&url){a.href=url;const id=(url.match(/(?:youtu\.be\/|v=)([\w-]{6,})/)||[])[1];const img=a.querySelector("img");if(img&&id)img.src="https://i.ytimg.com/vi/"+id+"/hqdefault.jpg";const b=a.querySelector("strong");if(b)b.textContent=c["videoTitle"+n]||"MechNova Video";}});
+ document.querySelectorAll(".social-links a").forEach(a=>{const t=a.textContent.toLowerCase();const key=t.includes("youtube")?"youtube":t.includes("discord")?"discord":t.includes("instagram")?"instagram":null;if(key){const u=safeUrl(c[key]);if(u)a.href=u;}});
+ const custom=$("customCmsSection");if(custom){custom.hidden=!(c.customTitle||c.customText);$("customCmsTitle").textContent=c.customTitle||"";$("customCmsText").textContent=c.customText||"";}
+}
+function fillSiteEditor(raw={}){const c={...SITE_DEFAULTS,...raw};const map={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};Object.entries(map).forEach(([k,id])=>{if($(id))$(id).value=c[k]??"";});}
+async function loadSiteSettings(){try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};applySiteSettings(data);fillSiteEditor(data);}catch(err){console.warn("Website settings could not load",err);applySiteSettings();fillSiteEditor();}}
 let adminDocs = [];
 let editingDocId = null;
 const adminPanel = $("adminPanel");
@@ -637,6 +685,17 @@ $("codeForm").addEventListener("submit",async event=>{
   }catch(err){setAdminStatus(err.message||"Could not save code.",true);}
 });
 
+$("siteSettingsForm").addEventListener("submit",async event=>{
+ event.preventDefault();
+ if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){setAdminStatus("केवल अधिकृत एडमिन बदलाव सेव कर सकता है।",true);return;}
+ const keys={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};
+ const data={};for(const [key,id] of Object.entries(keys)){data[key]=$(id).value.trim();}
+ for(const key of ["heroBg","video1","video2","youtube","discord","instagram"]){if(data[key]&&!safeUrl(data[key])){setAdminStatus("कृपया सही http/https लिंक डालें: "+key,true);return;}}
+ try{await db.collection("siteSettings").doc("public").set(data,{merge:true});applySiteSettings(data);setAdminStatus("वेबसाइट की सेटिंग सेव हो गईं। सार्वजनिक पेज रिफ्रेश करके जाँचें।");}
+ catch(err){setAdminStatus("सेव नहीं हुआ: "+(err.message||"Firestore Rules जाँचें"),true);}
+});
+$("resetSiteSettings").addEventListener("click",async()=>{try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};fillSiteEditor(data);applySiteSettings(data);setAdminStatus("Firestore से सेव की गई सेटिंग लोड हुईं।");}catch(err){setAdminStatus(err.message||"सेटिंग लोड नहीं हुईं।",true);}});
+
 auth.onAuthStateChanged(async user=>{
   if(user && user.uid===ADMIN_UID){
     $("adminLoginBox").hidden=true; $("adminDashboard").hidden=false; showAdminPanel();
@@ -650,6 +709,7 @@ auth.onAuthStateChanged(async user=>{
   }
 });
 loadPublicCodes();
+loadSiteSettings();
 
 </script>
 <script>window.googleTranslateElementInit=googleTranslateElementInit;</script>
