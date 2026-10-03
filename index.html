@@ -1,0 +1,570 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080d19">
+<meta name="description" content="Find Mech Arena promo codes, free A-Coins, credits, crates and rewards with MechNova.">
+<title>MechNova | Mech Arena Promo Codes</title>
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080d19;
+  --panel: #111b2e;
+  --blue: #21c8ff;
+  --text: #f4f8ff;
+  --muted: #9aaac2;
+  --green: #4be49b;
+  --red: #ff647c;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  background: #0d1729;
+  border-bottom: 1px solid #20314b;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav {
+  max-width: 1150px;
+  margin: auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: 900;
+  color: var(--blue);
+  letter-spacing: 1px;
+}
+
+.logo span { color: white; }
+
+nav a {
+  color: #d7e5fa;
+  text-decoration: none;
+  margin-left: 18px;
+  font-size: 14px;
+}
+
+nav a:hover { color: var(--blue); }
+
+.hero {
+  text-align: center;
+  padding: 65px 20px 50px;
+  background:
+    radial-gradient(ellipse at top, #123b60 0%, #0b1527 45%, #080d19 80%);
+}
+
+.hero .tag {
+  display: inline-block;
+  color: var(--blue);
+  border: 1px solid #1e8cbd;
+  background: #0b2a42;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 6vw, 55px);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.hero h1 span { color: var(--blue); }
+
+.hero p {
+  color: var(--muted);
+  max-width: 650px;
+  margin: auto;
+  font-size: 15px;
+}
+
+.hero-buttons {
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 20px;
+  border-radius: 8px;
+  background: var(--blue);
+  color: #06111c;
+  font-weight: bold;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn.secondary {
+  color: white;
+  background: #18263d;
+  border: 1px solid #334a69;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 35px 20px;
+}
+
+.section-title {
+  font-size: 25px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: -5px;
+  margin-bottom: 35px;
+}
+
+.stat {
+  background: var(--panel);
+  border: 1px solid #223650;
+  border-radius: 12px;
+  padding: 17px;
+  text-align: center;
+}
+
+.stat strong {
+  color: var(--blue);
+  display: block;
+  font-size: 23px;
+}
+
+.stat span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search {
+  flex: 1;
+  min-width: 190px;
+  padding: 13px 15px;
+  background: #111b2e;
+  color: white;
+  border: 1px solid #2a3c58;
+  border-radius: 8px;
+  outline: none;
+}
+
+.search:focus { border-color: var(--blue); }
+
+.filter {
+  background: #142138;
+  border: 1px solid #2a3c58;
+  color: #c5d5e9;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.filter.active {
+  color: var(--blue);
+  border-color: var(--blue);
+  background: #102a40;
+}
+
+.code-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 17px;
+}
+
+.code-card {
+  background: linear-gradient(145deg, #14213a, #0f1829);
+  border: 1px solid #263a59;
+  border-radius: 13px;
+  padding: 19px;
+  transition: .2s;
+}
+
+.code-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.status {
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 4px 9px;
+}
+
+.status.active {
+  color: var(--green);
+  background: #103c30;
+}
+
+.status.expired {
+  color: #ff9aa9;
+  background: #431c2a;
+}
+
+.status.unverified {
+  color: #ffd27a;
+  background: #41331b;
+}
+
+.category {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.code-card h3 {
+  font-size: 19px;
+  color: white;
+  overflow-wrap: anywhere;
+  letter-spacing: .5px;
+  margin-bottom: 8px;
+}
+
+.reward {
+  color: #c4d2e5;
+  font-size: 13px;
+  margin-bottom: 13px;
+}
+
+.copy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border-top: 1px solid #263751;
+  padding-top: 13px;
+}
+
+.copy-row small {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.copy-btn {
+  background: #123b55;
+  color: var(--blue);
+  border: 1px solid #216b91;
+  border-radius: 6px;
+  padding: 7px 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.empty {
+  display: none;
+  text-align: center;
+  padding: 35px;
+  color: var(--muted);
+  grid-column: 1 / -1;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 17px;
+}
+
+.info-card {
+  background: var(--panel);
+  border: 1px solid #263751;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.info-card h3 {
+  color: var(--blue);
+  margin-bottom: 8px;
+}
+
+.info-card p, .info-card li {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.info-card ol { padding-left: 20px; }
+
+.youtube {
+  background: linear-gradient(110deg, #132a46, #10192b);
+  border: 1px solid #245079;
+  padding: 25px;
+  border-radius: 14px;
+  text-align: center;
+}
+
+.youtube h2 { margin-bottom: 8px; }
+
+.youtube p {
+  color: var(--muted);
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+footer {
+  border-top: 1px solid #20314b;
+  text-align: center;
+  padding: 25px 15px;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 25px;
+}
+
+footer a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+@media (max-width: 800px) {
+  .code-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .nav { padding: 12px 15px; }
+  .logo { font-size: 21px; }
+  nav a { margin-left: 8px; font-size: 12px; }
+  .hero { padding: 48px 15px; }
+  .container { padding: 28px 15px; }
+  .code-grid { grid-template-columns: 1fr; }
+  .stats { gap: 8px; }
+  .stat { padding: 12px 5px; }
+  .stat strong { font-size: 19px; }
+  .stat span { font-size: 10px; }
+  .info-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">MECH<span>NOVA</span></div>
+    <nav>
+      <a href="#codes">Codes</a>
+      <a href="#redeem">Redeem</a>
+      <a href="#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="tag">MECH ARENA COMMUNITY</div>
+  <h1>MECH ARENA<br><span>PROMO CODES</span></h1>
+  <p>Find promo codes, free rewards, A-Coins, credits and crates. Check each code's status and eligibility before redeeming.</p>
+  <div class="hero-buttons">
+    <a class="btn" href="#codes">Explore Codes ↓</a>
+    <a class="btn secondary" href="https://www.youtube.com/@MechNova" target="_blank" rel="noopener">YouTube Channel ↗</a>
+  </div>
+</section>
+
+<main>
+  <section class="container">
+    <div class="stats">
+      <div class="stat"><strong id="totalCount">0</strong><span>Listed Codes</span></div>
+      <div class="stat"><strong id="activeCount">0</strong><span>Verified Active</span></div>
+      <div class="stat"><strong>FREE</strong><span>To Browse</span></div>
+    </div>
+
+    <div id="codes">
+      <h2 class="section-title">🎁 Promo Codes</h2>
+      <p class="subtitle">Check the status and eligibility of each code.</p>
+    </div>
+
+    <div class="controls">
+      <input id="search" class="search" type="search" placeholder="Search codes or rewards...">
+      <button class="filter active" data-filter="all">All</button>
+      <button class="filter" data-filter="active">Active</button>
+      <button class="filter" data-filter="unverified">Unverified</button>
+      <button class="filter" data-filter="expired">Expired</button>
+    </div>
+
+    <div class="code-grid" id="codeGrid">
+      <!-- Add only verified codes here. -->
+      <div class="empty" id="empty">No matching codes found.</div>
+    </div>
+  </section>
+
+  <section class="container" id="redeem">
+    <h2 class="section-title">📖 How to Redeem</h2>
+    <p class="subtitle">Follow the official redemption process for your account and region.</p>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>Redeem Guide</h3>
+        <ol>
+          <li>Check the code and eligibility details.</li>
+          <li>Copy the promo code.</li>
+          <li>Use the official Mech Arena redemption method, if available to your account.</li>
+          <li>Check your in-game mailbox or inventory for rewards.</li>
+        </ol>
+      </div>
+      <div class="info-card">
+        <h3>⚠️ Important</h3>
+        <p>Promo codes may expire or have account, region or new-player restrictions. Rewards are not guaranteed. Never share your password or OTP with third-party websites.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="about">
+    <div class="youtube">
+      <h2>🚀 Join MechNova</h2>
+      <p>Get Mech Arena updates, gameplay, promo code guides and community news.</p>
+      <div class="hero-buttons">
+        <a class="btn" href="https://www.youtube.com/@MechNova" target="_blank" rel="noopener">Subscribe on YouTube</a>
+        <a class="btn secondary" href="https://discord.gg/W5vGjBkgz" target="_blank" rel="noopener">Join Discord</a>
+        <a class="btn secondary" href="https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 MechNova | Independent fan-made community website.</p>
+  <p>Not affiliated with or endorsed by Plarium or Mech Arena.</p>
+  <p>Always verify promo code details through official game channels.</p>
+</footer>
+
+<script>
+/*
+  Add codes here only after checking them.
+  status must be: "active", "unverified", or "expired".
+  Do not label a code active unless it has been tested recently.
+*/
+const codes = [
+  // Example:
+  // {
+  //   code: "EXAMPLECODE",
+  //   reward: "Reward details",
+  //   status: "unverified",
+  //   category: "All Players"
+  // }
+];
+
+const grid = document.getElementById("codeGrid");
+const empty = document.getElementById("empty");
+const search = document.getElementById("search");
+let currentFilter = "all";
+
+function renderCodes() {
+  const query = search.value.toLowerCase().trim();
+  const filtered = codes.filter(item => {
+    const matchesFilter = currentFilter === "all" || item.status === currentFilter;
+    const matchesSearch = (item.code + " " + item.reward + " " + item.category)
+      .toLowerCase().includes(query);
+    return matchesFilter && matchesSearch;
+  });
+
+  grid.querySelectorAll(".code-card").forEach(card => card.remove());
+
+  filtered.forEach(item => {
+    const card = document.createElement("article");
+    card.className = "code-card";
+
+    const top = document.createElement("div");
+    top.className = "card-top";
+
+    const category = document.createElement("span");
+    category.className = "category";
+    category.textContent = item.category || "Promo Code";
+
+    const status = document.createElement("span");
+    status.className = "status " + item.status;
+    status.textContent = item.status === "active" ? "VERIFIED ACTIVE" :
+      item.status === "expired" ? "EXPIRED" : "UNVERIFIED";
+
+    top.append(category, status);
+
+    const heading = document.createElement("h3");
+    heading.textContent = item.code;
+
+    const reward = document.createElement("p");
+    reward.className = "reward";
+    reward.textContent = item.reward;
+
+    const copyRow = document.createElement("div");
+    copyRow.className = "copy-row";
+
+    const note = document.createElement("small");
+    note.textContent = "Check eligibility";
+
+    const copyButton = document.createElement("button");
+    copyButton.className = "copy-btn";
+    copyButton.textContent = "Copy Code";
+    copyButton.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(item.code);
+        copyButton.textContent = "Copied!";
+      } catch {
+        copyButton.textContent = "Copy unavailable";
+      }
+      setTimeout(() => copyButton.textContent = "Copy Code", 1500);
+    });
+
+    copyRow.append(note, copyButton);
+    card.append(top, heading, reward, copyRow);
+    grid.insertBefore(card, empty);
+  });
+
+  empty.style.display = filtered.length ? "none" : "block";
+  document.getElementById("totalCount").textContent = codes.length;
+  document.getElementById("activeCount").textContent =
+    codes.filter(item => item.status === "active").length;
+}
+
+document.querySelectorAll(".filter").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".filter").forEach(btn => btn.classList.remove("active"));
+    button.classList.add("active");
+    currentFilter = button.dataset.filter;
+    renderCodes();
+  });
+});
+
+search.addEventListener("input", renderCodes);
+renderCodes();
+</script>
+</body>
+</html>
+```
