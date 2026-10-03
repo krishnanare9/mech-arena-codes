@@ -1,570 +1,325 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080d19">
-<meta name="description" content="Find Mech Arena promo codes, free A-Coins, credits, crates and rewards with MechNova.">
-<title>MechNova | Mech Arena Promo Codes</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MechNova | Mech Arena Promo Codes</title>
+  <meta name="description" content="MechNova Mech Arena promo codes, rewards, starter packs and bonus packs.">
+  <style>
+    :root {
+      --bg: #080d17;
+      --panel: #111a2b;
+      --panel2: #172238;
+      --text: #f4f7ff;
+      --muted: #a6b2c9;
+      --cyan: #35d8ff;
+      --purple: #9a70ff;
+      --green: #42e6a4;
+      --border: #273650;
+      --red: #ff687b;
+    }
 
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #080d19;
-  --panel: #111b2e;
-  --blue: #21c8ff;
-  --text: #f4f8ff;
-  --muted: #9aaac2;
-  --green: #4be49b;
-  --red: #ff647c;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-}
-
-header {
-  background: #0d1729;
-  border-bottom: 1px solid #20314b;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.nav {
-  max-width: 1150px;
-  margin: auto;
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.logo {
-  font-size: 25px;
-  font-weight: 900;
-  color: var(--blue);
-  letter-spacing: 1px;
-}
-
-.logo span { color: white; }
-
-nav a {
-  color: #d7e5fa;
-  text-decoration: none;
-  margin-left: 18px;
-  font-size: 14px;
-}
-
-nav a:hover { color: var(--blue); }
-
-.hero {
-  text-align: center;
-  padding: 65px 20px 50px;
-  background:
-    radial-gradient(ellipse at top, #123b60 0%, #0b1527 45%, #080d19 80%);
-}
-
-.hero .tag {
-  display: inline-block;
-  color: var(--blue);
-  border: 1px solid #1e8cbd;
-  background: #0b2a42;
-  padding: 5px 14px;
-  border-radius: 30px;
-  font-size: 12px;
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.hero h1 {
-  font-size: clamp(32px, 6vw, 55px);
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.hero h1 span { color: var(--blue); }
-
-.hero p {
-  color: var(--muted);
-  max-width: 650px;
-  margin: auto;
-  font-size: 15px;
-}
-
-.hero-buttons {
-  margin-top: 25px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 12px 20px;
-  border-radius: 8px;
-  background: var(--blue);
-  color: #06111c;
-  font-weight: bold;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  display: inline-block;
-}
-
-.btn.secondary {
-  color: white;
-  background: #18263d;
-  border: 1px solid #334a69;
-}
-
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 35px 20px;
-}
-
-.section-title {
-  font-size: 25px;
-  margin-bottom: 6px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 14px;
-  margin-bottom: 22px;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin-top: -5px;
-  margin-bottom: 35px;
-}
-
-.stat {
-  background: var(--panel);
-  border: 1px solid #223650;
-  border-radius: 12px;
-  padding: 17px;
-  text-align: center;
-}
-
-.stat strong {
-  color: var(--blue);
-  display: block;
-  font-size: 23px;
-}
-
-.stat span {
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.search {
-  flex: 1;
-  min-width: 190px;
-  padding: 13px 15px;
-  background: #111b2e;
-  color: white;
-  border: 1px solid #2a3c58;
-  border-radius: 8px;
-  outline: none;
-}
-
-.search:focus { border-color: var(--blue); }
-
-.filter {
-  background: #142138;
-  border: 1px solid #2a3c58;
-  color: #c5d5e9;
-  border-radius: 8px;
-  padding: 10px 15px;
-  cursor: pointer;
-}
-
-.filter.active {
-  color: var(--blue);
-  border-color: var(--blue);
-  background: #102a40;
-}
-
-.code-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 17px;
-}
-
-.code-card {
-  background: linear-gradient(145deg, #14213a, #0f1829);
-  border: 1px solid #263a59;
-  border-radius: 13px;
-  padding: 19px;
-  transition: .2s;
-}
-
-.code-card:hover {
-  transform: translateY(-3px);
-  border-color: var(--blue);
-}
-
-.card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.status {
-  font-size: 11px;
-  font-weight: bold;
-  border-radius: 20px;
-  padding: 4px 9px;
-}
-
-.status.active {
-  color: var(--green);
-  background: #103c30;
-}
-
-.status.expired {
-  color: #ff9aa9;
-  background: #431c2a;
-}
-
-.status.unverified {
-  color: #ffd27a;
-  background: #41331b;
-}
-
-.category {
-  font-size: 11px;
-  color: var(--muted);
-}
-
-.code-card h3 {
-  font-size: 19px;
-  color: white;
-  overflow-wrap: anywhere;
-  letter-spacing: .5px;
-  margin-bottom: 8px;
-}
-
-.reward {
-  color: #c4d2e5;
-  font-size: 13px;
-  margin-bottom: 13px;
-}
-
-.copy-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  border-top: 1px solid #263751;
-  padding-top: 13px;
-}
-
-.copy-row small {
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.copy-btn {
-  background: #123b55;
-  color: var(--blue);
-  border: 1px solid #216b91;
-  border-radius: 6px;
-  padding: 7px 12px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.empty {
-  display: none;
-  text-align: center;
-  padding: 35px;
-  color: var(--muted);
-  grid-column: 1 / -1;
-}
-
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 17px;
-}
-
-.info-card {
-  background: var(--panel);
-  border: 1px solid #263751;
-  border-radius: 12px;
-  padding: 20px;
-}
-
-.info-card h3 {
-  color: var(--blue);
-  margin-bottom: 8px;
-}
-
-.info-card p, .info-card li {
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.info-card ol { padding-left: 20px; }
-
-.youtube {
-  background: linear-gradient(110deg, #132a46, #10192b);
-  border: 1px solid #245079;
-  padding: 25px;
-  border-radius: 14px;
-  text-align: center;
-}
-
-.youtube h2 { margin-bottom: 8px; }
-
-.youtube p {
-  color: var(--muted);
-  margin-bottom: 16px;
-  font-size: 14px;
-}
-
-footer {
-  border-top: 1px solid #20314b;
-  text-align: center;
-  padding: 25px 15px;
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 25px;
-}
-
-footer a {
-  color: var(--blue);
-  text-decoration: none;
-}
-
-@media (max-width: 800px) {
-  .code-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 560px) {
-  .nav { padding: 12px 15px; }
-  .logo { font-size: 21px; }
-  nav a { margin-left: 8px; font-size: 12px; }
-  .hero { padding: 48px 15px; }
-  .container { padding: 28px 15px; }
-  .code-grid { grid-template-columns: 1fr; }
-  .stats { gap: 8px; }
-  .stat { padding: 12px 5px; }
-  .stat strong { font-size: 19px; }
-  .stat span { font-size: 10px; }
-  .info-grid { grid-template-columns: 1fr; }
-}
-</style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at top, #172a49 0%, var(--bg) 55%);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    a { color: var(--cyan); text-decoration: none; }
+    .container { width: min(1120px, 92%); margin: auto; }
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,13,23,.8);
+    }
+    .nav { display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .logo { font-size: 25px; font-weight: 900; letter-spacing: 1px; }
+    .logo span { color: var(--cyan); }
+    .nav-links { display:flex; gap:18px; flex-wrap:wrap; font-size:14px; }
+    .hero { text-align:center; padding:65px 0 45px; }
+    .tag {
+      display:inline-block; padding:7px 13px; border:1px solid #31526d;
+      color:var(--cyan); border-radius:30px; font-size:12px; letter-spacing:1px;
+      background:#102238;
+    }
+    h1 { font-size:clamp(34px, 6vw, 58px); margin:18px 0 12px; line-height:1.08; }
+    h1 span { color:var(--cyan); }
+    .hero p { max-width:650px; margin:0 auto; color:var(--muted); line-height:1.7; }
+    .section { padding:28px 0; }
+    .section-head { margin-bottom:18px; }
+    h2 { font-size:25px; margin:0 0 8px; }
+    .sub { color:var(--muted); font-size:14px; line-height:1.6; }
+    .panel {
+      background:linear-gradient(145deg, rgba(23,34,56,.96), rgba(13,21,36,.96));
+      border:1px solid var(--border); border-radius:16px; padding:22px;
+      box-shadow:0 12px 35px rgba(0,0,0,.18);
+    }
+    .toolbar { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:18px; }
+    input, select {
+      min-width:0; background:#0b1322; border:1px solid var(--border);
+      color:var(--text); border-radius:10px; padding:13px 14px; font-size:14px;
+    }
+    input { flex:1; }
+    select { min-width:170px; }
+    .code-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:14px; }
+    .code-card {
+      background:rgba(8,15,28,.72); border:1px solid var(--border);
+      border-radius:13px; padding:17px; display:flex; flex-direction:column; gap:12px;
+    }
+    .code-top { display:flex; justify-content:space-between; gap:8px; align-items:center; }
+    .code-name { font-size:18px; font-weight:900; letter-spacing:.5px; overflow-wrap:anywhere; }
+    .pill { font-size:10px; padding:5px 8px; border-radius:30px; white-space:nowrap; }
+    .all { background:#123e38; color:var(--green); }
+    .new { background:#30234f; color:#c6aaff; }
+    .reward { color:var(--muted); font-size:13px; line-height:1.55; flex:1; }
+    button {
+      border:0; border-radius:9px; padding:12px 15px; cursor:pointer;
+      color:#07101c; font-weight:800; background:var(--cyan);
+      transition:transform .15s, filter .15s;
+    }
+    button:hover { transform:translateY(-1px); filter:brightness(1.08); }
+    button.secondary { background:#273650; color:var(--text); }
+    button:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+    .pack-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+    .pack-select { width:100%; margin:12px 0; }
+    .reward-box {
+      background:#0a1322; border:1px solid var(--border); border-radius:11px;
+      padding:15px; min-height:120px; color:var(--muted); font-size:14px; line-height:1.8;
+    }
+    .reward-box strong { color:var(--text); }
+    .check-row { display:flex; gap:10px; align-items:flex-start; margin:13px 0; color:var(--muted); font-size:13px; line-height:1.5; }
+    .check-row input { flex:0 0 auto; margin-top:2px; accent-color:var(--cyan); }
+    .notice {
+      margin-top:14px; padding:13px; background:#2b2116; border:1px solid #5a4427;
+      border-radius:10px; color:#f4d3a0; font-size:13px; line-height:1.6;
+    }
+    .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:13px; }
+    .step { background:#0b1424; border:1px solid var(--border); border-radius:12px; padding:16px; }
+    .step b { display:block; color:var(--cyan); margin-bottom:8px; }
+    footer { margin-top:35px; padding:25px 0; border-top:1px solid var(--border); color:var(--muted); font-size:13px; text-align:center; line-height:1.8; }
+    .disclaimer { color:var(--muted); font-size:12px; line-height:1.6; margin-top:15px; }
+    @media(max-width:600px) {
+      .nav { align-items:flex-start; flex-direction:column; }
+      .hero { padding:45px 0 30px; }
+      .panel { padding:16px; }
+      select { flex:1; }
+    }
+  </style>
 </head>
-
 <body>
-<header>
-  <div class="nav">
-    <div class="logo">MECH<span>NOVA</span></div>
-    <nav>
-      <a href="#codes">Codes</a>
-      <a href="#redeem">Redeem</a>
-      <a href="#about">About</a>
-    </nav>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="tag">MECH ARENA COMMUNITY</div>
-  <h1>MECH ARENA<br><span>PROMO CODES</span></h1>
-  <p>Find promo codes, free rewards, A-Coins, credits and crates. Check each code's status and eligibility before redeeming.</p>
-  <div class="hero-buttons">
-    <a class="btn" href="#codes">Explore Codes ↓</a>
-    <a class="btn secondary" href="https://www.youtube.com/@MechNova" target="_blank" rel="noopener">YouTube Channel ↗</a>
-  </div>
-</section>
-
-<main>
-  <section class="container">
-    <div class="stats">
-      <div class="stat"><strong id="totalCount">0</strong><span>Listed Codes</span></div>
-      <div class="stat"><strong id="activeCount">0</strong><span>Verified Active</span></div>
-      <div class="stat"><strong>FREE</strong><span>To Browse</span></div>
+  <header>
+    <div class="container nav">
+      <div class="logo">MECH<span>NOVA</span></div>
+      <nav class="nav-links">
+        <a href="#codes">Promo Codes</a>
+        <a href="#packs">Starter Packs</a>
+        <a href="#redeem">How to Redeem</a>
+      </nav>
     </div>
+  </header>
 
-    <div id="codes">
-      <h2 class="section-title">🎁 Promo Codes</h2>
-      <p class="subtitle">Check the status and eligibility of each code.</p>
-    </div>
+  <main class="container">
+    <section class="hero">
+      <span class="tag">MECH ARENA • REWARDS HUB</span>
+      <h1>MECH ARENA<br><span>PROMO CODES</span></h1>
+      <p>Explore listed promo codes, check rewards and browse starter and bonus pack options—all in one place.</p>
+    </section>
 
-    <div class="controls">
-      <input id="search" class="search" type="search" placeholder="Search codes or rewards...">
-      <button class="filter active" data-filter="all">All</button>
-      <button class="filter" data-filter="active">Active</button>
-      <button class="filter" data-filter="unverified">Unverified</button>
-      <button class="filter" data-filter="expired">Expired</button>
-    </div>
-
-    <div class="code-grid" id="codeGrid">
-      <!-- Add only verified codes here. -->
-      <div class="empty" id="empty">No matching codes found.</div>
-    </div>
-  </section>
-
-  <section class="container" id="redeem">
-    <h2 class="section-title">📖 How to Redeem</h2>
-    <p class="subtitle">Follow the official redemption process for your account and region.</p>
-    <div class="info-grid">
-      <div class="info-card">
-        <h3>Redeem Guide</h3>
-        <ol>
-          <li>Check the code and eligibility details.</li>
-          <li>Copy the promo code.</li>
-          <li>Use the official Mech Arena redemption method, if available to your account.</li>
-          <li>Check your in-game mailbox or inventory for rewards.</li>
-        </ol>
+    <section class="section" id="codes">
+      <div class="section-head">
+        <h2>🎁 Promo Codes</h2>
+        <div class="sub">Codes and rewards listed from the source information. Availability may change.</div>
       </div>
-      <div class="info-card">
-        <h3>⚠️ Important</h3>
-        <p>Promo codes may expire or have account, region or new-player restrictions. Rewards are not guaranteed. Never share your password or OTP with third-party websites.</p>
+      <div class="panel">
+        <div class="toolbar">
+          <input id="search" type="search" placeholder="Search promo code or reward...">
+          <select id="filter">
+            <option value="all">All listed codes</option>
+            <option value="allplayers">All Players</option>
+            <option value="newplayers">New Players</option>
+          </select>
+        </div>
+        <div class="code-grid" id="codeGrid"></div>
+        <p class="disclaimer">These codes are listed as active in the source snapshot dated September 30, 2026. This page does not verify redemption live. Account eligibility and game rules may apply.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section class="container" id="about">
-    <div class="youtube">
-      <h2>🚀 Join MechNova</h2>
-      <p>Get Mech Arena updates, gameplay, promo code guides and community news.</p>
-      <div class="hero-buttons">
-        <a class="btn" href="https://www.youtube.com/@MechNova" target="_blank" rel="noopener">Subscribe on YouTube</a>
-        <a class="btn secondary" href="https://discord.gg/W5vGjBkgz" target="_blank" rel="noopener">Join Discord</a>
-        <a class="btn secondary" href="https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==" target="_blank" rel="noopener">Instagram</a>
+    <section class="section" id="packs">
+      <div class="section-head">
+        <h2>⚡ Starter & Bonus Packs</h2>
+        <div class="sub">Select a pack to view its listed contents and compare reward options.</div>
       </div>
+      <div class="pack-grid">
+        <div class="panel">
+          <h2>🚀 Starter Pack</h2>
+          <div class="sub">Choose one of the available starter pack options.</div>
+          <select class="pack-select" id="starterSelect"></select>
+          <div class="reward-box" id="starterRewards"></div>
+        </div>
+        <div class="panel">
+          <h2>🎯 Bonus Pack</h2>
+          <div class="sub">Choose a bonus reward option.</div>
+          <select class="pack-select" id="bonusSelect"></select>
+          <div class="reward-box" id="bonusRewards"></div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:18px">
+        <h2>🔗 Link Generator Preview</h2>
+        <p class="sub">Choose your pack options above and confirm the eligibility statements below.</p>
+        <label class="check-row"><input type="checkbox" id="freshCheck"> I understand these offers may be limited to eligible new accounts.</label>
+        <label class="check-row"><input type="checkbox" id="playCheck"> I understand that offer eligibility may have Plarium Play installation requirements.</label>
+        <button id="generateBtn" disabled>Generate my link</button>
+        <div class="notice" id="generatorNotice">The genuine offer-link generation method has not been configured yet. This preview will not create or claim to create a working Plarium link.</div>
+      </div>
+    </section>
+
+    <section class="section" id="redeem">
+      <div class="section-head">
+        <h2>📘 How to Redeem</h2>
+        <div class="sub">General redemption steps. Exact steps may vary by platform and current game version.</div>
+      </div>
+      <div class="panel steps">
+        <div class="step"><b>01 — Open the game</b><span class="sub">Launch Mech Arena on your device.</span></div>
+        <div class="step"><b>02 — Find promo code entry</b><span class="sub">Open the relevant promo code redemption option.</span></div>
+        <div class="step"><b>03 — Enter the code</b><span class="sub">Copy a code from this page and enter it carefully.</span></div>
+        <div class="step"><b>04 — Check rewards</b><span class="sub">Submit the code and check whether the game accepts it.</span></div>
+      </div>
+      <p class="disclaimer">Avoid unofficial sites asking for your password, OTP or account credentials. Repeated invalid code attempts may temporarily restrict code entry.</p>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>MECHNOVA</strong> — Independent Mech Arena fan project. Not affiliated with Plarium.</div>
+    <div style="margin-top:8px">
+      <a href="https://discord.gg/W5vGjBkgz" target="_blank" rel="noopener">Discord</a> ·
+      <a href="https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==" target="_blank" rel="noopener">Instagram</a>
     </div>
-  </section>
-</main>
+    <div class="disclaimer">Game names and related marks belong to their respective owners. Code status and offer terms can change without notice.</div>
+  </footer>
 
-<footer>
-  <p>© 2026 MechNova | Independent fan-made community website.</p>
-  <p>Not affiliated with or endorsed by Plarium or Mech Arena.</p>
-  <p>Always verify promo code details through official game channels.</p>
-</footer>
+  <script>
+    const codes = [
+      { code:"IMBACKBABY", type:"allplayers", reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate" },
+      { code:"SPOOKYSHOT", type:"allplayers", reward:"Skins for Fury, Amber, Brachyura, Hidezo and Killshot" },
+      { code:"BIGMECH", type:"newplayers", reward:"Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate" },
+      { code:"GRASSHOPER", type:"newplayers", reward:"Lacewing, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate" },
+      { code:"ROSHAN1", type:"newplayers", reward:"Aegis, 10,000 Credits" },
+      { code:"BACKTRACK", type:"newplayers", reward:"Redeemer, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate" },
+      { code:"WARTEX", type:"newplayers", reward:"Vartex, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate" }
+    ];
 
-<script>
-/*
-  Add codes here only after checking them.
-  status must be: "active", "unverified", or "expired".
-  Do not label a code active unless it has been tested recently.
-*/
-const codes = [
-  // Example:
-  // {
-  //   code: "EXAMPLECODE",
-  //   reward: "Reward details",
-  //   status: "unverified",
-  //   category: "All Players"
-  // }
-];
+    const starterPacks = {
+      "Surge": ["Case Pilot ×1", "Revoker 8 ×2", "200 A-Coins", "75,000 Credits"],
+      "Brickhouse": ["Impulse Pilot ×1", "Cryo Launcher 8 ×2", "500 A-Coins", "10,000 Credits"],
+      "Scorpius": ["Nova Pilot ×1", "Missile Rack 6 ×2", "300 A-Coins", "10,000 Credits", "500 Pilot Marks", "5,000 Implant Parts"],
+      "Aegis": ["Case Pilot ×1", "Minigun 8 ×2", "500 A-Coins", "10,000 Credits"],
+      "Stalker": ["Maverick Pilot ×1", "EM Rifle 6 ×2", "300 A-Coins", "10,000 Credits", "500 Pilot Marks", "5,000 Implant Parts"],
+      "Guardian": ["Acantha Pilot ×1", "Fusion Cannon 6 ×2", "800 A-Coins", "25,000 Credits", "500 Pilot Marks", "5,000 Implant Parts"],
+      "Shadow": ["Shotgun 4 ×2", "Cardinal Rule Skin ×1", "300 A-Coins", "10,000 Credits", "500 Pilot Marks", "5,000 Implant Parts"],
+      "Maverick Pilot": ["Gauss Rifle 6 ×2", "Gauss Rifle Reload ×1", "300 A-Coins", "10,000 Credits", "500 Pilot Marks", "5,000 Implant Parts"]
+    };
 
-const grid = document.getElementById("codeGrid");
-const empty = document.getElementById("empty");
-const search = document.getElementById("search");
-let currentFilter = "all";
+    const bonusPacks = {
+      "Guardian": ["50,000 Credits", "200 A-Coins", "1 Prodigy Crate"],
+      "Blockhorn": ["100,000 Credits", "200 A-Coins", "1 Prodigy Crate"],
+      "Lacewing": ["100,000 Credits", "200 A-Coins", "1 Prodigy Crate"],
+      "Aegis": ["10,000 Credits"],
+      "Redeemer": ["100,000 Credits", "200 A-Coins", "1 Prodigy Crate"],
+      "Vartex": ["100,000 Credits", "200 A-Coins", "1 Prodigy Crate"]
+    };
 
-function renderCodes() {
-  const query = search.value.toLowerCase().trim();
-  const filtered = codes.filter(item => {
-    const matchesFilter = currentFilter === "all" || item.status === currentFilter;
-    const matchesSearch = (item.code + " " + item.reward + " " + item.category)
-      .toLowerCase().includes(query);
-    return matchesFilter && matchesSearch;
-  });
+    const codeGrid = document.getElementById("codeGrid");
+    const search = document.getElementById("search");
+    const filter = document.getElementById("filter");
 
-  grid.querySelectorAll(".code-card").forEach(card => card.remove());
+    function renderCodes() {
+      const term = search.value.trim().toLowerCase();
+      const category = filter.value;
+      const visible = codes.filter(item => {
+        const matchesType = category === "all" || item.type === category;
+        const matchesTerm = item.code.toLowerCase().includes(term) || item.reward.toLowerCase().includes(term);
+        return matchesType && matchesTerm;
+      });
 
-  filtered.forEach(item => {
-    const card = document.createElement("article");
-    card.className = "code-card";
-
-    const top = document.createElement("div");
-    top.className = "card-top";
-
-    const category = document.createElement("span");
-    category.className = "category";
-    category.textContent = item.category || "Promo Code";
-
-    const status = document.createElement("span");
-    status.className = "status " + item.status;
-    status.textContent = item.status === "active" ? "VERIFIED ACTIVE" :
-      item.status === "expired" ? "EXPIRED" : "UNVERIFIED";
-
-    top.append(category, status);
-
-    const heading = document.createElement("h3");
-    heading.textContent = item.code;
-
-    const reward = document.createElement("p");
-    reward.className = "reward";
-    reward.textContent = item.reward;
-
-    const copyRow = document.createElement("div");
-    copyRow.className = "copy-row";
-
-    const note = document.createElement("small");
-    note.textContent = "Check eligibility";
-
-    const copyButton = document.createElement("button");
-    copyButton.className = "copy-btn";
-    copyButton.textContent = "Copy Code";
-    copyButton.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(item.code);
-        copyButton.textContent = "Copied!";
-      } catch {
-        copyButton.textContent = "Copy unavailable";
+      codeGrid.innerHTML = "";
+      if (!visible.length) {
+        codeGrid.innerHTML = '<div class="sub">No matching codes found.</div>';
+        return;
       }
-      setTimeout(() => copyButton.textContent = "Copy Code", 1500);
-    });
 
-    copyRow.append(note, copyButton);
-    card.append(top, heading, reward, copyRow);
-    grid.insertBefore(card, empty);
-  });
+      visible.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "code-card";
+        const label = item.type === "allplayers" ? "ALL PLAYERS" : "NEW PLAYERS";
+        const pillClass = item.type === "allplayers" ? "all" : "new";
+        card.innerHTML = `
+          <div class="code-top">
+            <div class="code-name"></div>
+            <span class="pill ${pillClass}">${label}</span>
+          </div>
+          <div class="reward"></div>
+          <button type="button">Copy Code</button>
+        `;
+        card.querySelector(".code-name").textContent = item.code;
+        card.querySelector(".reward").textContent = "🎁 " + item.reward;
+        card.querySelector("button").addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(item.code);
+            card.querySelector("button").textContent = "Copied!";
+          } catch {
+            window.prompt("Copy this code:", item.code);
+          }
+        });
+        codeGrid.appendChild(card);
+      });
+    }
 
-  empty.style.display = filtered.length ? "none" : "block";
-  document.getElementById("totalCount").textContent = codes.length;
-  document.getElementById("activeCount").textContent =
-    codes.filter(item => item.status === "active").length;
-}
+    function fillSelect(selectId, data) {
+      const select = document.getElementById(selectId);
+      Object.keys(data).forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+      });
+    }
 
-document.querySelectorAll(".filter").forEach(button => {
-  button.addEventListener("click", () => {
-    document.querySelectorAll(".filter").forEach(btn => btn.classList.remove("active"));
-    button.classList.add("active");
-    currentFilter = button.dataset.filter;
+    function showRewards(selectId, data, outputId) {
+      const selected = document.getElementById(selectId).value;
+      const output = document.getElementById(outputId);
+      output.innerHTML = "<strong>" + selected + " Pack</strong><br>" +
+        data[selected].map(item => "• " + item).join("<br>");
+    }
+
+    search.addEventListener("input", renderCodes);
+    filter.addEventListener("change", renderCodes);
+
+    fillSelect("starterSelect", starterPacks);
+    fillSelect("bonusSelect", bonusPacks);
+    document.getElementById("starterSelect").addEventListener("change", () =>
+      showRewards("starterSelect", starterPacks, "starterRewards"));
+    document.getElementById("bonusSelect").addEventListener("change", () =>
+      showRewards("bonusSelect", bonusPacks, "bonusRewards"));
+
+    showRewards("starterSelect", starterPacks, "starterRewards");
+    showRewards("bonusSelect", bonusPacks, "bonusRewards");
     renderCodes();
-  });
-});
 
-search.addEventListener("input", renderCodes);
-renderCodes();
-</script>
+    const freshCheck = document.getElementById("freshCheck");
+    const playCheck = document.getElementById("playCheck");
+    const generateBtn = document.getElementById("generateBtn");
+    function updateGenerator() {
+      generateBtn.disabled = !(freshCheck.checked && playCheck.checked);
+    }
+    freshCheck.addEventListener("change", updateGenerator);
+    playCheck.addEventListener("change", updateGenerator);
+    generateBtn.addEventListener("click", () => {
+      document.getElementById("generatorNotice").textContent =
+        "Pack selection saved in this page preview only. A genuine working offer URL still needs to be supplied or integrated before link generation can be enabled.";
+    });
+  </script>
 </body>
 </html>
-```
