@@ -1,4 +1,4 @@
-```yaml
+yaml
 name: Update MechNova YouTube Videos
 
 on:
@@ -35,4 +35,3 @@ jobs:
           else
             echo "No feed changes to commit"
           fi
-```
