@@ -86,6 +86,18 @@ footer a{margin:0 7px}
  .stat span{font-size:10px}
  select{flex:1}
 }
+
+.admin-panel{display:none;margin-top:18px}
+.admin-panel.visible{display:block}
+.admin-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0}
+.admin-form input,.admin-form select{width:100%;min-width:0;background:#0a1322;border:1px solid var(--border);border-radius:9px;padding:12px;color:var(--text);font-size:13px}
+.admin-list{display:grid;gap:9px;margin-top:15px}
+.admin-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px;background:#0a1322;border:1px solid var(--border);border-radius:9px}
+.admin-actions{display:flex;gap:8px}
+.admin-actions button,.mini-btn{border:1px solid #3b4b67;background:#25344d;color:var(--text);border-radius:7px;padding:8px 11px;cursor:pointer;font-weight:bold}
+.admin-actions .delete{border-color:#713544;background:#3c2029;color:#ffb1bd}
+.admin-status{font-size:12px;color:var(--muted);line-height:1.6;margin-top:8px}
+
 </style>
 </head>
 <body>
@@ -182,6 +194,37 @@ footer a{margin:0 7px}
  <div class="notice">Avoid unofficial sites asking for your password or OTP. Multiple invalid code attempts may temporarily restrict code entry. Platform redemption steps can differ.</div>
 </section>
 
+
+<section class="section" id="admin">
+ <div class="panel">
+  <div class="section-head"><h2>🔐 MechNova Admin</h2><div class="sub">Admin access only. Sign in with the Firebase account authorized for this project.</div></div>
+  <button class="btn secondary" id="adminToggle" type="button">Open Admin Login</button>
+  <div class="admin-panel" id="adminPanel">
+   <div id="adminLoginBox">
+    <h3>Admin Login</h3>
+    <form id="adminLoginForm" class="admin-form">
+     <input id="adminEmail" type="email" placeholder="Admin email" autocomplete="username" required>
+     <input id="adminPassword" type="password" placeholder="Password" autocomplete="current-password" required>
+     <button class="btn" type="submit">Login</button>
+    </form>
+   </div>
+   <div id="adminDashboard" hidden>
+    <div class="row" style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h3>Manage Promo Codes</h3><button class="mini-btn" id="adminLogout" type="button">Logout</button></div>
+    <p class="sub">Changes are saved to Cloud Firestore and appear on the public code list.</p>
+    <form id="codeForm" class="admin-form">
+     <input id="editCode" placeholder="Promo code" maxlength="80" required>
+     <select id="editType" required><option value="allplayers">All Players</option><option value="newplayers">New Players</option><option value="expired">Expired</option></select>
+     <input id="editReward" placeholder="Reward details" maxlength="500" required>
+     <button class="btn" id="saveCodeBtn" type="submit">Add Code</button>
+     <button class="btn secondary" id="cancelEdit" type="button" hidden>Cancel Edit</button>
+    </form>
+    <div class="admin-status" id="adminStatus" role="status"></div>
+    <div class="admin-list" id="adminCodeList"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
 <section class="section" id="about">
  <div class="panel">
   <h2>About MechNova</h2>
@@ -197,10 +240,13 @@ footer a{margin:0 7px}
 
 <footer>
  <div><strong>MECHNOVA</strong> — Independent Mech Arena fan project.</div>
- <div><a href="https://discord.gg/W5vGjBkgz" target="_blank" rel="noopener">Discord</a> · <a href="https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==" target="_blank" rel="noopener">Instagram</a></div>
+ <div><a href="https://discord.gg/W5vGjBkgz" target="_blank" rel="noopener">Discord</a> · <a href="https://www.instagram.com/mechnovaofficial?stkn=MWMyYnNqdWs0aWJ2Zw==" target="_blank" rel="noopener">Instagram</a> · <a href="#admin">Admin</a></div>
  <div class="small">All game names and trademarks belong to their respective owners. Code status and offers may change.</div>
 </footer>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script>
 const codes = [
  {code:"IMBACKBABY",type:"allplayers",reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
@@ -359,6 +405,125 @@ $("playCheck").addEventListener("change",updateGenerator);
 $("generateBtn").addEventListener("click",()=>{
  $("generatorNotice").textContent="Your selected packs are shown in this preview. A genuine offer URL is not configured, so no working link has been generated.";
 });
+
+// Firebase connection and admin dashboard
+const firebaseConfig = {
+  apiKey: "AIzaSyAMA_hVbD9g689ipduAGwam_iOXppWN1tw",
+  authDomain: "mechnova-7a1a8.firebaseapp.com",
+  projectId: "mechnova-7a1a8",
+  storageBucket: "mechnova-7a1a8.firebasestorage.app",
+  messagingSenderId: "129236631951",
+  appId: "1:129236631951:web:fced65e61281e058574bfa",
+  measurementId: "G-RQMMNJX9P2"
+};
+const ADMIN_UID = "GlmORQGIpvdbyirQm4IuXJecS0v1";
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+let adminDocs = [];
+let editingDocId = null;
+const adminPanel = $("adminPanel");
+const adminStatus = $("adminStatus");
+
+function setAdminStatus(message, isError=false){
+  adminStatus.textContent = message;
+  adminStatus.style.color = isError ? "#ff9baa" : "var(--muted)";
+}
+function codeDocId(code){ return code.trim().toUpperCase().replaceAll("/", "-"); }
+function showAdminPanel(){ adminPanel.classList.add("visible"); $("adminToggle").textContent="Close Admin Panel"; }
+$("adminToggle").addEventListener("click",()=>{
+  adminPanel.classList.toggle("visible");
+  $("adminToggle").textContent=adminPanel.classList.contains("visible")?"Close Admin Panel":"Open Admin Login";
+});
+
+async function loadPublicCodes(){
+  try{
+    const snap=await db.collection("promoCodes").get();
+    if(!snap.empty){
+      const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id}));
+      codes.splice(0,codes.length,...remote.filter(c=>c.code && c.type && c.reward));
+      renderCodes();
+    }
+  }catch(err){ console.warn("Firestore read unavailable; showing built-in list.",err); }
+}
+
+function resetCodeForm(){
+  editingDocId=null; $("codeForm").reset(); $("saveCodeBtn").textContent="Add Code"; $("cancelEdit").hidden=true;
+}
+function renderAdminList(){
+  const root=$("adminCodeList"); root.replaceChildren();
+  adminDocs.sort((a,b)=>String(a.code||"").localeCompare(String(b.code||""))).forEach(item=>{
+    const row=document.createElement("div"); row.className="admin-row";
+    const info=document.createElement("div");
+    const name=document.createElement("strong"); name.textContent=item.code||"(No code)";
+    const detail=document.createElement("div"); detail.className="small"; detail.textContent=(labels[item.type]||item.type||"Uncategorized")+" · "+(item.reward||"");
+    info.append(name,detail);
+    const actions=document.createElement("div"); actions.className="admin-actions";
+    const edit=document.createElement("button"); edit.type="button"; edit.textContent="Edit";
+    edit.addEventListener("click",()=>{
+      editingDocId=item.id; $("editCode").value=item.code||""; $("editType").value=item.type||"allplayers"; $("editReward").value=item.reward||"";
+      $("saveCodeBtn").textContent="Save Changes"; $("cancelEdit").hidden=false; $("editCode").focus();
+    });
+    const del=document.createElement("button"); del.type="button"; del.textContent="Delete"; del.className="delete";
+    del.addEventListener("click",async()=>{
+      if(!confirm("Delete promo code "+item.code+"?")) return;
+      try{ await db.collection("promoCodes").doc(item.id).delete(); setAdminStatus("Code deleted."); await refreshAdminCodes(); }
+      catch(err){ setAdminStatus(err.message||"Delete failed.",true); }
+    });
+    actions.append(edit,del); row.append(info,actions); root.append(row);
+  });
+  if(!adminDocs.length){const empty=document.createElement("p");empty.className="small";empty.textContent="No Firestore promo codes yet.";root.append(empty);}
+}
+async function refreshAdminCodes(){
+  const snap=await db.collection("promoCodes").get();
+  adminDocs=snap.docs.map(doc=>({...doc.data(),id:doc.id}));
+  if(!snap.size){
+    // Seed the current built-in code list once, from the signed-in admin session only.
+    const batch=db.batch();
+    codes.forEach(c=>{const ref=db.collection("promoCodes").doc(codeDocId(c.code));batch.set(ref,{code:c.code,type:c.type,reward:c.reward});});
+    await batch.commit();
+    const seeded=await db.collection("promoCodes").get();
+    adminDocs=seeded.docs.map(doc=>({...doc.data(),id:doc.id}));
+  }
+  codes.splice(0,codes.length,...adminDocs.filter(c=>c.code && c.type && c.reward));
+  renderCodes(); renderAdminList();
+}
+
+$("adminLoginForm").addEventListener("submit",async event=>{
+  event.preventDefault(); setAdminStatus("Signing in…");
+  try{ await auth.signInWithEmailAndPassword($("adminEmail").value.trim(),$("adminPassword").value); }
+  catch(err){setAdminStatus(err.message||"Login failed.",true);}
+});
+$("adminLogout").addEventListener("click",()=>auth.signOut());
+$("cancelEdit").addEventListener("click",resetCodeForm);
+$("codeForm").addEventListener("submit",async event=>{
+  event.preventDefault();
+  const code=$("editCode").value.trim().toUpperCase();
+  const type=$("editType").value;
+  const reward=$("editReward").value.trim();
+  if(!code || !reward || code.includes("/")){setAdminStatus("Enter a code without / and its reward details.",true);return;}
+  try{
+    const id=editingDocId||codeDocId(code);
+    await db.collection("promoCodes").doc(id).set({code,type,reward});
+    setAdminStatus(editingDocId?"Code updated successfully.":"Code added successfully.");
+    resetCodeForm(); await refreshAdminCodes();
+  }catch(err){setAdminStatus(err.message||"Could not save code.",true);}
+});
+
+auth.onAuthStateChanged(async user=>{
+  if(user && user.uid===ADMIN_UID){
+    $("adminLoginBox").hidden=true; $("adminDashboard").hidden=false; showAdminPanel();
+    setAdminStatus("Signed in as authorized admin. Loading codes…");
+    try{await refreshAdminCodes();setAdminStatus("Ready. Changes save to Firestore.");}
+    catch(err){setAdminStatus(err.message||"Could not load admin data. Check Firestore Rules.",true);}
+  }else{
+    if(user) await auth.signOut();
+    $("adminLoginBox").hidden=false; $("adminDashboard").hidden=true;
+    if(user) setAdminStatus("This account is not authorized as the site admin.",true);
+  }
+});
+loadPublicCodes();
+
 </script>
 </body>
 </html>
