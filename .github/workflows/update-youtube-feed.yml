@@ -1,7 +1,7 @@
-yaml
+```yaml
 name: Update MechNova YouTube Videos
 
-on:
+"on":
   schedule:
     - cron: '17 */6 * * *'
   workflow_dispatch:
@@ -35,3 +35,4 @@ jobs:
           else
             echo "No feed changes to commit"
           fi
+```
