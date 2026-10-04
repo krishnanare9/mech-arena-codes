@@ -483,3 +483,8 @@ a.nav-code-ticker{order:3;display:flex!important;align-items:center;gap:9px;flex
 .nav-code-ticker:hover .ticker-track{animation-play-state:paused}
 .nav-right{order:2;margin-left:auto}
 @media(max-width:600px){.nav{align-items:center}.nav-code-ticker{padding:6px 7px!important}.nav-code-ticker .ticker-label{font-size:9px}.nav-code-ticker .ticker-track{font-size:11px}}
+
+/* Keep the menu control at the far right of the top navigation row */
+.nav>.logo{order:1}
+.nav>.nav-right{order:2!important;margin-left:auto!important;flex:0 0 auto!important;width:auto!important;max-width:none!important;justify-content:flex-end!important;align-self:center}
+.nav>a.nav-code-ticker{order:3}
