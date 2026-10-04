@@ -424,6 +424,12 @@ pre, code { overflow-wrap:anywhere; }
 @container (max-width: 760px) { #packShowcase .showcase-card-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } #packShowcase .showcase-pack-art { height:clamp(135px,27vw,185px); } }
 @container (max-width: 440px) { #packShowcase .showcase-card-grid { grid-template-columns:minmax(0,1fr); gap:9px; } #packShowcase .showcase-pack-card { display:flex; flex-direction:column; } #packShowcase .showcase-pack-art { height:165px; min-height:0; } #packShowcase .showcase-pack-name { min-height:34px; } #packShowcase .showcase-rewards { grid-template-columns:repeat(2,minmax(0,1fr)); padding:6px; } #packShowcase .showcase-reward { gap:4px; padding:4px; } #packShowcase .showcase-reward img, #packShowcase .showcase-reward-icon { flex-basis:22px; width:22px; height:22px; } }
 
+
+/* MechNova accessibility and interaction polish */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #67e3ff!important;outline-offset:3px}
+:where(.code-card,.showcase-pack-card,.video-card,.earning-card){transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+:where(.code-card,.showcase-pack-card,.video-card,.earning-card):hover{border-color:#3d9fc4;box-shadow:0 12px 28px #0005}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
