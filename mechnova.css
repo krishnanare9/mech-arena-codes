@@ -469,3 +469,7 @@ pre, code { overflow-wrap:anywhere; }
 @keyframes mn-code-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:850px){.nav-links a.nav-code-ticker{min-width:205px;max-width:250px}}
 @media(prefers-reduced-motion:reduce){.nav-code-ticker .ticker-track{animation:none}}
+
+/* Ensure the running-code ticker stays visible beside the menu */
+.nav-right a.nav-code-ticker{display:flex!important;flex:0 1 260px;min-width:170px;width:260px;max-width:260px}
+@media(max-width:760px){.nav-right a.nav-code-ticker{flex:1 1 180px;width:auto;min-width:0;max-width:240px}}
