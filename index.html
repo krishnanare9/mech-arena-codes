@@ -878,18 +878,19 @@ function fillSelect(id,data,type){
 // Mech Arena reference artwork. Images are externally hosted by their respective publishers/community sources.
 // Public HTTPS URLs are used because Firebase Storage is not enabled for this project.
 const defaultPackImages={
- "Surge":"https://plariumplay-support.plarium.com/hc/article_attachments/15640851301020",
- "Brickhouse":"https://res.ldrescdn.com/faq/images/en/151bb874-e3e9-4c5d-986a-f428953a5d83.jpg",
- "Scorpius":"https://pbs.twimg.com/media/F9IlRPlXQAERwga.jpg",
- "Vortex":"https://pbs.twimg.com/media/GBZxa31X0AMUs_z.jpg",
- "Aegis":"https://i.ytimg.com/vi/SqWm17EpgD4/hqdefault.jpg",
- "Stalker":"https://mecharena-support.plarium.com/hc/article_attachments/18205774573852",
- "Guardian":"https://static.wikia.nocookie.net/mech-arena-robot-showdown/images/2/2c/NewGuardian.png/revision/latest?cb=20231003182117",
- "Shadow":"https://i.pinimg.com/736x/cf/70/62/cf70626341b5f55555bed022f76dd55f.jpg",
- "Blockhorn":"https://moduletd.com/wp-content/uploads/2026/08/Blockhorn-200x300.png",
- "Lacewing":"https://moduletd.com/wp-content/uploads/2026/07/lacewing-1-225x300.png",
- "Redeemer":"https://mecharena-support.plarium.com/hc/article_attachments/18189549539100",
- "Vartex":"https://pbs.twimg.com/media/GBZxa31X0AMUs_z.jpg"
+ "Surge":"images/surge-mech.png",
+ "Brickhouse":"images/brickhouse-mech.png",
+ "Scorpius":"images/scorpius-mech.png",
+ "Vortex":"images/vartex-mech.png",
+ "Vartex":"images/vartex-mech.png",
+ "Aegis":"images/aegis-mech.png",
+ "Stalker":"images/stalker-mech.png",
+ "Guardian":"images/guardian-mech.png",
+ "Shadow":"images/shadow-mech.png",
+ "Blockhorn":"images/blackhorn-mech.png",
+ "Blackhorn":"images/blackhorn-mech.png",
+ "Lacewing":"images/lacewing-mech.png",
+ "Redeemer":"images/redeemer-mech.png"
 };
 let packImages={...defaultPackImages};
 function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
@@ -929,14 +930,23 @@ function refreshPublicPacks(){
 function applyPackSettings(raw={}){
  if(raw.starterPacks&&typeof raw.starterPacks==="object")starterPacks=raw.starterPacks;
  if(raw.bonusPacks&&typeof raw.bonusPacks==="object")bonusPacks=raw.bonusPacks;
- if(raw.packImages&&typeof raw.packImages==="object")packImages={...defaultPackImages,...raw.packImages};
+ if(raw.packImages&&typeof raw.packImages==="object")packImages={...raw.packImages,...defaultPackImages};
  if(raw.packVisibility&&typeof raw.packVisibility==="object")packVisibility.starter=raw.packVisibility.starter||{},packVisibility.bonus=raw.packVisibility.bonus||{};
  refreshPublicPacks();
 }
 
 const rewardImages={
  "A-Coins":"https://moduletd.com/wp-content/uploads/2025/11/icon_hard_currency_large-55x55.png",
- "Credits":"https://moduletd.com/wp-content/uploads/2026/01/Credits-large-55x55.png"
+ "Credits":"https://moduletd.com/wp-content/uploads/2026/01/Credits-large-55x55.png",
+ "Revoker":"images/revokar-8.png",
+ "Revokar":"images/revokar-8.png",
+ "Cryo Launcher":"images/cryo-launcher-8.png",
+ "Missile Rack":"images/missile-rack-6.png",
+ "Minigun":"images/minigun-8.png",
+ "EM Rifle":"images/em-rifle-6.png",
+ "Fusion Cannon":"images/fusion-cannon-6.png",
+ "Gauss Rifle":"images/gauss-rifle-6.png",
+ "Shotgun":"images/shotgun-4.png"
 };
 function showPack(selectId,data,outputId){
  const name=$(selectId).value,box=$(outputId);box.replaceChildren();
