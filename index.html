@@ -459,7 +459,7 @@ function renderCodes(){
    const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+c.reward;
    card.append(top,reward);
    if(c.type!=="expired"){
-    const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code";
+    const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent="Copy";
     btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(c.code);btn.textContent=currentLang==="hi"?"कॉपी हो गया!":"Copied!";setTimeout(()=>btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code",1400);}catch(e){window.prompt("Copy this code:",c.code);}});
     card.append(btn);
    }
