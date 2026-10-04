@@ -458,3 +458,14 @@ pre, code { overflow-wrap:anywhere; }
 /* Add breathing room between the sticky navigation and hero banner */
 .public-page-content .hero{margin-top:18px!important;border-top:1px solid #164c70;border-radius:12px 12px 0 0;}
 @media(max-width:600px){.public-page-content .hero{margin-top:12px!important;border-radius:10px 10px 0 0;}}
+
+
+/* Animated running promo-code ticker in top navigation */
+.nav-links a.nav-code-ticker{display:flex;align-items:center;gap:7px;min-width:210px;max-width:290px;padding:6px 8px;border:1px solid #28547a;border-radius:8px;background:linear-gradient(100deg,#071b2b,#10243b);color:#eaf8ff;overflow:hidden;text-decoration:none}
+.nav-code-ticker .ticker-label{flex:none;padding:4px 6px;border-radius:5px;background:#14a66a;color:#fff;font-size:9px;font-weight:900;letter-spacing:.6px}
+.nav-code-ticker .ticker-window{display:block;min-width:0;flex:1;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.nav-code-ticker .ticker-track{display:flex;width:max-content;animation:mn-code-scroll 18s linear infinite;color:#8ce8ff;font-size:11px;font-weight:800;letter-spacing:.35px}
+.nav-code-ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes mn-code-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:850px){.nav-links a.nav-code-ticker{min-width:205px;max-width:250px}}
+@media(prefers-reduced-motion:reduce){.nav-code-ticker .ticker-track{animation:none}}
