@@ -446,6 +446,13 @@ pre, code { overflow-wrap:anywhere; }
  .pack-visual img.mech-art,.pack-visual .mech-placeholder{width:100%;max-width:260px;height:250px;flex:0 0 250px;object-fit:contain;}
  .pack-visual>div:not(.mech-placeholder){width:100%;flex:0 1 auto;}
 }
+
+/* MechNova fix: keep complete mech artwork visible in Starter Packs and Offers */
+#packShowcase .showcase-pack-art{height:clamp(190px,22vw,285px)!important;min-height:190px;overflow:visible!important;padding:12px!important;}
+#packShowcase .showcase-pack-art img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center center!important;}
+.pack-visual{min-height:250px!important;overflow:visible!important;}
+.pack-visual img.mech-art{width:190px!important;height:230px!important;max-width:42%!important;object-fit:contain!important;object-position:center!important;flex:0 0 190px!important;}
+@media(max-width:600px){#packShowcase .showcase-pack-art{height:210px!important;min-height:210px!important}.pack-visual img.mech-art{width:100%!important;max-width:230px!important;height:230px!important;flex:0 0 230px!important;}}
 </style>
 </head>
 <body>
