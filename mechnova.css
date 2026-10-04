@@ -448,7 +448,7 @@ pre, code { overflow-wrap:anywhere; }
 
 
 /* Compact MechNova banner centered behind hero text */
-.public-page-content .hero{background-image:linear-gradient(90deg,rgba(3,12,27,.68),rgba(3,12,27,.34),rgba(3,12,27,.68)),linear-gradient(180deg,rgba(3,12,27,.20),rgba(3,12,27,.78)),url('/images/MechNova-bannarnew.png')!important;background-position:center,center,center center!important;background-size:100% 100%,100% 100%,min(1080px,100vw) auto!important;background-repeat:no-repeat!important;min-height:390px}
+.public-page-content .hero{background-image:linear-gradient(90deg,rgba(3,12,27,.68),rgba(3,12,27,.34),rgba(3,12,27,.68)),linear-gradient(180deg,rgba(3,12,27,.20),rgba(3,12,27,.78)),url('/images/MechNova-bannarnew.webp')!important;background-position:center,center,center center!important;background-size:100% 100%,100% 100%,min(1080px,100vw) auto!important;background-repeat:no-repeat!important;min-height:390px}
 @media(max-width:600px){.public-page-content .hero{min-height:350px;background-size:100% 100%,100% 100%,112vw auto!important}}
 
 
