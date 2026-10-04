@@ -241,10 +241,10 @@
      </section>
     <details id="adminWebsiteEditor" class="cms-editor" open style="margin-top:24px;border:1px solid #24506e;border-radius:12px;padding:16px;background:#07182a">
      <summary style="cursor:pointer;font-weight:800;color:#35dfff;font-size:18px">🌐 Full Website Control — Website Editor</summary>
-     <p class="sub">यहाँ बदलाव सेव करने पर सार्वजनिक वेबसाइट पर लागू होंगे। तस्वीरों के लिए public HTTPS URL या GitHub repo का images/filename.webp path दें।</p>
+     <p class="sub">यहाँ बदलाव सेव करने पर सार्वजनिक वेबसाइट पर लागू होंगे। तस्वीरों के लिए public HTTPS URL या GitHub repo का images/filename.png path दें।</p>
      <form id="siteSettingsForm" class="admin-form">
       <label>ब्रांड नाम<input id="cmsBrand" maxlength="60" placeholder="MechNova"></label>
-      <label>वेबसाइट लोगो URL<input id="cmsLogoUrl" type="text" placeholder="https://...logo.png"><small class="upload-help">Public HTTPS URL या GitHub images/logo.webp जैसा path दें।</small></label>
+      <label>वेबसाइट लोगो URL<input id="cmsLogoUrl" type="text" placeholder="https://...logo.png"><small class="upload-help">Public HTTPS URL या GitHub images/logo.png जैसा path दें।</small></label>
       <label>होम बैनर शीर्षक<input id="cmsHeroTitle" maxlength="100" placeholder="MECH ARENA MECHNOVA"></label>
       <label>होम विवरण<input id="cmsHeroDesc" maxlength="300" placeholder="Promo Codes • Packs • Guides • Gameplay"></label>
       <label>बैनर पृष्ठभूमि चित्र URL<input id="cmsHeroBg" type="text" placeholder="https://...image.jpg"><small class="upload-help">Public HTTPS URL या images/banner.jpg जैसा path दें।</small></label>
@@ -310,7 +310,7 @@
        <button class="btn secondary" id="cmsPackReload" type="button">Reload Saved Packs</button>
       </div>
      </div>
-     <div class="small">Image के लिए public HTTPS URL या images/surge.webp जैसा GitHub path दें। Repo में images folder बनाकर image upload करें। Removing a pack deletes it from saved pack settings.</div>
+     <div class="small">Image के लिए public HTTPS URL या images/surge.png जैसा GitHub path दें। Repo में images folder बनाकर image upload करें। Removing a pack deletes it from saved pack settings.</div>
     </details>
      </div>
     </div>
@@ -798,7 +798,7 @@ $("cmsPackSave").addEventListener("click",async()=>{
  const type=currentPackType(),data=currentPackData(),oldName=packEditorOriginalName,name=$("cmsPackName").value.trim(),rewards=$("cmsPackRewards").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),img=$("cmsPackImage").value.trim();
  if(!name){setAdminStatus("Enter a pack name.",true);return;}
  if(!rewards.length){setAdminStatus("Add at least one reward, one per line.",true);return;}
- if(img&&!safeImageSrc(img)){setAdminStatus("Use a public HTTPS image URL or a valid images/filename.webp path.",true);return;}
+ if(img&&!safeImageSrc(img)){setAdminStatus("Use a public HTTPS image URL or a valid images/filename.png path.",true);return;}
  if(oldName&&oldName!==name&&data[name]){setAdminStatus("A pack with this name already exists.",true);return;}
  if(oldName&&oldName!==name){delete data[oldName];delete packVisibility[type][oldName];}
  data[name]=rewards;packVisibility[type][name]=$("cmsPackVisible").checked;
@@ -821,7 +821,7 @@ $("siteSettingsForm").addEventListener("submit",async event=>{
  if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID){setAdminStatus("केवल अधिकृत एडमिन बदलाव सेव कर सकता है।",true);return;}
  const keys={brand:"cmsBrand",heroTitle:"cmsHeroTitle",heroDesc:"cmsHeroDesc",heroBg:"cmsHeroBg",logoUrl:"cmsLogoUrl",bg:"cmsBg",accent:"cmsAccent",secondary:"cmsSecondary",font:"cmsFont",video1:"cmsVideo1",videoTitle1:"cmsVideoTitle1",video2:"cmsVideo2",videoTitle2:"cmsVideoTitle2",youtube:"cmsYoutube",discord:"cmsDiscord",instagram:"cmsInstagram",customTitle:"cmsCustomTitle",customText:"cmsCustomText"};
  const data={};for(const [key,id] of Object.entries(keys)){data[key]=$(id).value.trim();}
- for(const key of ["heroBg","logoUrl"]){if(data[key]&&!safeImageSrc(data[key])){setAdminStatus("Logo और Banner के लिए public HTTPS URL या images/filename.webp path दें: "+key,true);return;}}
+ for(const key of ["heroBg","logoUrl"]){if(data[key]&&!safeImageSrc(data[key])){setAdminStatus("Logo और Banner के लिए public HTTPS URL या images/filename.png path दें: "+key,true);return;}}
  for(const key of ["video1","video2","youtube","discord","instagram"]){if(data[key]&&!safeUrl(data[key])){setAdminStatus("कृपया सही http/https लिंक डालें: "+key,true);return;}}
  try{await db.collection("siteSettings").doc("public").set(data,{merge:true});applySiteSettings(data);setAdminStatus("वेबसाइट की सेटिंग सेव हो गईं। सार्वजनिक पेज रिफ्रेश करके जाँचें।");}
  catch(err){setAdminStatus("सेव नहीं हुआ: "+(err.message||"Firestore Rules जाँचें"),true);}
