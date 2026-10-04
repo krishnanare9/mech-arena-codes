@@ -6,7 +6,7 @@ import subprocess
 root = Path(".")
 image_dir = root / "images"
 text_files = [p for p in root.rglob("*") if p.is_file() and p.suffix.lower() in {".html", ".css", ".js"} and ".git" not in p.parts and ".github" not in p.parts]
-pattern = re.compile(r"(?P<url>(?:/)?images/[^\\"'()\\s,]+\\.png)", re.IGNORECASE)
+pattern = re.compile(r'''(?P<url>(?:/)?images/[^"'()\\s,]+\\.png)''', re.IGNORECASE)
 referenced = set()
 for path in text_files:
     content = path.read_text(encoding="utf-8")
