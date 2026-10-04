@@ -596,6 +596,7 @@ const offerLinks={
  Aegis:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_case_minigun_a_m_f058_p_sb_jt4030?plid=1660170&pxl=sharainfluencer&influencer=SharaSoft&reward=Package44&inviterId=um000&a=28&af_inactivity_window=14d&n=30&influencer=SharaSoft&campaign_ios=1660172&af_ad=ma_generator&is_retargeting=true&placement=ma_generator&reward=Package44&i=um000&af_reengagement_window=lifetime&campaign_android=1660171&pid=sharasoft",
  Stalker:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_maveric_f058_jt3248?plid=1533929&pxl=sharainfluencer&publisherId=SharaSoft-Package40&inviterId=um000&is_retargeting=true&campaign_ios=1533927&reward=Package40&af_inactivity_window=14d&influencer=SharaSoft&af_sub2=28&af_ad=ma_generator&pid=sharasoft&af_reengagement_window=lifetime&placement=ma_generator&af_sub3=30&campaign_android=1533928&conditionalReward=-&af_sub1=um000",
  Guardian:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_acanta_a_m_f058_p_sb_jt3249?plid=1554434&pxl=sharainfluencer&adCampaign=1554434&publisherId=SharaSoft-Package39&inviterId=um000&af_sub1=um000&af_reengagement_window=lifetime&af_inactivity_window=14d&is_retargeting=true&af_sub3=30&placement=ma_generator&campaign_android=1554435&af_ad=ma_generator&campaign_ios=1554436&reward=Package39&pid=sharasoft",
+ Maverick Pilot:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_maveric_f058_jt2561?plid=1221032&pxl=sharainfluencer&publisherId=SharaSoft-Package38&inviterId=um000&reward=Package38&af_sub2=28&is_retargeting=true&pid=sharasoft&af_sub1=um000&af_inactivity_window=14d&af_sub3=30&influencer=SharaSoft&placement=ma_generator&campaign_android=1221030&conditionalReward=-&af_ad=ma_generator&af_reengagement_window=lifetime&campaign_ios=1221031",
  Shadow:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_shadow_f058_jt2560?plid=1220969&pxl=sharainfluencer&publisherId=SharaSoft-Package37&inviterId=um000&influencer=SharaSoft&af_ad=ma_generator&placement=ma_generator&campaign_android=1220971&af_inactivity_window=14d&is_retargeting=true&af_sub3=30&af_sub1=um000&pid=sharasoft&af_sub2=28&reward=Package37&af_reengagement_window=lifetime&campaign_ios=1220970&conditionalReward=-",
 };
 function updateGenerator(){
@@ -604,7 +605,7 @@ function updateGenerator(){
  const ready=configured&&$("freshCheck").checked&&$("playCheck").checked;
  $("generateBtn").disabled=!ready;
  $("generateBtn").textContent=configured?"Get "+selected+" Offer Link":"Select a Configured Pack";
- $("generatorNotice").textContent=configured?selected+" offer link is available. Confirm both eligibility notes to continue.":"A configured offer link is currently available for Surge, Brickhouse, Scorpius, Aegis, Stalker, Guardian and Shadow packs.";
+ $("generatorNotice").textContent=configured?selected+" offer link is available. Confirm both eligibility notes to continue.":"A configured offer link is currently available for Surge, Brickhouse, Scorpius, Aegis, Stalker, Guardian, Shadow and Maverick Pilot packs.";
 }
 $("freshCheck").addEventListener("change",updateGenerator);
 $("playCheck").addEventListener("change",updateGenerator);
