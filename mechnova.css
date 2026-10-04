@@ -443,3 +443,5 @@ pre, code { overflow-wrap:anywhere; }
 @media(max-width:600px){#packShowcase .showcase-pack-art{height:210px!important;min-height:210px!important}.pack-visual img.mech-art{width:100%!important;max-width:230px!important;height:230px!important;flex:0 0 230px!important;}}
 
 /* Referenced PNG assets are optimized to WebP by the GitHub Actions workflow. */
+
+/* Re-run WebP image optimization after staging fix. */
