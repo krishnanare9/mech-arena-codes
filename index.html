@@ -593,7 +593,8 @@ const offerLinks={
  Surge:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_case_revoker_a_m_f058_p_sb_jt4155?plid=1776433&pxl=sharainfluencer&reward=Package46&inviterId=um000&is_retargeting=true&campaign_ios=1776432&n=30&af_reengagement_window=lifetime&placement=ma_generator&af_ad=ma_generator&reward=Package46&af_inactivity_window=14d&i=um000&campaign_android=1776431&pid=sharasoft&a=28",
  Brickhouse:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_impulse_a_m_f058_p_sb_jt4029?plid=1660173&pxl=sharainfluencer&influencer=SharaSoft&reward=Package43&inviterId=um000&campaign_ios=1660175&af_ad=ma_generator&af_inactivity_window=14d&influencer=SharaSoft&a=28&af_reengagement_window=lifetime&is_retargeting=true&placement=ma_generator&i=um000&n=30&pid=sharasoft&reward=Package43&campaign_android=1660174",
  Scorpius:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_ji_yoon_f058_jt2559?plid=923704&pxl=sharainfluencer&publisherId=SharaSoft-Package36&inviterId=um000&af_sub3=30&campaign_android=923703&placement=ma_generator&conditionalReward=-&af_sub2=28&campaign_ios=923705&af_sub1=um000&af_ad=ma_generator&af_inactivity_window=14d&reward=Package36&influencer=SharaSoft&is_retargeting=true&pid=sharasoft&af_reengagement_window=lifetime",
- Aegis:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_case_minigun_a_m_f058_p_sb_jt4030?plid=1660170&pxl=sharainfluencer&influencer=SharaSoft&reward=Package44&inviterId=um000&a=28&af_inactivity_window=14d&n=30&influencer=SharaSoft&campaign_ios=1660172&af_ad=ma_generator&is_retargeting=true&placement=ma_generator&reward=Package44&i=um000&af_reengagement_window=lifetime&campaign_android=1660171&pid=sharasoft"
+ Aegis:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_case_minigun_a_m_f058_p_sb_jt4030?plid=1660170&pxl=sharainfluencer&influencer=SharaSoft&reward=Package44&inviterId=um000&a=28&af_inactivity_window=14d&n=30&influencer=SharaSoft&campaign_ios=1660172&af_ad=ma_generator&is_retargeting=true&placement=ma_generator&reward=Package44&i=um000&af_reengagement_window=lifetime&campaign_android=1660171&pid=sharasoft",
+ Stalker:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_maveric_f058_jt3248?plid=1533929&pxl=sharainfluencer&publisherId=SharaSoft-Package40&inviterId=um000&is_retargeting=true&campaign_ios=1533927&reward=Package40&af_inactivity_window=14d&influencer=SharaSoft&af_sub2=28&af_ad=ma_generator&pid=sharasoft&af_reengagement_window=lifetime&placement=ma_generator&af_sub3=30&campaign_android=1533928&conditionalReward=-&af_sub1=um000"
 };
 function updateGenerator(){
  const selected=$("starterSelect").value;
@@ -601,7 +602,7 @@ function updateGenerator(){
  const ready=configured&&$("freshCheck").checked&&$("playCheck").checked;
  $("generateBtn").disabled=!ready;
  $("generateBtn").textContent=configured?"Get "+selected+" Offer Link":"Select a Configured Pack";
- $("generatorNotice").textContent=configured?selected+" offer link is available. Confirm both eligibility notes to continue.":"A configured offer link is currently available for Surge, Brickhouse, Scorpius and Aegis packs.";
+ $("generatorNotice").textContent=configured?selected+" offer link is available. Confirm both eligibility notes to continue.":"A configured offer link is currently available for Surge, Brickhouse, Scorpius, Aegis and Stalker packs.";
 }
 $("freshCheck").addEventListener("change",updateGenerator);
 $("playCheck").addEventListener("change",updateGenerator);
