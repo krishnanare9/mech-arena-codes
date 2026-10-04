@@ -435,12 +435,15 @@ pre, code { overflow-wrap:anywhere; }
  .pack-visual>div:not(.mech-placeholder){width:100%;flex:0 1 auto;}
 }
 
-/* MechNova fix: keep complete mech artwork visible in Starter Packs and Offers */
-#packShowcase .showcase-pack-art{height:clamp(190px,22vw,285px)!important;min-height:190px;overflow:visible!important;padding:12px!important;}
+/* MechNova fix: taller pack cards prevent mech art and names from overlapping */
+#packShowcase .showcase-pack-card{min-height:460px!important;}
+#packShowcase .showcase-pack-art{height:clamp(250px,25vw,320px)!important;min-height:250px;flex:0 0 auto!important;overflow:visible!important;padding:14px!important;}
 #packShowcase .showcase-pack-art img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center center!important;}
+#packShowcase .showcase-pack-name{position:relative!important;z-index:1;flex:0 0 auto!important;min-height:42px!important;line-height:1.35;padding:9px 10px!important;}
+#packShowcase .showcase-rewards{position:relative!important;z-index:1;flex:1 0 auto!important;}
 .pack-visual{min-height:250px!important;overflow:visible!important;}
 .pack-visual img.mech-art{width:190px!important;height:230px!important;max-width:42%!important;object-fit:contain!important;object-position:center!important;flex:0 0 190px!important;}
-@media(max-width:600px){#packShowcase .showcase-pack-art{height:210px!important;min-height:210px!important}.pack-visual img.mech-art{width:100%!important;max-width:230px!important;height:230px!important;flex:0 0 230px!important;}}
+@media(max-width:600px){#packShowcase .showcase-pack-card{min-height:410px!important}#packShowcase .showcase-pack-art{height:235px!important;min-height:235px!important}.pack-visual img.mech-art{width:100%!important;max-width:230px!important;height:230px!important;flex:0 0 230px!important;}}
 
 /* Referenced PNG assets are optimized to WebP by the GitHub Actions workflow. */
 
