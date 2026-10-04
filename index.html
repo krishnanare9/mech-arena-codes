@@ -585,18 +585,27 @@ $("filter").addEventListener("change",renderCodes);
 document.querySelectorAll(".category-view").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.filter==="expired"){expiredRevealed=!(expiredRevealed||$("filter").value==="expired");$("filter").value=expiredRevealed?"all":"all";}else{$("filter").value=btn.dataset.filter;}renderCodes();$("codes").scrollIntoView({behavior:"smooth"});}));
 
 refreshPublicPacks();
-$("starterSelect").addEventListener("change",()=>showPack("starterSelect",starterPacks,"starterRewards"));
+$("starterSelect").addEventListener("change",()=>{showPack("starterSelect",starterPacks,"starterRewards");updateGenerator();});
 $("bonusSelect").addEventListener("change",()=>showPack("bonusSelect",bonusPacks,"bonusRewards"));
 renderCodes();
 
+const offerLinks={Surge:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_case_revoker_a_m_f058_p_sb_jt4155?plid=1776433&pxl=sharainfluencer&reward=Package46&inviterId=um000&is_retargeting=true&campaign_ios=1776432&n=30&af_reengagement_window=lifetime&placement=ma_generator&af_ad=ma_generator&reward=Package46&af_inactivity_window=14d&i=um000&campaign_android=1776431&pid=sharasoft&a=28"};
 function updateGenerator(){
- $("generateBtn").disabled=!($("freshCheck").checked && $("playCheck").checked);
+ const selected=$("starterSelect").value;
+ const ready=Boolean(offerLinks[selected])&&$("freshCheck").checked&&$("playCheck").checked;
+ $("generateBtn").disabled=!ready;
+ $("generateBtn").textContent=offerLinks[selected]?"Get Surge Offer Link":"Select Surge Pack";
+ $("generatorNotice").textContent=offerLinks[selected]?"Surge offer link is available. Confirm both eligibility notes to continue.":"A verified offer link is currently configured for the Surge pack only.";
 }
 $("freshCheck").addEventListener("change",updateGenerator);
 $("playCheck").addEventListener("change",updateGenerator);
 $("generateBtn").addEventListener("click",()=>{
- $("generatorNotice").textContent="Your selected packs are shown in this preview. A genuine offer URL is not configured, so no working link has been generated.";
+ const url=offerLinks[$("starterSelect").value];
+ if(!url)return;
+ $("generatorNotice").textContent="Opening the configured Surge offer. Plarium will determine account eligibility and offer availability.";
+ window.open(url,"_blank","noopener,noreferrer");
 });
+updateGenerator();
 
 // Google Translate provides a broad set of visitor languages.
 function googleTranslateElementInit(){
