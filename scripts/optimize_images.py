@@ -35,7 +35,7 @@ for path in text_files:
 
 subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
 subprocess.run(["git", "config", "user.email", "41898282+github-actions[bot]@users.noreply.github.com"], check=True)
-subprocess.run(["git", "add", "images", "*.html", "*.css", "*.js"], check=True)
+subprocess.run(["git", "add", "-A", "--", "images", "index.html", "mechnova.css", "promo-codes-2026.html"], check=True)
 changed = subprocess.run(["git", "diff", "--cached", "--quiet"])
 if changed.returncode == 0:
     print("No file changes to commit.")
