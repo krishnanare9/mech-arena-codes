@@ -29,7 +29,7 @@ if not converted:
 
 for path in text_files:
     content = path.read_text(encoding="utf-8")
-    updated = pattern.sub(lambda m: m.group("url")[:-4] + ".webp", content)
+    updated = pattern.sub(lambda m: (m.group("url")[:-4] + ".webp") if (root / m.group("url").lstrip("/")).with_suffix(".webp").exists() else m.group("url"), content)
     if updated != content:
         path.write_text(updated, encoding="utf-8")
 
