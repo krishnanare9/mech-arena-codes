@@ -698,8 +698,18 @@ async function loadPublicCodes(){
   try{
     const snap=await db.collection("promoCodes").get();
     if(!snap.empty){
-      const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id}));
-      codes.splice(0,codes.length,...remote.filter(c=>c.code && c.type && c.reward));
+      // Keep the built-in list visible if older Firestore records use legacy type labels.
+      const merged=new Map(codes.map(c=>[String(c.code).trim().toUpperCase(),{...c}]));
+      snap.docs.forEach(doc=>{
+        const raw=doc.data()||{}, code=String(raw.code||"").trim().toUpperCase();
+        if(!code)return;
+        const rawType=String(raw.type||raw.status||"").trim().toLowerCase().replace(/[\\s_-]+/g,"");
+        const type=rawType==="expired"||rawType==="inactive"?"expired":rawType==="newplayer"||rawType==="newplayers"?"newplayers":rawType==="allplayer"||rawType==="allplayers"||rawType==="active"?"allplayers":"";
+        if(!type)return;
+        const previous=merged.get(code)||{};
+        merged.set(code,{...previous,...raw,code,type,reward:String(raw.reward||previous.reward||raw.rewards||"Reward details unavailable"),id:doc.id});
+      });
+      codes.splice(0,codes.length,...merged.values());
       renderCodes();
     }
   }catch(err){ console.warn("Firestore read unavailable; showing built-in list.",err); }
