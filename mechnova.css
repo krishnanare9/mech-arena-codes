@@ -857,3 +857,15 @@ footer{font-size:13px;line-height:1.9}
 .faq-important p{color:#e8f0f7}
 #faq .faq-answer>p:not(.faq-answer-intro){color:#e1ebf3}
 @media(max-width:700px){.faq-method+.faq-method{border-top-color:#2b537055}.faq-method-or{color:#ffd76b}.faq-method-or::before,.faq-method-or::after{background:#2b537055}}
+
+
+/* Optional PhonePe support card */
+.support-qr-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,300px);align-items:center;gap:22px;margin:0 0 14px;padding:20px;border:1px solid #2b6283;border-radius:16px;background:linear-gradient(140deg,#102d47,#091b2d);box-shadow:0 10px 26px #0004}
+.support-qr-copy{min-width:0}
+.support-qr-kicker{display:inline-block;color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:1.2px}
+.support-qr-copy h3{margin:8px 0;color:var(--text);font-size:clamp(20px,2vw,27px)}
+.support-qr-copy p{max-width:58ch;margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.65}
+.support-qr-copy>strong{color:#bca9ff;font-size:13px}
+.support-qr-link{display:block;width:min(100%,300px);margin-inline:auto;padding:8px;border:1px solid #8b75bf;border-radius:14px;background:#090909;box-shadow:0 8px 22px #0006;line-height:0}
+.support-qr-link img{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:8px}
+@media(max-width:640px){.support-qr-card{grid-template-columns:minmax(0,1fr);gap:16px;padding:16px;text-align:center}.support-qr-copy p{margin-inline:auto}.support-qr-link{width:min(100%,280px)}}

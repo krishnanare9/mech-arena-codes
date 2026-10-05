@@ -26,11 +26,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" href="/mechnova.css?v=004d6b41" as="style">
+<link rel="preload" href="/mechnova.css?v=4f696d6a" as="style">
 <link rel="preload" href="/images/MechNova-bannarnew.webp?v=4" as="image" fetchpriority="high">
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://translate.google.com" crossorigin>
-<link rel="stylesheet" href="/mechnova.css?v=004d6b41">
+<link rel="stylesheet" href="/mechnova.css?v=4f696d6a">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -202,8 +202,19 @@
 
 
 
-<section class="section" id="monetizationHub" hidden>
- <div class="section-head"><h2>✦ Support & Partner with MechNova</h2><div class="sub">Explore ways to support the independent MechNova gaming community.</div></div>
+<section class="section support-section" id="monetizationHub">
+ <div class="section-head"><h2>✦ Support & Partner with MechNova</h2><div class="sub">Contributions are optional and help support the independent MechNova community.</div></div>
+ <div class="support-qr-card">
+  <div class="support-qr-copy">
+   <span class="support-qr-kicker">OPTIONAL COMMUNITY SUPPORT</span>
+   <h3>Support MechNova</h3>
+   <p>Scan this PhonePe QR with the PhonePe app or a compatible UPI app. Contributions are voluntary and do not provide promo codes, in-game rewards or special access.</p>
+   <strong>Scan &amp; pay using PhonePe</strong>
+  </div>
+  <a class="support-qr-link" href="/images/mechnova-support-phonepe.png" target="_blank" rel="noopener noreferrer" aria-label="Open the PhonePe support QR at full size">
+   <img id="mechNovaSupportQr" src="/images/mechnova-support-phonepe.png" alt="PhonePe scan-and-pay QR for optional MechNova support" width="848" height="1570" loading="lazy" decoding="async">
+  </a>
+ </div>
  <div class="earning-grid" id="earningPublicCards"></div>
 </section>
 
@@ -804,7 +815,7 @@ function fillSiteEditor(raw={}){const c={...SITE_DEFAULTS,...raw};const map={bra
 
 const EARNING_DEFAULTS={adsEnabled:false,adsText:"Ads may appear here after approval and integration.",affiliateEnabled:false,affiliateTitle:"Gaming Setup Recommendations",affiliateText:"Explore gaming accessories we recommend.",affiliateUrl:"",sponsorEnabled:false,sponsorTitle:"Partner with MechNova",sponsorText:"For gaming collaborations and sponsored campaigns, contact us.",sponsorEmail:"",donationEnabled:false,donationTitle:"Support MechNova",donationText:"Support the time and effort behind community updates.",donationUrl:"",premiumEnabled:false,premiumTitle:"Premium Gaming Guides",premiumText:"Optional advanced guides and community extras.",premiumUrl:"",youtubeEnabled:true,youtubeUrl:"https://www.youtube.com/@OfficialMechNova",youtubeText:"Watch code updates, gameplay and guides on YouTube."};
 function fillEarningEditor(raw={}){const c={...EARNING_DEFAULTS,...(raw.monetization||{})};const map={adsEnabled:"earnAdsEnabled",adsText:"earnAdsText",affiliateEnabled:"earnAffiliateEnabled",affiliateTitle:"earnAffiliateTitle",affiliateText:"earnAffiliateText",affiliateUrl:"earnAffiliateUrl",sponsorEnabled:"earnSponsorEnabled",sponsorTitle:"earnSponsorTitle",sponsorText:"earnSponsorText",sponsorEmail:"earnSponsorEmail",donationEnabled:"earnDonationEnabled",donationTitle:"earnDonationTitle",donationText:"earnDonationText",donationUrl:"earnDonationUrl",premiumEnabled:"earnPremiumEnabled",premiumTitle:"earnPremiumTitle",premiumText:"earnPremiumText",premiumUrl:"earnPremiumUrl",youtubeEnabled:"earnYoutubeEnabled",youtubeUrl:"earnYoutubeUrl",youtubeText:"earnYoutubeText"};Object.entries(map).forEach(([k,id])=>{const el=$(id);if(el){if(el.type==="checkbox")el.checked=!!c[k];else el.value=c[k]??"";}});}
-function renderEarningCards(raw={}){const c={...EARNING_DEFAULTS,...(raw.monetization||{})};const host=$("earningPublicCards"),section=$("monetizationHub");if(!host||!section)return;host.replaceChildren();const entries=[{enabled:c.adsEnabled,title:"Website Ads",text:c.adsText,href:"",button:"Ad information"},{enabled:c.affiliateEnabled,title:c.affiliateTitle,text:c.affiliateText,href:safeUrl(c.affiliateUrl),button:"Explore products"},{enabled:c.sponsorEnabled,title:c.sponsorTitle,text:c.sponsorText,href:c.sponsorEmail&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.sponsorEmail)?"mailto:"+c.sponsorEmail:"",button:"Contact for partnerships"},{enabled:c.donationEnabled,title:c.donationTitle,text:c.donationText,href:safeUrl(c.donationUrl),button:"Support MechNova"},{enabled:c.premiumEnabled,title:c.premiumTitle,text:c.premiumText,href:safeUrl(c.premiumUrl),button:"View membership"},{enabled:c.youtubeEnabled,title:"MechNova on YouTube",text:c.youtubeText,href:safeUrl(c.youtubeUrl),button:"Watch videos"}];let visible=0;for(const item of entries){if(!item.enabled)continue;const card=document.createElement("article");card.className="earning-card";const h=document.createElement("h3");h.textContent=item.title||"MechNova";const p=document.createElement("p");p.textContent=item.text||"";card.append(h,p);if(item.href){const a=document.createElement("a");a.className="btn secondary";a.href=item.href;a.textContent=item.button;a.rel="noopener noreferrer";if(!item.href.startsWith("mailto:")){a.target="_blank";}card.append(a);}else if(item.title==="Website Ads"){const note=document.createElement("span");note.className="small";note.textContent="Advertising setup is pending approval and integration.";card.append(note);}else{const note=document.createElement("span");note.className="small";note.textContent="Contact details or a valid destination link are not configured yet.";card.append(note);}host.append(card);visible++;}section.hidden=visible===0;}
+function renderEarningCards(raw={}){const c={...EARNING_DEFAULTS,...(raw.monetization||{})};const host=$("earningPublicCards"),section=$("monetizationHub");if(!host||!section)return;host.replaceChildren();const entries=[{enabled:c.adsEnabled,title:"Website Ads",text:c.adsText,href:"",button:"Ad information"},{enabled:c.affiliateEnabled,title:c.affiliateTitle,text:c.affiliateText,href:safeUrl(c.affiliateUrl),button:"Explore products"},{enabled:c.sponsorEnabled,title:c.sponsorTitle,text:c.sponsorText,href:c.sponsorEmail&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.sponsorEmail)?"mailto:"+c.sponsorEmail:"",button:"Contact for partnerships"},{enabled:c.donationEnabled,title:c.donationTitle,text:c.donationText,href:safeUrl(c.donationUrl),button:"Support MechNova"},{enabled:c.premiumEnabled,title:c.premiumTitle,text:c.premiumText,href:safeUrl(c.premiumUrl),button:"View membership"},{enabled:c.youtubeEnabled,title:"MechNova on YouTube",text:c.youtubeText,href:safeUrl(c.youtubeUrl),button:"Watch videos"}];let visible=0;for(const item of entries){if(!item.enabled)continue;const card=document.createElement("article");card.className="earning-card";const h=document.createElement("h3");h.textContent=item.title||"MechNova";const p=document.createElement("p");p.textContent=item.text||"";card.append(h,p);if(item.href){const a=document.createElement("a");a.className="btn secondary";a.href=item.href;a.textContent=item.button;a.rel="noopener noreferrer";if(!item.href.startsWith("mailto:")){a.target="_blank";}card.append(a);}else if(item.title==="Website Ads"){const note=document.createElement("span");note.className="small";note.textContent="Advertising setup is pending approval and integration.";card.append(note);}else{const note=document.createElement("span");note.className="small";note.textContent="Contact details or a valid destination link are not configured yet.";card.append(note);}host.append(card);visible++;}section.hidden=visible===0&&!$("mechNovaSupportQr");}
 
 async function loadSiteSettings(){try{const doc=await db.collection("siteSettings").doc("public").get();const data=doc.exists?doc.data():{};applySiteSettings(data);fillSiteEditor(data);fillEarningEditor(data);renderEarningCards(data);refreshPackEditorSelect();}catch(err){console.warn("Website settings could not load",err);applySiteSettings();fillSiteEditor();fillEarningEditor();renderEarningCards();}}
 let adminDocs = [];
