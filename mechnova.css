@@ -742,3 +742,82 @@ footer{font-size:13px;line-height:1.9}
 .faq-answer ol,.faq-answer ul{padding-left:22px}
 .faq-answer li+li{margin-top:5px}
 @media(max-width:760px){.code-type-grid{grid-template-columns:minmax(0,1fr)}.code-type-card{padding:17px}.faq-entry summary{min-height:56px;padding:13px 14px;font-size:16px}.code-type-important{grid-template-columns:1fr;gap:4px}}
+
+
+/* Full-width, centered comparison and FAQ layout modeled on the supplied reference. */
+.promo-help-band{position:relative;width:100vw;margin-left:calc((100% - 100vw)/2);padding:34px 18px 42px;background:radial-gradient(ellipse at 50% 0%,#3b2166 0%,#281747 58%,#17152f 100%);border-top:1px solid #614886;border-bottom:1px solid #334f73;color:#f7f4ff}
+#promo-code-types,#faq{width:min(820px,100%);margin:0 auto;scroll-margin-top:85px}
+#promo-code-types.section,#faq.section{padding:0}
+#promo-code-types .section-head,#faq .section-head{margin:0 auto 18px;text-align:center}
+#promo-code-types .section-head h2,#faq .section-head h2{margin:0 0 7px;color:#f7f4ff;font-family:Rajdhani,"Nirmala UI","Segoe UI",Arial,sans-serif;font-size:clamp(28px,3vw,36px);line-height:1.2;font-weight:800;letter-spacing:.2px}
+#promo-code-types .section-head .sub,#faq .section-head .sub{margin:0;color:#ded4f1;font-size:14px;line-height:1.5}
+.promo-comparison-grid{position:relative;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;align-items:stretch}
+.promo-comparison-card{min-width:0;overflow:hidden;padding:14px 16px 12px;border:1px solid #6b4e99;border-radius:11px;background:linear-gradient(145deg,#3c2866,#2c1e50);box-shadow:0 8px 20px #0b071d55}
+.promo-comparison-header{display:flex;align-items:center;gap:12px;min-height:66px;margin-bottom:7px}
+.promo-type-emblem{width:58px;height:58px;flex:0 0 58px;filter:drop-shadow(0 5px 8px #05031888)}
+.promo-comparison-header h3{margin:0;color:#70e9ff;font-family:Inter,"Nirmala UI","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.4;font-weight:900;letter-spacing:.9px}
+.promo-comparison-all .promo-comparison-header h3{color:#c0aaff}
+.promo-comparison-header div>span{display:block;margin-top:1px;color:#f4edff;font-size:12px;line-height:1.35}
+.promo-comparison-intro{min-height:43px;margin:0 0 5px;color:#e2d9f2;font-size:13px;line-height:1.5}
+.promo-comparison-list{margin:0;padding:0;list-style:none}
+.promo-comparison-list li{display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;gap:8px;min-height:43px;padding:6px 0;border-top:1px solid #ffffff16;color:#efe9f9;font-size:13px;line-height:1.4}
+.promo-comparison-list li>span:first-child{display:grid;place-items:center;width:24px;height:24px;border:1px solid #5c82b5;border-radius:50%;background:#18355b;color:#70e9ff;font-size:13px;font-weight:900}
+.promo-comparison-all .promo-comparison-list li>span:first-child{border-color:#7766b9;background:#30255d;color:#c6aaff}
+.promo-comparison-vs{position:absolute;z-index:2;top:50%;left:50%;display:grid;place-items:center;width:42px;height:42px;transform:translate(-50%,-50%);border:2px solid #f5d95a;border-radius:50%;background:#221633;color:#ffe36d;font-size:12px;font-weight:950;box-shadow:0 0 0 5px #291a45,0 4px 14px #050211aa}
+.promo-important-bar{display:flex;align-items:center;gap:12px;width:min(820px,100%);min-height:76px;margin:13px auto 0;padding:12px 16px;border:1px solid #e2c349;border-radius:9px;background:linear-gradient(105deg,#57359b,#4a2d83);box-shadow:0 8px 18px #0b071d44}
+.promo-important-icon{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border:1px solid #ffe06a;border-radius:50%;color:#ffe36d;font-size:21px}
+.promo-important-bar>div{min-width:0;flex:1}
+.promo-important-bar strong{display:block;color:#ffdf63;font-size:13px;line-height:1.4}
+.promo-important-bar p{margin:3px 0 0;color:#fff8e9;font-size:12px;line-height:1.55}
+.promo-important-gift{flex:0 0 auto;font-size:42px;line-height:1;filter:drop-shadow(0 3px 6px #12062266)}
+.promo-faq-section{margin-top:37px!important}
+#faq .section-head{margin-bottom:19px}
+#faq .faq-accordion{display:grid;gap:9px;width:100%;margin:0 auto}
+#faq .faq-entry{overflow:hidden;border:1px solid #7355a2;border-radius:9px;background:#2d1c50;box-shadow:0 7px 18px #0b071d44}
+#faq .faq-entry[open]{border-color:#8f6dc1}
+#faq .faq-entry summary{display:flex;align-items:center;gap:11px;min-height:48px;padding:11px 14px;background:linear-gradient(100deg,#50358b,#432c77);color:#fff9e9;font-size:15px;font-weight:800;line-height:1.4;list-style:none;cursor:pointer}
+#faq .faq-entry summary::-webkit-details-marker{display:none}
+#faq .faq-entry summary:focus-visible{outline:3px solid #6be5ff;outline-offset:-3px}
+.faq-question-icon{display:grid;place-items:center;width:21px;height:21px;flex:0 0 21px;border:1px solid #f2cf59;border-radius:50%;color:#ffe16b;font-size:13px;font-weight:900}
+.faq-question-text{flex:1;min-width:0}
+.faq-chevron{color:#d2baff;font-size:17px;font-weight:900}
+#faq .faq-answer{padding:12px 14px 15px;border-top:1px solid #7659a4;background:#24163f;color:#f1eafa}
+#faq .faq-answer-intro{margin:0 0 10px;color:#e4daef;font-size:13px;line-height:1.5}
+.faq-method-grid{display:grid;grid-template-columns:minmax(0,1.15fr) 26px minmax(0,1fr) minmax(150px,.8fr);gap:10px;align-items:stretch}
+.faq-method{min-width:0;padding:2px 8px 0 2px}
+.faq-method+.faq-method{border-left:1px solid #7659a455}
+.faq-method h3,.faq-important h3{display:flex;align-items:center;gap:7px;margin:0 0 10px;color:#ffe06a;font-family:Inter,"Nirmala UI","Segoe UI",Arial,sans-serif;font-size:12px;line-height:1.4;font-weight:800}
+.faq-method ol{margin:0;padding-left:21px;counter-reset:faqstep;list-style:none}
+.faq-method ol li{position:relative;min-height:26px;margin:0 0 5px;padding-left:3px;color:#f0eaf8;font-size:12px;line-height:1.5}
+.faq-method ol li::before{position:absolute;left:-21px;top:0;display:grid;place-items:center;width:16px;height:16px;border-radius:4px;background:#6340ad;color:white;font-size:10px;font-weight:900;counter-increment:faqstep;content:counter(faqstep)}
+.faq-method p{margin:0 0 9px;color:#f0eaf8;font-size:12px;line-height:1.55}
+.faq-method-or{align-self:center;color:#ffe16b;font-size:11px;font-weight:900;text-align:center}
+.faq-important{align-self:start;min-width:0;padding:11px;border:1px solid #8f6dd1;border-radius:8px;background:linear-gradient(145deg,#493078,#3b2869)}
+.faq-important h3{margin-bottom:6px}
+.faq-important p{margin:0;color:#fff5db;font-size:12px;line-height:1.55}
+#faq .faq-answer>p:not(.faq-answer-intro){margin:0;color:#eee6f6;font-size:14px;line-height:1.65}
+@media(max-width:700px){
+ .promo-help-band{padding:28px 14px 34px}
+ #promo-code-types,#faq{width:min(520px,100%)}
+ .promo-comparison-grid{grid-template-columns:minmax(0,1fr);gap:10px}
+ .promo-comparison-vs{position:relative;top:auto;left:auto;justify-self:center;width:38px;height:38px;margin:-19px 0;transform:none}
+ .promo-comparison-header{min-height:58px}
+ .promo-comparison-intro{min-height:0}
+ .promo-important-bar{padding:11px 12px}
+ .promo-important-gift{font-size:34px}
+ .promo-faq-section{margin-top:30px!important}
+ .faq-method-grid{grid-template-columns:minmax(0,1fr);gap:10px}
+ .faq-method{padding:0}
+ .faq-method+.faq-method{padding-top:10px;border-top:1px solid #7659a455;border-left:0}
+ .faq-method-or{padding:0;color:#ffe16b}
+ .faq-method-or::before,.faq-method-or::after{display:inline-block;width:32%;height:1px;margin:0 8px;background:#7659a455;vertical-align:middle;content:""}
+ .faq-important{padding:11px}
+}
+@media(max-width:420px){
+ .promo-comparison-card{padding:12px}
+ .promo-comparison-list li{font-size:12px}
+ .promo-important-bar{gap:8px}
+ .promo-important-gift{font-size:29px}
+ #faq .faq-entry summary{padding:10px 11px;font-size:14px}
+ #faq .faq-answer{padding:10px}
+}
