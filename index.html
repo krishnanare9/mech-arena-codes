@@ -508,7 +508,7 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   const imageUrl=safeImageSrc(packImages[name]);
   if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};art.append(img);}
   else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
-  const title=document.createElement("div");title.className="showcase-pack-name";title.textContent=name+(type==="starter"?" Mech":" Pack");
+  const title=document.createElement("div");title.className="showcase-pack-name";title.textContent="";title.setAttribute("aria-hidden","true");
   const rewards=document.createElement("div");rewards.className="showcase-rewards";
   (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
    const reward=document.createElement("div");reward.className="showcase-reward";
