@@ -509,7 +509,17 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};art.append(img);}
   else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
   const title=document.createElement("div");title.className="showcase-pack-name";title.textContent=type==="starter"&&!/\b(?:mech|pilot|pack|bundle)\b/i.test(name)?name+" Mech":name;
-  card.append(art,title);card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
+  const rewards=document.createElement("div");rewards.className="showcase-reward-icons";rewards.setAttribute("role","group");rewards.setAttribute("aria-label","Included rewards for "+title.textContent);
+  (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
+   const label=String(item);if(label.toLowerCase().startsWith("promo code:"))return;
+   const reward=document.createElement("span");reward.className="showcase-reward-icon";reward.setAttribute("role","img");reward.setAttribute("aria-label",label);
+   const key=Object.keys(rewardImages).find(k=>label.toLowerCase().includes(k.toLowerCase()));
+   if(key){const img=document.createElement("img");img.src=rewardImages[key];img.alt="";img.loading="lazy";reward.append(img);}
+   else{const low=label.toLowerCase();reward.textContent=low.includes("crate")?"▣":low.includes("pilot")?"P":/weapon|rifle|launcher|cannon|shotgun|rack/.test(low)?"⚔":low.includes("implant")?"✦":"★";}
+   rewards.append(reward);
+  });
+  if(rewards.childElementCount)card.append(rewards);
+  card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
   const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>c.classList.remove("is-selected"));card.classList.add("is-selected");};
   card.addEventListener("click",choose);card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose();}});target.append(card);
  });
