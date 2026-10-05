@@ -518,6 +518,7 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
    else{const low=label.toLowerCase();reward.textContent=low.includes("crate")?"▣":low.includes("pilot")?"P":/weapon|rifle|launcher|cannon|shotgun|rack/.test(low)?"⚔":low.includes("implant")?"✦":"★";}
    rewards.append(reward);
   });
+  card.append(art,title);
   if(rewards.childElementCount)card.append(rewards);
   card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
   const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>c.classList.remove("is-selected"));card.classList.add("is-selected");};
