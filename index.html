@@ -412,12 +412,12 @@ const codes = [
 ];
 
 let starterPacks = {
- "Surge":["Surge Mech ×1","Case Pilot ×1","Revoker 8 ×2","200 A-Coins","75,000 Credits"],
- "Brickhouse":["Brickhouse Mech ×1","Impulse Pilot ×1","Cryo Launcher 8 ×2","500 A-Coins","100,000 Credits"],
- "Scorpius":["Scorpius Mech ×1","Blood Moon Skin ×1","Nova Pilot ×1","Missile Rack 6 ×2","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"],
+ "Surge":["Case Pilot ×1","Revoker 8 ×2","200 A-Coins","75,000 Credits"],
+ "Brickhouse":["Impulse Pilot ×1","Cryo Launcher 8 ×2","500 A-Coins","10,000 Credits"],
+ "Scorpius":["Nova Pilot ×1","Missile Rack 6 ×2","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"],
  "Aegis":["Case Pilot ×1","Minigun 8 ×2","500 A-Coins","10,000 Credits"],
  "Stalker":["Maverick Pilot ×1","EM Rifle 6 ×2","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"],
- "Guardian":["Guardian Mech ×1","Acantha Pilot ×1","Pulse Cannon","500 A-Coins","25,000 Credits"],
+ "Guardian":["Acantha Pilot ×1","Fusion Cannon 6 ×2","800 A-Coins","25,000 Credits","500 Pilot Marks","5,000 Implant Parts"],
  "Shadow":["Shotgun 4 ×2","Cardinal Rule Skin ×1","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"],
  "Maverick Pilot":["Gauss Rifle 6 ×2","Gauss Rifle Reload ×1","300 A-Coins","10,000 Credits","500 Pilot Marks","5,000 Implant Parts"]
 };
@@ -436,20 +436,8 @@ const labels = {allplayers:"ALL PLAYERS",newplayers:"NEW PLAYERS",expired:"EXPIR
 // Initialize language state before first renderCodes() call.
 let currentLang = "en";
 
-let expiredRevealed = false;
+let expiredRevealed = true;
 function renderCodes(){
- // Never render an empty public catalog. This fallback is intentionally local so Firebase cannot blank the page.
- if(!Array.isArray(codes)||!codes.length){
-  codes.splice(0,codes.length,
-   {code:"IMBACKBABY",type:"allplayers",reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-   {code:"SPOOKYSHOT",type:"allplayers",reward:"Skins for Fury, Amber, Brachyura, Hidezo and Killshot"},
-   {code:"BIGMECH",type:"newplayers",reward:"Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-   {code:"GRASSHOPER",type:"newplayers",reward:"Lacewing, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-   {code:"ROSHAN1",type:"newplayers",reward:"Aegis, 10,000 Credits"},
-   {code:"BACKTRACK",type:"newplayers",reward:"Redeemer, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-   {code:"WARTEX",type:"newplayers",reward:"Vartex, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"}
-  );
- }
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
  const active=codes.filter(c=>c.type!=="expired");
@@ -597,22 +585,18 @@ $("filter").addEventListener("change",renderCodes);
 document.querySelectorAll(".category-view").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.filter==="expired"){expiredRevealed=!(expiredRevealed||$("filter").value==="expired");$("filter").value=expiredRevealed?"all":"all";}else{$("filter").value=btn.dataset.filter;}renderCodes();$("codes").scrollIntoView({behavior:"smooth"});}));
 
 refreshPublicPacks();
-$("starterSelect").addEventListener("change",()=>{showPack("starterSelect",starterPacks,"starterRewards");updateGenerator();});
+$("starterSelect").addEventListener("change",()=>showPack("starterSelect",starterPacks,"starterRewards"));
 $("bonusSelect").addEventListener("change",()=>showPack("bonusSelect",bonusPacks,"bonusRewards"));
 renderCodes();
 
 function updateGenerator(){
- const ready=$("freshCheck").checked&&$("playCheck").checked;
- $("generateBtn").disabled=!ready;
- $("generateBtn").textContent="Generate My Link";
- $("generatorNotice").textContent="Your selected packs are shown in this preview. Offer-link generation is temporarily disabled while the public site is stabilized.";
+ $("generateBtn").disabled=!($("freshCheck").checked && $("playCheck").checked);
 }
 $("freshCheck").addEventListener("change",updateGenerator);
 $("playCheck").addEventListener("change",updateGenerator);
 $("generateBtn").addEventListener("click",()=>{
- $("generatorNotice").textContent="Offer-link generation is temporarily disabled. Promo codes and pack information remain available.";
+ $("generatorNotice").textContent="Your selected packs are shown in this preview. A genuine offer URL is not configured, so no working link has been generated.";
 });
-updateGenerator();
 
 // Google Translate provides a broad set of visitor languages.
 function googleTranslateElementInit(){
@@ -692,29 +676,14 @@ $("adminToggle").addEventListener("click",()=>{
 });
 
 async function loadPublicCodes(){
-  // The public page always starts from the built-in verified/listed code catalog.
-  // Firestore is optional and must never be allowed to make the public catalog empty.
-  const builtIn=[...codes];
   try{
     const snap=await db.collection("promoCodes").get();
     if(!snap.empty){
-      const merged=new Map(builtIn.map(c=>[String(c.code).trim().toUpperCase(),{...c}]));
-      snap.docs.forEach(doc=>{
-        const raw=doc.data()||{}, code=String(raw.code||"").trim().toUpperCase();
-        if(!code)return;
-        const rawType=String(raw.type||raw.status||"").trim().toLowerCase().replace(/[\\s_-]+/g,"");
-        const type=rawType==="expired"||rawType==="inactive"?"expired":rawType==="newplayer"||rawType==="newplayers"?"newplayers":rawType==="allplayer"||rawType==="allplayers"||rawType==="active"?"allplayers":"";
-        if(!type)return;
-        const previous=merged.get(code)||{};
-        merged.set(code,{...previous,...raw,code,type,reward:String(raw.reward||previous.reward||raw.rewards||"Reward details unavailable"),id:doc.id});
-      });
-      const finalCodes=[...merged.values()].filter(c=>c.code&&c.type&&c.reward);
-      if(finalCodes.length) codes.splice(0,codes.length,...finalCodes);
+      const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id}));
+      codes.splice(0,codes.length,...remote.filter(c=>c.code && c.type && c.reward));
+      renderCodes();
     }
-  }catch(err){ console.warn("Firestore read unavailable; keeping built-in code list.",err); }
-  // Always render, including after Firestore errors or malformed/empty remote data.
-  if(!codes.length) codes.push(...builtIn);
-  renderCodes();
+  }catch(err){ console.warn("Firestore read unavailable; showing built-in list.",err); }
 }
 
 function resetCodeForm(){
@@ -960,48 +929,6 @@ document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListen
   }catch(error){console.info('Showing saved MechNova video cards until the feed refreshes.',error);}
 })();
 
-</script>
-<script>
-/* Public promo-code safety fallback: keeps the visible code catalog independent of Firebase. */
-(function(){
-  const PUBLIC_CODES=[
-    {code:"IMBACKBABY",type:"allplayers",reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-    {code:"SPOOKYSHOT",type:"allplayers",reward:"Skins for Fury, Amber, Brachyura, Hidezo and Killshot"},
-    {code:"BIGMECH",type:"newplayers",reward:"Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-    {code:"GRASSHOPER",type:"newplayers",reward:"Lacewing, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-    {code:"ROSHAN1",type:"newplayers",reward:"Aegis, 10,000 Credits"},
-    {code:"BACKTRACK",type:"newplayers",reward:"Redeemer, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
-    {code:"WARTEX",type:"newplayers",reward:"Vartex, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"}
-  ];
-  function renderPublicPromoFallback(){
-    const all=document.getElementById("allPlayersGrid"), fresh=document.getElementById("newPlayersGrid");
-    if(!all||!fresh)return;
-    const makeCard=(item)=>{
-      const card=document.createElement("article");card.className="code-card";
-      const top=document.createElement("div");top.className="code-top";
-      const name=document.createElement("div");name.className="code-name";name.textContent=item.code;
-      const badge=document.createElement("span");badge.className="pill "+item.type;badge.textContent=item.type==="allplayers"?"ALL PLAYERS":"NEW PLAYERS";
-      top.append(name,badge);
-      const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+item.reward;
-      const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent="Copy";
-      btn.onclick=async()=>{try{await navigator.clipboard.writeText(item.code);btn.textContent="Copied!";setTimeout(()=>btn.textContent="Copy",1400);}catch(e){window.prompt("Copy this code:",item.code);}};
-      card.append(top,reward,btn);return card;
-    };
-    all.replaceChildren();fresh.replaceChildren();
-    PUBLIC_CODES.filter(x=>x.type==="allplayers").forEach(x=>all.appendChild(makeCard(x)));
-    PUBLIC_CODES.filter(x=>x.type==="newplayers").forEach(x=>fresh.appendChild(makeCard(x)));
-    const allSection=document.getElementById("allPlayersSection"), freshSection=document.getElementById("newPlayersSection"), expired=document.getElementById("expiredSection");
-    if(allSection)allSection.hidden=false;if(freshSection)freshSection.hidden=false;if(expired)expired.hidden=true;
-    const active=document.getElementById("activeCount"), expiredCount=document.getElementById("expiredCount"), total=document.getElementById("totalCount");
-    if(active)active.textContent=String(PUBLIC_CODES.length);
-    if(expiredCount)expiredCount.textContent="0";
-    if(total)total.textContent=String(PUBLIC_CODES.length);
-  }
-  window.addEventListener("load",renderPublicPromoFallback);
-  renderPublicPromoFallback();
-  setTimeout(()=>{const n=document.getElementById("totalCount");if(n&&n.textContent==="0")renderPublicPromoFallback();},700);
-  setTimeout(()=>{const n=document.getElementById("totalCount");if(n&&n.textContent==="0")renderPublicPromoFallback();},2000);
-})();
 </script>
 <script>window.googleTranslateElementInit=googleTranslateElementInit;</script>
 <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
