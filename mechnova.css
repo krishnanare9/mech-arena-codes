@@ -712,3 +712,33 @@ footer{font-size:13px;line-height:1.9}
 #codes .empty{font-size:14px;line-height:1.6}
 .pack-showcase-title p{font-size:14px;line-height:1.5}
 #packShowcase .showcase-pack-badge{font-size:11px}
+
+
+/* Clear eligibility comparison and accessible, collapsible promo-code FAQs. */
+#promo-code-types,#faq{scroll-margin-top:100px}
+.code-type-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.code-type-card{min-width:0;padding:20px;border:1px solid #315b78;border-radius:14px;background:linear-gradient(145deg,#102d47,#091a2d);box-shadow:0 12px 26px #0003}
+.code-type-new{border-top:3px solid #5be2ff}
+.code-type-all{border-top:3px solid #b99aff}
+.code-type-kicker{margin-bottom:7px;color:#d1e2f1;font-size:12px;font-weight:900;letter-spacing:1px}
+.code-type-card h3{margin:0 0 8px;color:#fff;font-size:23px}
+.code-type-card p,.code-type-card li{color:#d0deeb;font-size:15px;line-height:1.65}
+.code-type-card p{margin:0 0 8px}
+.code-type-card ul{margin:8px 0 0;padding-left:21px}
+.code-type-card li+li{margin-top:5px}
+.code-type-important{display:grid;grid-template-columns:auto 1fr;align-items:start;gap:10px;margin-top:12px;padding:14px 16px;border:1px solid #66502f;border-radius:11px;background:#251f16;color:#f5dfb7;font-size:14px;line-height:1.6}
+.code-type-important strong{color:#ffe2a1}
+.faq-accordion{display:grid;gap:10px}
+.faq-entry{overflow:hidden;border:1px solid #2b5370;border-radius:12px;background:linear-gradient(145deg,#0d263e,#08192b);box-shadow:0 8px 18px #0002}
+.faq-entry[open]{border-color:#3c91af}
+.faq-entry summary{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:60px;padding:14px 16px;color:#f6f9ff;font-size:17px;font-weight:800;line-height:1.4;list-style:none;cursor:pointer}
+.faq-entry summary::-webkit-details-marker{display:none}
+.faq-entry summary:focus-visible{outline:3px solid #67e3ff;outline-offset:-3px}
+.faq-expand{display:grid;place-items:center;width:30px;height:30px;flex:0 0 30px;border:1px solid #3a6681;border-radius:50%;color:#70e5ff;font-size:22px;font-weight:500;line-height:1;transition:transform .18s}
+.faq-entry[open] .faq-expand{transform:rotate(45deg)}
+.faq-answer{padding:0 16px 16px;border-top:1px solid #203e56}
+.faq-answer p,.faq-answer li{color:#d0deeb;font-size:15px;line-height:1.7}
+.faq-answer p{margin:12px 0 0}
+.faq-answer ol,.faq-answer ul{padding-left:22px}
+.faq-answer li+li{margin-top:5px}
+@media(max-width:760px){.code-type-grid{grid-template-columns:minmax(0,1fr)}.code-type-card{padding:17px}.faq-entry summary{min-height:56px;padding:13px 14px;font-size:16px}.code-type-important{grid-template-columns:1fr;gap:4px}}
