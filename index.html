@@ -447,7 +447,7 @@ function renderCodes(){
  const groups=[{type:"allplayers",grid:"allPlayersGrid",section:"allPlayersSection"},{type:"newplayers",grid:"newPlayersGrid",section:"newPlayersSection"},{type:"expired",grid:"expiredGrid",section:"expiredSection"}];
  groups.forEach(group=>{
   const root=$(group.grid); root.replaceChildren();
-  const visible=group.type==="expired" ? (filter==="expired" || (filter==="all" && expiredRevealed)) : (filter==="all"||filter===group.type);
+  const visible=group.type==="expired" ? true : (filter==="all"||filter===group.type);
   $(group.section).hidden=!visible;
   if(!visible)return;
   const list=codes.filter(c=>c.type===group.type&&(c.code.toLowerCase().includes(term)||c.reward.toLowerCase().includes(term)));
