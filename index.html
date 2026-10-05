@@ -964,6 +964,48 @@ document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListen
 })();
 
 </script>
+<script>
+/* Public promo-code safety fallback: keeps the visible code catalog independent of Firebase. */
+(function(){
+  const PUBLIC_CODES=[
+    {code:"IMBACKBABY",type:"allplayers",reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+    {code:"SPOOKYSHOT",type:"allplayers",reward:"Skins for Fury, Amber, Brachyura, Hidezo and Killshot"},
+    {code:"BIGMECH",type:"newplayers",reward:"Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+    {code:"GRASSHOPER",type:"newplayers",reward:"Lacewing, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+    {code:"ROSHAN1",type:"newplayers",reward:"Aegis, 10,000 Credits"},
+    {code:"BACKTRACK",type:"newplayers",reward:"Redeemer, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+    {code:"WARTEX",type:"newplayers",reward:"Vartex, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"}
+  ];
+  function renderPublicPromoFallback(){
+    const all=document.getElementById("allPlayersGrid"), fresh=document.getElementById("newPlayersGrid");
+    if(!all||!fresh)return;
+    const makeCard=(item)=>{
+      const card=document.createElement("article");card.className="code-card";
+      const top=document.createElement("div");top.className="code-top";
+      const name=document.createElement("div");name.className="code-name";name.textContent=item.code;
+      const badge=document.createElement("span");badge.className="pill "+item.type;badge.textContent=item.type==="allplayers"?"ALL PLAYERS":"NEW PLAYERS";
+      top.append(name,badge);
+      const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+item.reward;
+      const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent="Copy";
+      btn.onclick=async()=>{try{await navigator.clipboard.writeText(item.code);btn.textContent="Copied!";setTimeout(()=>btn.textContent="Copy",1400);}catch(e){window.prompt("Copy this code:",item.code);}};
+      card.append(top,reward,btn);return card;
+    };
+    all.replaceChildren();fresh.replaceChildren();
+    PUBLIC_CODES.filter(x=>x.type==="allplayers").forEach(x=>all.appendChild(makeCard(x)));
+    PUBLIC_CODES.filter(x=>x.type==="newplayers").forEach(x=>fresh.appendChild(makeCard(x)));
+    const allSection=document.getElementById("allPlayersSection"), freshSection=document.getElementById("newPlayersSection"), expired=document.getElementById("expiredSection");
+    if(allSection)allSection.hidden=false;if(freshSection)freshSection.hidden=false;if(expired)expired.hidden=true;
+    const active=document.getElementById("activeCount"), expiredCount=document.getElementById("expiredCount"), total=document.getElementById("totalCount");
+    if(active)active.textContent=String(PUBLIC_CODES.length);
+    if(expiredCount)expiredCount.textContent="0";
+    if(total)total.textContent=String(PUBLIC_CODES.length);
+  }
+  window.addEventListener("load",renderPublicPromoFallback);
+  renderPublicPromoFallback();
+  setTimeout(()=>{const n=document.getElementById("totalCount");if(n&&n.textContent==="0")renderPublicPromoFallback();},700);
+  setTimeout(()=>{const n=document.getElementById("totalCount");if(n&&n.textContent==="0")renderPublicPromoFallback();},2000);
+})();
+</script>
 <script>window.googleTranslateElementInit=googleTranslateElementInit;</script>
 <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
