@@ -512,11 +512,17 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   const rewards=document.createElement("div");rewards.className="showcase-reward-icons";rewards.setAttribute("role","group");rewards.setAttribute("aria-label","Included rewards for "+title.textContent);
   (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
    const label=String(item);if(label.toLowerCase().startsWith("promo code:"))return;
+   const countSuffix=label.match(/[×x][ ]*([0-9,]+)[ ]*$/);
+   const countPrefix=label.match(/^([0-9,]+)/);
+   const amount=countSuffix?"×"+countSuffix[1]:countPrefix?countPrefix[1]:"×1";
+   const itemWrap=document.createElement("span");itemWrap.className="showcase-reward-item";
    const reward=document.createElement("span");reward.className="showcase-reward-icon";reward.setAttribute("role","img");reward.setAttribute("aria-label",label);
    const key=Object.keys(rewardImages).find(k=>label.toLowerCase().includes(k.toLowerCase()));
    if(key){const img=document.createElement("img");img.src=rewardImages[key];img.alt="";img.loading="lazy";reward.append(img);}
    else{const low=label.toLowerCase();reward.textContent=low.includes("crate")?"▣":low.includes("pilot")?"P":/weapon|rifle|launcher|cannon|shotgun|rack/.test(low)?"⚔":low.includes("implant")?"✦":"★";}
-   rewards.append(reward);
+   itemWrap.append(reward);
+   const quantity=document.createElement("small");quantity.className="showcase-reward-quantity";quantity.textContent=amount;itemWrap.append(quantity);
+   rewards.append(itemWrap);
   });
   card.append(art,title);
   if(rewards.childElementCount)card.append(rewards);
