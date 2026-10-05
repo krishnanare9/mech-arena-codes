@@ -508,17 +508,8 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   const imageUrl=safeImageSrc(packImages[name]);
   if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};art.append(img);}
   else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
-  const title=document.createElement("div");title.className="showcase-pack-name";title.textContent="";title.setAttribute("aria-hidden","true");
-  const rewards=document.createElement("div");rewards.className="showcase-rewards";
-  (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
-   const reward=document.createElement("div");reward.className="showcase-reward";
-   const key=Object.keys(rewardImages).find(k=>String(item).toLowerCase().includes(k.toLowerCase()));
-   if(key){const img=document.createElement("img");img.src=rewardImages[key];img.alt=key;img.loading="lazy";reward.append(img);}
-   else{const icon=document.createElement("span");icon.className="showcase-reward-icon";const low=String(item).toLowerCase();icon.textContent=low.includes("crate")?"▣":low.includes("pilot")?"P":/weapon|rifle|launcher|cannon|shotgun|rack/.test(low)?"⚔":low.includes("implant")?"✦":"★";reward.append(icon);}
-   const copy=document.createElement("span");copy.className="showcase-reward-copy";const b=document.createElement("b"),small=document.createElement("small");
-   const match=String(item).match(/^(.*?)(?:\s*[×x]\s*([\d,]+))?$/);b.textContent=match?match[1].trim():String(item);small.textContent=match&&match[2]?"Quantity: "+match[2]:"Included";copy.append(b,small);reward.append(copy);rewards.append(reward);
-  });
-  card.append(art,title,rewards);card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
+  const title=document.createElement("div");title.className="showcase-pack-name";title.textContent=type==="starter"&&!/\b(?:mech|pilot|pack|bundle)\b/i.test(name)?name+" Mech":name;
+  card.append(art,title);card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
   const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>c.classList.remove("is-selected"));card.classList.add("is-selected");};
   card.addEventListener("click",choose);card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose();}});target.append(card);
  });

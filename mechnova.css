@@ -432,13 +432,8 @@ pre, code { overflow-wrap:anywhere; }
 #packShowcase .showcase-card-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 #packShowcase .showcase-pack-card{border-radius:11px}
 #packShowcase .showcase-pack-art{height:clamp(155px,16vw,235px);padding:8px 7px 2px}
-#packShowcase .showcase-pack-name{display:none!important}
-#packShowcase .showcase-rewards{grid-template-columns:repeat(2,minmax(0,1fr));gap:5px;padding:7px}
-#packShowcase .showcase-reward{min-height:39px;padding:4px;justify-content:center}
-#packShowcase .showcase-reward img,#packShowcase .showcase-reward-icon{width:29px;height:29px;flex-basis:29px}
-#packShowcase .showcase-reward-copy{font-size:8px}
-#packShowcase .showcase-reward-copy b{font-size:9px}
-#packShowcase .showcase-reward-copy small{font-size:7px}
+#packShowcase .showcase-pack-name{display:block!important}
+#packShowcase .showcase-rewards{display:none!important}
 @media(max-width:1200px){#packShowcase .showcase-card-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:980px){#packShowcase .showcase-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:700px){#packShowcase .showcase-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#packShowcase .pack-showcase-title::after{font-size:9px;padding:7px 9px}#packShowcase .pack-showcase-title h3{font-size:16px}}
@@ -463,11 +458,11 @@ pre, code { overflow-wrap:anywhere; }
 }
 
 /* MechNova fix: taller pack cards prevent mech art and names from overlapping */
-#packShowcase .showcase-pack-card{min-height:460px!important;}
-#packShowcase .showcase-pack-art{height:clamp(250px,25vw,320px)!important;min-height:250px;flex:0 0 auto!important;overflow:visible!important;padding:14px!important;}
+#packShowcase .showcase-pack-card{min-height:0!important;}
+#packShowcase .showcase-pack-art{height:clamp(155px,16vw,235px)!important;min-height:155px;flex:0 0 auto!important;overflow:hidden!important;padding:10px!important;}
 #packShowcase .showcase-pack-art img{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;object-fit:contain!important;object-position:center center!important;}
-#packShowcase .showcase-pack-name{position:relative!important;z-index:1;flex:0 0 auto!important;min-height:42px!important;line-height:1.35;padding:9px 10px!important;}
-#packShowcase .showcase-rewards{position:relative!important;z-index:1;flex:1 0 auto!important;}
+#packShowcase .showcase-pack-name{display:block!important;position:relative!important;z-index:1;flex:0 0 auto!important;min-height:38px!important;line-height:1.35;padding:9px 10px!important;}
+#packShowcase .showcase-rewards{display:none!important;}
 .pack-visual{min-height:250px!important;overflow:visible!important;}
 .pack-visual img.mech-art{width:190px!important;height:230px!important;max-width:42%!important;object-fit:contain!important;object-position:center!important;flex:0 0 190px!important;}
 @media(max-width:600px){#packShowcase .showcase-pack-card{min-height:410px!important}#packShowcase .showcase-pack-art{height:235px!important;min-height:235px!important}.pack-visual img.mech-art{width:100%!important;max-width:230px!important;height:230px!important;flex:0 0 230px!important;}}
