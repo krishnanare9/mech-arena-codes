@@ -438,6 +438,18 @@ let currentLang = "en";
 
 let expiredRevealed = false;
 function renderCodes(){
+ // Never render an empty public catalog. This fallback is intentionally local so Firebase cannot blank the page.
+ if(!Array.isArray(codes)||!codes.length){
+  codes.splice(0,codes.length,
+   {code:"IMBACKBABY",type:"allplayers",reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+   {code:"SPOOKYSHOT",type:"allplayers",reward:"Skins for Fury, Amber, Brachyura, Hidezo and Killshot"},
+   {code:"BIGMECH",type:"newplayers",reward:"Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+   {code:"GRASSHOPER",type:"newplayers",reward:"Lacewing, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+   {code:"ROSHAN1",type:"newplayers",reward:"Aegis, 10,000 Credits"},
+   {code:"BACKTRACK",type:"newplayers",reward:"Redeemer, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+   {code:"WARTEX",type:"newplayers",reward:"Vartex, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"}
+  );
+ }
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
  const active=codes.filter(c=>c.type!=="expired");
