@@ -695,11 +695,13 @@ $("adminToggle").addEventListener("click",()=>{
 });
 
 async function loadPublicCodes(){
+  // The public page always starts from the built-in verified/listed code catalog.
+  // Firestore is optional and must never be allowed to make the public catalog empty.
+  const builtIn=[...codes];
   try{
     const snap=await db.collection("promoCodes").get();
     if(!snap.empty){
-      // Keep the built-in list visible if older Firestore records use legacy type labels.
-      const merged=new Map(codes.map(c=>[String(c.code).trim().toUpperCase(),{...c}]));
+      const merged=new Map(builtIn.map(c=>[String(c.code).trim().toUpperCase(),{...c}]));
       snap.docs.forEach(doc=>{
         const raw=doc.data()||{}, code=String(raw.code||"").trim().toUpperCase();
         if(!code)return;
@@ -709,10 +711,13 @@ async function loadPublicCodes(){
         const previous=merged.get(code)||{};
         merged.set(code,{...previous,...raw,code,type,reward:String(raw.reward||previous.reward||raw.rewards||"Reward details unavailable"),id:doc.id});
       });
-      codes.splice(0,codes.length,...merged.values());
-      renderCodes();
+      const finalCodes=[...merged.values()].filter(c=>c.code&&c.type&&c.reward);
+      if(finalCodes.length) codes.splice(0,codes.length,...finalCodes);
     }
-  }catch(err){ console.warn("Firestore read unavailable; showing built-in list.",err); }
+  }catch(err){ console.warn("Firestore read unavailable; keeping built-in code list.",err); }
+  // Always render, including after Firestore errors or malformed/empty remote data.
+  if(!codes.length) codes.push(...builtIn);
+  renderCodes();
 }
 
 function resetCodeForm(){
