@@ -603,3 +603,10 @@ a.nav-code-ticker{order:3;display:flex!important;align-items:center;gap:9px;flex
 #packShowcase .showcase-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(max-width:900px){#packShowcase .showcase-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){#packShowcase .showcase-card-grid{grid-template-columns:minmax(0,1fr)}}
+
+
+/* MechNova's own channel avatar beside YouTube links */
+.social-link--youtube{--social-brand:#ff0000}
+.channel-logo-wrap{position:relative;width:26px;height:26px;flex:0 0 26px;display:inline-block;vertical-align:middle}
+.channel-logo{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:#111a2b}
+.channel-platform-badge{position:absolute;right:-4px;bottom:-3px;display:grid;place-items:center;width:13px;height:10px;border:1px solid #111a2b;border-radius:3px;background:#ff0000;color:#fff;font-size:6px;line-height:1}
