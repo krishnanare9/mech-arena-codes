@@ -636,3 +636,79 @@ a.nav-code-ticker{order:3;display:flex!important;align-items:center;gap:9px;flex
 #codeForm .code-check-row input{min-width:0;min-height:42px}
 #codeForm .code-check-help{color:var(--muted);font-size:11px;line-height:1.5}
 @media(max-width:430px){#codeForm .code-check-row{grid-template-columns:minmax(0,1fr)}}
+
+
+/* Logo-matched type, clearer contrast, and roomier controls. */
+:root{--bg:#061321;--panel:#0b2035;--panel2:#12314c;--text:#f6f9ff;--muted:#c2d2e2;--cyan:#5be2ff;--purple:#b99aff;--green:#54e9b2;--red:#ff7186;--border:#2b5370}
+body{font-family:Inter,"Nirmala UI","Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.65;color:var(--text)}
+:where(h1,h2,h3,h4,.logo,.brand-wordmark,.pack-showcase-title h3,.promo-code-hub-heading h3){font-family:Rajdhani,"Nirmala UI","Segoe UI",Arial,sans-serif;font-weight:700;letter-spacing:.2px}
+.logo{font-size:28px;letter-spacing:.5px}
+.nav-links{font-size:14px}
+.nav-links a,.public-side-link{color:#d7e6f3}
+h1{font-size:clamp(40px,7vw,70px);line-height:1.08}
+h2{font-size:clamp(26px,3vw,34px);line-height:1.18}
+h3{font-size:22px;line-height:1.25}
+:where(.hero p,.sub,.panel p,.faq-item p,.step p,.notice,.check-row,.small,.reward,.reward-box,.stat span,.category-title small,.code-card .reward){font-size:14px;line-height:1.65}
+.hero p{font-size:16px;line-height:1.7;color:#d4e3f1}
+.tag{font-size:12px;letter-spacing:1px}
+.section-head .sub{font-size:15px}
+.btn{min-height:44px;font-size:14px;padding:11px 17px}
+input,select,textarea{font-size:15px;min-height:44px}
+#codes .promo-code-search input{font-size:15px;min-height:44px}
+#codes .promo-code-copy{width:44px;height:44px;min-width:44px;font-size:24px}
+#codes .code-top{grid-template-columns:minmax(0,1fr) auto 44px}
+#codes .code-card .reward{font-size:14px;line-height:1.6}
+#codes .promo-code-status{font-size:11px;padding:5px 8px}
+#codes .code-last-checked,#codes .code-report-link{font-size:12px}
+#codes .category-title>small{font-size:13px}
+#codes .code-active-count{font-size:11px}
+#packShowcase .showcase-pack-name{font-size:15px}
+#packShowcase .showcase-reward-quantity{font-size:13px!important}
+#packShowcase .showcase-reward-icons .showcase-reward-icon{font-size:21px!important}
+.nav-code-ticker .ticker-label{font-size:11px}
+.nav-code-ticker .ticker-track{font-size:13px}
+.public-side-label{font-size:11px}
+footer{font-size:13px;line-height:1.9}
+.promo-guide-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 18px}
+.promo-guide-card{display:flex;align-items:center;gap:11px;min-width:0;min-height:78px;padding:12px;border:1px solid #2b5874;border-radius:12px;background:linear-gradient(145deg,#102d47,#0a1c30);color:var(--text);text-decoration:none;transition:border-color .18s,transform .18s,background .18s}
+.promo-guide-card:hover,.promo-guide-card:focus-visible{border-color:var(--cyan);background:linear-gradient(145deg,#143a57,#0d2439);transform:translateY(-2px)}
+.promo-guide-icon{display:grid;place-items:center;width:40px;height:40px;flex:0 0 40px;border:1px solid #38708e;border-radius:10px;background:#123956;font-size:20px}
+.promo-guide-card>span:nth-child(2){display:grid;gap:3px;min-width:0}
+.promo-guide-card strong{font-size:15px;line-height:1.3}
+.promo-guide-card small{color:#c2d2e2;font-size:13px;line-height:1.4}
+.promo-guide-arrow{margin-left:auto;color:var(--cyan);font-size:17px}
+#promo-code-types{scroll-margin-top:100px}
+@media(max-width:900px){.promo-guide-links{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){
+ body{font-size:16px}
+ .nav-links{font-size:14px}
+ .promo-guide-links{grid-template-columns:minmax(0,1fr);gap:8px}
+ .promo-guide-card{min-height:70px}
+ .promo-guide-card strong{font-size:16px}
+ .promo-guide-card small{font-size:14px}
+ #codes .code-top{grid-template-columns:minmax(0,1fr) auto 44px}
+}
+
+
+/* Bring dense labels up to a comfortable reading size. */
+.sub{font-size:14px;line-height:1.65}
+.hero p{font-size:16px}
+.faq-item h3{font-size:18px;line-height:1.35}
+.faq-item p,.faq-item li,.step p{font-size:15px;line-height:1.65}
+.notice,.good-notice{font-size:14px;line-height:1.65}
+.check-row{font-size:14px;line-height:1.6}
+.small{font-size:13px;line-height:1.6}
+.stat span{font-size:13px}
+.admin-top{min-height:44px;padding:10px 14px;font-size:14px}
+.goog-te-gadget .goog-te-combo{font-size:14px!important;min-height:44px!important}
+#codes .promo-code-hub-heading p{font-size:14px;line-height:1.5}
+#codes .promo-code-total{font-size:13px}
+#codes .promo-code-total strong{font-size:15px}
+#codes .code-name{font-size:15px}
+#codes .promo-code-bridge-copy small{font-size:13px;line-height:1.5}
+#codes .promo-code-bridge-link{display:inline-flex;align-items:center;min-height:40px;font-size:12px}
+#codes .promo-expired-toggle{min-height:46px;font-size:14px}
+#codes .promo-expired-toggle strong{font-size:12px}
+#codes .empty{font-size:14px;line-height:1.6}
+.pack-showcase-title p{font-size:14px;line-height:1.5}
+#packShowcase .showcase-pack-badge{font-size:11px}
