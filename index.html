@@ -133,26 +133,35 @@
 <section class="section" id="codes">
  <div class="section-head">
   <h2>🎁 Promo Codes</h2>
-  <div class="sub">Browse codes by eligibility and listed status.</div>
+  <div class="sub">Search the code or reward, then copy an active code with one tap.</div>
  </div>
- <div class="panel">
-  <div class="stats">
-   <div class="stat"><strong id="activeCount">0</strong><span>Listed Active</span></div>
-   <div class="stat"><strong id="expiredCount">0</strong><span>Expired Listed</span></div>
-   <div class="stat"><strong id="totalCount">0</strong><span>Total Codes</span></div>
+ <div class="panel promo-code-hub">
+  <div class="promo-code-hub-heading">
+   <div><h3>All Promo Codes</h3><p>Tap the copy button to copy a code instantly</p></div>
+   <span class="promo-code-total"><strong id="activeCount">0</strong> active</span>
   </div>
-  <div class="toolbar">
-   <input type="search" id="search" placeholder="Search code or reward...">
-   <select id="filter">
+  <div class="toolbar promo-code-toolbar">
+   <label class="promo-code-search"><span aria-hidden="true">⌕</span><input type="search" id="search" placeholder="Search code or reward..." aria-label="Search promo codes"></label>
+   <select id="filter" aria-label="Filter promo codes">
     <option value="all">All Codes</option>
     <option value="allplayers">All Players</option>
     <option value="newplayers">New Players</option>
     <option value="expired">Expired Codes</option>
    </select>
   </div>
-  <div class="code-category" id="allPlayersSection"><div class="category-title"><h3>🟢 All Players Codes</h3><button class="mini-btn category-view" type="button" data-filter="allplayers">View Codes →</button><small>For eligible new and existing accounts</small></div><div class="code-grid" id="allPlayersGrid"></div></div>
-  <div class="code-category" id="newPlayersSection"><div class="category-title"><h3>🟣 New Players Codes</h3><button class="mini-btn category-view" type="button" data-filter="newplayers">View Codes →</button><small>Eligibility restrictions may apply</small></div><div class="code-grid" id="newPlayersGrid"></div></div>
-  <div class="code-category" id="expiredSection" hidden><div class="category-title"><h3>🔴 Expired Codes</h3><button class="mini-btn category-view" type="button" data-filter="expired">View Codes →</button><small>Shown separately for reference only</small></div><div class="code-grid" id="expiredGrid"></div></div>
+  <div class="code-category" id="allPlayersSection">
+   <div class="category-title"><div class="category-heading"><h3>For All Players</h3><span class="code-active-count" id="allPlayersActiveCount">0 ACTIVE</span></div><small>Works on eligible new and existing accounts</small></div>
+   <div class="code-grid" id="allPlayersGrid"></div>
+  </div>
+  <a class="promo-code-bridge" href="#packs"><span class="promo-code-bridge-icon" aria-hidden="true">🎁</span><span class="promo-code-bridge-copy"><strong>Want to compare the pack rewards?</strong><small>Explore the Starter Packs and Bonus Packs below.</small></span><span class="promo-code-bridge-link">See Packs &amp; Offers →</span></a>
+  <div class="code-category" id="newPlayersSection">
+   <div class="category-title"><div class="category-heading"><h3>For New Players</h3><span class="code-active-count" id="newPlayersActiveCount">0 ACTIVE</span></div><small>Account eligibility rules may apply</small></div>
+   <div class="code-grid" id="newPlayersGrid"></div>
+  </div>
+  <button class="promo-expired-toggle" id="expiredToggle" type="button" aria-expanded="false"><span aria-hidden="true">◷</span><span id="expiredToggleLabel">Show expired promo codes</span><strong id="expiredCount">0</strong><span class="promo-expired-chevron" aria-hidden="true">⌄</span></button>
+  <div class="code-category promo-expired-list" id="expiredSection" hidden>
+   <div class="code-grid" id="expiredGrid"></div>
+  </div>
   <div class="notice">⚠️ Status is based on the source list dated September 30, 2026. Live redemption has not been independently verified. Eligibility and availability can change.</div>
  </div>
 </section>
@@ -436,18 +445,19 @@ const labels = {allplayers:"ALL PLAYERS",newplayers:"NEW PLAYERS",expired:"EXPIR
 // Initialize language state before first renderCodes() call.
 let currentLang = "en";
 
-let expiredRevealed = true;
+let expiredRevealed = false;
 function renderCodes(){
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
  const active=codes.filter(c=>c.type!=="expired");
  $("activeCount").textContent=active.length;
  $("expiredCount").textContent=codes.filter(c=>c.type==="expired").length;
- $("totalCount").textContent=codes.length;
+ $("allPlayersActiveCount").textContent=codes.filter(c=>c.type==="allplayers").length+" ACTIVE";
+ $("newPlayersActiveCount").textContent=codes.filter(c=>c.type==="newplayers").length+" ACTIVE";
  const groups=[{type:"allplayers",grid:"allPlayersGrid",section:"allPlayersSection"},{type:"newplayers",grid:"newPlayersGrid",section:"newPlayersSection"},{type:"expired",grid:"expiredGrid",section:"expiredSection"}];
  groups.forEach(group=>{
-  const root=$(group.grid); root.replaceChildren();
-  const visible=group.type==="expired" ? true : (filter==="all"||filter===group.type);
+  const root=$(group.grid);root.replaceChildren();
+  const visible=group.type==="expired"?(expiredRevealed||filter==="expired"):(filter==="all"||filter===group.type);
   $(group.section).hidden=!visible;
   if(!visible)return;
   const list=codes.filter(c=>c.type===group.type&&(c.code.toLowerCase().includes(term)||c.reward.toLowerCase().includes(term)));
@@ -456,19 +466,20 @@ function renderCodes(){
    const card=document.createElement("article");card.className="code-card";
    const top=document.createElement("div");top.className="code-top";
    const name=document.createElement("div");name.className="code-name";name.textContent=c.code;
-   const badge=document.createElement("span");badge.className="pill "+c.type;badge.textContent=currentLang==="hi"?({allplayers:"सभी खिलाड़ी",newplayers:"नए खिलाड़ी",expired:"समाप्त"}[c.type]):labels[c.type];top.append(name,badge);
-   const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+c.reward;
-   card.append(top,reward);
+   const badge=document.createElement("span");badge.className="pill promo-code-status "+c.type;badge.textContent=c.type==="expired"?"EXPIRED":c.type==="newplayers"?"NEW":"ACTIVE";
+   top.append(name,badge);
    if(c.type!=="expired"){
-    const btn=document.createElement("button");btn.className="card-btn";btn.type="button";btn.textContent="Copy";
-    btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(c.code);btn.textContent=currentLang==="hi"?"कॉपी हो गया!":"Copied!";setTimeout(()=>btn.textContent=currentLang==="hi"?"कोड कॉपी करें":"Copy Code",1400);}catch(e){window.prompt("Copy this code:",c.code);}});
-    card.append(btn);
+    const btn=document.createElement("button");btn.className="card-btn promo-code-copy";btn.type="button";btn.setAttribute("aria-label","Copy promo code "+c.code);btn.textContent="⧉";
+    btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(c.code);btn.textContent="✓";btn.setAttribute("aria-label","Copied "+c.code);setTimeout(()=>{btn.textContent="⧉";btn.setAttribute("aria-label","Copy promo code "+c.code);},1400);}catch(e){window.prompt("Copy this code:",c.code);}});
+    top.append(btn);
    }
-   root.append(card);
+   const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+c.reward;
+   card.append(top,reward);root.append(card);
   });
  });
- const expiredButton=document.querySelector('.category-view[data-filter="expired"]');
- if(expiredButton)expiredButton.textContent=(filter==="expired"||(filter==="all"&&expiredRevealed))?(currentLang==="hi"?"Expired Codes छिपाएँ":"Hide Expired Codes"):(currentLang==="hi"?"Expired Codes दिखाएँ":"Show Expired Codes");
+ const expiredVisible=expiredRevealed||filter==="expired";
+ $("expiredToggleLabel").textContent=expiredVisible?(currentLang==="hi"?"समाप्त कोड छिपाएँ":"Hide expired promo codes"):(currentLang==="hi"?"समाप्त प्रोमो कोड दिखाएँ":"Show expired promo codes");
+ $("expiredToggle").setAttribute("aria-expanded",String(expiredVisible));
 }
 
 const packVisibility={starter:{},bonus:{}};
@@ -590,7 +601,7 @@ function showPack(selectId,data,outputId){
 
 $("search").addEventListener("input",renderCodes);
 $("filter").addEventListener("change",renderCodes);
-document.querySelectorAll(".category-view").forEach(btn=>btn.addEventListener("click",()=>{if(btn.dataset.filter==="expired"){expiredRevealed=!(expiredRevealed||$("filter").value==="expired");$("filter").value=expiredRevealed?"all":"all";}else{$("filter").value=btn.dataset.filter;}renderCodes();$("codes").scrollIntoView({behavior:"smooth"});}));
+$("expiredToggle").addEventListener("click",()=>{expiredRevealed=!(expiredRevealed||$("filter").value==="expired");$("filter").value="all";renderCodes();});
 
 refreshPublicPacks();
 $("starterSelect").addEventListener("change",()=>showPack("starterSelect",starterPacks,"starterRewards"));
