@@ -579,3 +579,27 @@ a.nav-code-ticker{order:3;display:flex!important;align-items:center;gap:9px;flex
  #codes .promo-code-bridge{align-items:flex-start;flex-wrap:wrap}
  #codes .promo-code-bridge-link{margin-left:50px}
 }
+
+
+/* MechNova social links, quick navigation, and three-column packs layout */
+.social-symbol-library{position:absolute;width:0;height:0;overflow:hidden}
+.social-link{--social-brand:#36d9ff;display:inline-flex!important;align-items:center;gap:7px}
+.social-link--youtube{--social-brand:#ff0033}
+.social-link--discord{--social-brand:#5865f2}
+.social-link--instagram{--social-brand:#d62976}
+.social-icon{width:18px;height:18px;flex:0 0 18px;display:block}
+.social-arrow{font-size:.82em;opacity:.75}
+.social-link:hover,.social-link:focus-visible{border-color:var(--social-brand)}
+.social-links .social-link{justify-content:center}
+.public-side-bottom .social-link{width:max-content;max-width:100%}
+.quick-nav-links{display:grid;gap:8px;margin-top:12px}
+.quick-nav-links a{display:grid;grid-template-columns:28px 1fr auto;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;color:var(--text);text-decoration:none;background:rgba(255,255,255,.025)}
+.quick-nav-links a:hover,.quick-nav-links a:focus-visible{border-color:var(--cyan);background:rgba(54,217,255,.07)}
+.quick-nav-links a>span:nth-child(2){display:grid;gap:2px}
+.quick-nav-links strong{font-size:.92rem}
+.quick-nav-links small{font-size:.76rem;color:var(--muted)}
+.quick-nav-number{color:var(--cyan);font-size:.75rem;font-weight:800}
+.quick-nav-links a>b{color:var(--cyan)}
+#packShowcase .showcase-card-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){#packShowcase .showcase-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){#packShowcase .showcase-card-grid{grid-template-columns:minmax(0,1fr)}}
