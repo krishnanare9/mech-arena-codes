@@ -24,11 +24,11 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mech Arena Promo Codes 2026 | MechNova">
 <meta name="twitter:description" content="Latest Mech Arena promo codes, free rewards, starter packs and offers.">
-<link rel="preload" href="/mechnova.css?v=a1eeae8c" as="style">
+<link rel="preload" href="/mechnova.css?v=9dd300e2" as="style">
 <link rel="preload" href="/images/MechNova-bannarnew.webp?v=4" as="image" fetchpriority="high">
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://translate.google.com" crossorigin>
-<link rel="stylesheet" href="/mechnova.css?v=a1eeae8c">
+<link rel="stylesheet" href="/mechnova.css?v=9dd300e2">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -169,7 +169,7 @@
   <div class="code-category promo-expired-list" id="expiredSection" hidden>
    <div class="code-grid" id="expiredGrid"></div>
   </div>
-  <div class="notice">⚠️ Status is based on the source list dated September 30, 2026. Live redemption has not been independently verified. Eligibility and availability can change.</div>
+  <div class="notice">⚠️ Status is based on the source list dated September 30, 2026. Live redemption has not been independently verified. Eligibility and availability can change. “Last checked” dates appear only when an admin records a manual in-game check.</div>
  </div>
 </section>
 
@@ -269,6 +269,11 @@
      <input id="editCode" placeholder="Promo code" maxlength="80" required>
      <select id="editType" required><option value="allplayers">All Players</option><option value="newplayers">New Players</option><option value="expired">Expired</option></select>
      <input id="editReward" placeholder="Reward details" maxlength="500" required>
+     <div class="code-check-field">
+      <label for="editLastChecked">Last checked <span>(after testing in-game)</span></label>
+      <div class="code-check-row"><input id="editLastChecked" type="date" aria-describedby="codeCheckHelp"><button class="btn secondary" id="setCodeCheckedToday" type="button">Set today</button></div>
+      <small class="code-check-help" id="codeCheckHelp">Record a date only after manually confirming the code in-game. Leave blank when no check has been made.</small>
+     </div>
      <button class="btn" id="saveCodeBtn" type="submit">Add Code</button>
      <button class="btn secondary" id="cancelEdit" type="button" hidden>Cancel Edit</button>
     </form>
@@ -454,6 +459,42 @@ const labels = {allplayers:"ALL PLAYERS",newplayers:"NEW PLAYERS",expired:"EXPIR
 let currentLang = "en";
 
 let expiredRevealed = false;
+function dateInputValue(value){
+ if(!value)return "";
+ if(typeof value==="string" && /^\d{4}-\d{2}-\d{2}$/.test(value))return value;
+ let date;
+ if(value && typeof value.toDate==="function")date=value.toDate();
+ else if(value && typeof value==="object" && Number.isFinite(Number(value.seconds)))date=new Date(Number(value.seconds)*1000);
+ else date=value instanceof Date?value:new Date(value);
+ if(!(date instanceof Date) || Number.isNaN(date.getTime()))return "";
+ const pad=n=>String(n).padStart(2,"0");
+ return date.getFullYear()+"-"+pad(date.getMonth()+1)+"-"+pad(date.getDate());
+}
+function formatLastChecked(value){
+ const dateValue=dateInputValue(value);
+ if(!dateValue)return currentLang==="hi"?"आखिरी जाँच: तारीख दर्ज नहीं":"Last checked: not recorded";
+ const parts=dateValue.split("-").map(Number);
+ const date=new Date(parts[0],parts[1]-1,parts[2]);
+ const formatted=date.toLocaleDateString(currentLang==="hi"?"hi-IN":"en-IN",{day:"numeric",month:"short",year:"numeric"});
+ return (currentLang==="hi"?"आखिरी जाँच: ":"Last checked: ")+formatted;
+}
+function codeReportHref(code){
+ const pageUrl=window.location.href.split("#")[0];
+ const body=[
+  "Hi MechNova,",
+  "",
+  "I could not redeem this promo code.",
+  "",
+  "Code: "+String(code.code||""),
+  "Listed reward: "+String(code.reward||""),
+  "Page: "+pageUrl,
+  "Platform/device: (please add)",
+  "What happened: (please describe)",
+  "",
+  "Please do not include passwords, OTPs, payment details, or account recovery codes."
+ ].join("\n");
+ return "mailto:krishnanare9@gmail.com?subject="+encodeURIComponent("Promo code issue: "+String(code.code||""))+"&body="+encodeURIComponent(body);
+}
 function renderCodes(){
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
@@ -482,7 +523,12 @@ function renderCodes(){
     top.append(btn);
    }
    const reward=document.createElement("div");reward.className="reward";reward.textContent="🎁 "+c.reward;
-   card.append(top,reward);root.append(card);
+   const meta=document.createElement("div");meta.className="code-card-meta";
+   const checked=document.createElement("span");checked.className="code-last-checked";checked.textContent=formatLastChecked(c.lastCheckedAt);
+   const report=document.createElement("a");report.className="code-report-link";report.href=codeReportHref(c);report.textContent=currentLang==="hi"?"कोड रिपोर्ट करें":"Report issue";
+   report.setAttribute("aria-label",(currentLang==="hi"?"इस कोड में समस्या रिपोर्ट करें: ":"Report an issue with promo code: ")+c.code);
+   meta.append(checked,report);
+   card.append(top,reward,meta);root.append(card);
   });
  });
  const expiredVisible=expiredRevealed||filter==="expired";
@@ -714,7 +760,7 @@ async function loadPublicCodes(){
 }
 
 function resetCodeForm(){
-  editingDocId=null; $("codeForm").reset(); $("saveCodeBtn").textContent="Add Code"; $("cancelEdit").hidden=true;
+  editingDocId=null; $("codeForm").reset(); $("editLastChecked").value=""; $("saveCodeBtn").textContent="Add Code"; $("cancelEdit").hidden=true;
 }
 function renderAdminList(){
   const root=$("adminCodeList"); root.replaceChildren();
@@ -727,7 +773,7 @@ function renderAdminList(){
     const actions=document.createElement("div"); actions.className="admin-actions";
     const edit=document.createElement("button"); edit.type="button"; edit.textContent="Edit";
     edit.addEventListener("click",()=>{
-      editingDocId=item.id; $("editCode").value=item.code||""; $("editType").value=item.type||"allplayers"; $("editReward").value=item.reward||"";
+      editingDocId=item.id; $("editCode").value=item.code||""; $("editType").value=item.type||"allplayers"; $("editReward").value=item.reward||""; $("editLastChecked").value=dateInputValue(item.lastCheckedAt);
       $("saveCodeBtn").textContent="Save Changes"; $("cancelEdit").hidden=false; $("editCode").focus();
     });
     const del=document.createElement("button"); del.type="button"; del.textContent="Delete"; del.className="delete";
@@ -776,6 +822,7 @@ $("adminLoginForm").addEventListener("submit",async event=>{
 });
 $("adminLogout").addEventListener("click",()=>auth.signOut());
 $("cancelEdit").addEventListener("click",resetCodeForm);
+$("setCodeCheckedToday").addEventListener("click",()=>{$("editLastChecked").value=dateInputValue(new Date());});
 $("codeForm").addEventListener("submit",async event=>{
   event.preventDefault();
   const code=$("editCode").value.trim().toUpperCase();
@@ -784,7 +831,13 @@ $("codeForm").addEventListener("submit",async event=>{
   if(!code || !reward || code.includes("/")){setAdminStatus("Enter a code without / and its reward details.",true);return;}
   try{
     const id=editingDocId||codeDocId(code);
-    await db.collection("promoCodes").doc(id).set({code,type,reward});
+    const previous=adminDocs.find(item=>item.id===id);
+    const sameCode=previous&&String(previous.code||"").toUpperCase()===code;
+    const lastCheckedAt=$("editLastChecked").value||(sameCode?dateInputValue(previous.lastCheckedAt):"");
+    const payload={code,type,reward};
+    if(lastCheckedAt)payload.lastCheckedAt=lastCheckedAt;
+    else if(previous&&!sameCode&&Object.prototype.hasOwnProperty.call(previous,"lastCheckedAt"))payload.lastCheckedAt=firebase.firestore.FieldValue.delete();
+    await db.collection("promoCodes").doc(id).set(payload,{merge:true});
     setAdminStatus(editingDocId?"Code updated successfully.":"Code added successfully.");
     resetCodeForm(); await refreshAdminCodes();
   }catch(err){setAdminStatus(err.message||"Could not save code.",true);}

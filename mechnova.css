@@ -622,3 +622,17 @@ a.nav-code-ticker{order:3;display:flex!important;align-items:center;gap:9px;flex
 #packShowcase .showcase-reward-quantity{font-size:11px!important}
 #packShowcase .showcase-reward-icons img{width:100%!important;height:100%!important;object-fit:contain!important}
 @media(min-width:761px){.portal-sidebar{padding-top:100px!important}}
+
+
+/* Promo-code check dates, issue reporting, and admin date entry. */
+#codes .code-card-meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:1px;padding-top:9px;border-top:1px solid #ffffff20}
+#codes .code-last-checked{color:#b9c5d8;font-size:10px;line-height:1.4}
+#codes .code-report-link{color:#8ce8ff;font-size:10px;font-weight:800;text-decoration:none}
+#codes .code-report-link:hover{text-decoration:underline}
+#codeForm .code-check-field{grid-column:1/-1;display:grid;gap:7px;padding:11px;border:1px solid #24506e;border-radius:9px;background:#08172a}
+#codeForm .code-check-field>label{color:var(--text);font-size:12px;font-weight:800}
+#codeForm .code-check-field>label span{color:var(--muted);font-weight:500}
+#codeForm .code-check-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px}
+#codeForm .code-check-row input{min-width:0;min-height:42px}
+#codeForm .code-check-help{color:var(--muted);font-size:11px;line-height:1.5}
+@media(max-width:430px){#codeForm .code-check-row{grid-template-columns:minmax(0,1fr)}}
