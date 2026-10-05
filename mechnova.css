@@ -821,3 +821,40 @@ footer{font-size:13px;line-height:1.9}
  #faq .faq-entry summary{padding:10px 11px;font-size:14px}
  #faq .faq-answer{padding:10px}
 }
+
+
+/* Recolor the reference layout to MechNova's navy, cyan, purple and gold palette. */
+.promo-help-band{background:radial-gradient(ellipse at 50% 0%,#10365a 0%,#091b2e 56%,#061321 100%);border-top-color:#1a5578;border-bottom-color:#1a5578;color:#f6f9ff}
+#promo-code-types .section-head h2,#faq .section-head h2{color:#f6f9ff}
+#promo-code-types .section-head .sub,#faq .section-head .sub{color:#c2d2e2}
+.promo-comparison-card{border-color:#2b6283;background:linear-gradient(145deg,#102d47,#091b2d);box-shadow:0 8px 20px #0005}
+.promo-comparison-header h3{color:#5be2ff}
+.promo-comparison-all .promo-comparison-header h3{color:#c4a8ff}
+.promo-comparison-header div>span{color:#e0eaf4}
+.promo-comparison-intro{color:#c5d6e4}
+.promo-comparison-list li{border-top-color:#ffffff18;color:#e8f2fa}
+.promo-comparison-list li>span:first-child{border-color:#2b718f;background:#0c3652;color:#5be2ff}
+.promo-comparison-all .promo-comparison-list li>span:first-child{border-color:#7b64b7;background:#28234d;color:#c4a8ff}
+.promo-comparison-vs{background:#071a2b;box-shadow:0 0 0 5px #0a1c30,0 4px 14px #0009}
+.promo-important-bar{border-color:#377797;background:linear-gradient(105deg,#123a5a,#0c2842);box-shadow:0 8px 18px #0004}
+.promo-important-icon{border-color:#5be2ff;color:#5be2ff}
+.promo-important-bar strong{color:#ffd76b}
+.promo-important-bar p{color:#e4eef6}
+#faq .faq-entry{border-color:#2b5370;background:#091c30;box-shadow:0 7px 18px #0004}
+#faq .faq-entry[open]{border-color:#3a9bc0}
+#faq .faq-entry summary{background:linear-gradient(100deg,#123c5a,#102c45);color:#f6f9ff}
+#faq .faq-entry summary:focus-visible{outline-color:#5be2ff}
+.faq-question-icon{border-color:#5be2ff;color:#5be2ff}
+.faq-chevron{color:#c4a8ff}
+#faq .faq-answer{border-top-color:#2b5370;background:#081a2d;color:#e6f0f8}
+#faq .faq-answer-intro{color:#c2d2e2}
+.faq-method+.faq-method{border-left-color:#2b537055}
+.faq-method h3{color:#5be2ff}
+.faq-method ol li,.faq-method p{color:#e1ebf3}
+.faq-method ol li::before{background:#145275;color:#fff}
+.faq-method-or{color:#ffd76b}
+.faq-important{border-color:#8b75bf;background:linear-gradient(145deg,#122f49,#0d253b)}
+.faq-important h3{color:#ffd76b}
+.faq-important p{color:#e8f0f7}
+#faq .faq-answer>p:not(.faq-answer-intro){color:#e1ebf3}
+@media(max-width:700px){.faq-method+.faq-method{border-top-color:#2b537055}.faq-method-or{color:#ffd76b}.faq-method-or::before,.faq-method-or::after{background:#2b537055}}
