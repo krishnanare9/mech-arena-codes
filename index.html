@@ -131,12 +131,12 @@
   <div class="panel"><h3>🎯 Bonus Packs</h3><div class="sub">Choose a Bonus Pack option.</div><select id="bonusSelect" class="pack-select"></select><div class="reward-box" id="bonusRewards"></div></div>
  </div>
  <div class="panel" style="margin-top:16px">
-  <h3>🔗 Offer Link Generator</h3>
-  <p class="sub">Select your preferred packs and review the eligibility notes.</p>
+  <h3>🔗 Surge Pack Offer Link</h3>
+  <p class="sub">The Surge Starter Pack is currently the only pack with a Plarium offer link. Select Surge and review the eligibility notes before opening it.</p>
   <label class="check-row"><input type="checkbox" id="freshCheck"> I understand that some offers may be limited to eligible new accounts.</label>
   <label class="check-row"><input type="checkbox" id="playCheck"> I understand that offer eligibility may have additional Plarium Play requirements.</label>
-  <button class="btn" id="generateBtn" disabled>Generate My Link</button>
-  <div class="notice" id="generatorNotice">Link generation is not configured. No working Plarium offer link will be created until a genuine authorized link method is available.</div>
+  <button class="btn" id="generateBtn" disabled>Open Surge Offer ↗</button>
+  <div class="notice" id="generatorNotice">Select Surge and acknowledge both notes to enable its Plarium offer link.</div>
  </div>
 </section>
 
@@ -652,6 +652,7 @@ const defaultPackImages={
  "Redeemer":"images/redeemer-mech.webp"
 };
 let packImages={...defaultPackImages};
+ const packOfferLinks={starter:{Surge:"https://lps.plarium.com/en/desktop/mech-arena/rdo/media/ma_case_revoker_a_m_f058_p_sb_jt4155?plid=1776433&pxl=sharainfluencer&reward=Package46&inviterId=um000&af_ad=MfkI7wMIgPo&placement=MfkI7wMIgPo&af_inactivity_window=14d&pid=sharasoft&a=28&i=um000&campaign_ios=1776432&reward=Package46&is_retargeting=true&n=30&campaign_android=1776431&af_reengagement_window=lifetime"}};
 function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
  const target=$(targetId);if(!target)return;if(clearTarget)target.replaceChildren();
  const names=visiblePackNames(type);const select=$(type==="starter"?"starterSelect":"bonusSelect");
@@ -659,10 +660,13 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   const card=document.createElement("article");card.className="showcase-pack-card"+(type==="bonus"?" is-bonus":"")+(select&&select.value===name?" is-selected":"");
   const art=document.createElement("div");art.className="showcase-pack-art";
   if(index<2){const badge=document.createElement("span");badge.className="showcase-pack-badge";badge.textContent="FEATURED";art.append(badge);}
-  const imageUrl=safeImageSrc(packImages[name]);
-  if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};art.append(img);}
+  const imageUrl=safeImageSrc(packImages[name]);const offerUrl=type==="starter"?packOfferLinks.starter[name]:"";let offerLink=null;
+  if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};
+   if(offerUrl){offerLink=document.createElement("a");offerLink.className="showcase-pack-offer-link";offerLink.href=offerUrl;offerLink.target="_blank";offerLink.rel="sponsored noopener noreferrer";offerLink.setAttribute("aria-label","Open the "+name+" offer on Plarium in a new tab");offerLink.style.display="grid";offerLink.style.placeItems="center";offerLink.style.width="100%";offerLink.style.height="100%";offerLink.append(img);art.append(offerLink);}
+   else art.append(img);
+  }
   else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
-  const title=document.createElement("div");title.className="showcase-pack-name";title.textContent=type==="starter"&&!/\b(?:mech|pilot|pack|bundle)\b/i.test(name)?name+" Mech":name;
+  const title=document.createElement("button");title.type="button";title.className="showcase-pack-name";title.textContent=type==="starter"&&!/\b(?:mech|pilot|pack|bundle)\b/i.test(name)?name+" Mech":name;title.setAttribute("aria-pressed",String(Boolean(select&&select.value===name)));title.style.width="100%";title.style.border="0";title.style.textAlign="left";title.style.fontFamily="inherit";title.style.cursor="pointer";
   const rewards=document.createElement("div");rewards.className="showcase-reward-icons";rewards.setAttribute("role","group");rewards.setAttribute("aria-label","Included rewards for "+title.textContent);
   (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
    const label=String(item);if(label.toLowerCase().startsWith("promo code:"))return;
@@ -680,9 +684,11 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   });
   card.append(art,title);
   if(rewards.childElementCount)card.append(rewards);
-  card.tabIndex=0;card.setAttribute("role","button");card.setAttribute("aria-label","Select "+name+" "+type+" pack");
-  const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>c.classList.remove("is-selected"));card.classList.add("is-selected");};
-  card.addEventListener("click",choose);card.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();choose();}});target.append(card);
+  const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>{c.classList.remove("is-selected");const button=c.querySelector(".showcase-pack-name");if(button)button.setAttribute("aria-pressed","false");});card.classList.add("is-selected");title.setAttribute("aria-pressed","true");updateGenerator();};
+  title.addEventListener("click",choose);
+  card.addEventListener("click",event=>{if(!event.target.closest("a,button"))choose();});
+  if(offerLink)offerLink.addEventListener("click",choose);
+  target.append(card);
  });
  if(!names.length){const empty=document.createElement("p");empty.className="sub";empty.textContent="No packs currently available.";target.append(empty);}
 }
@@ -747,18 +753,30 @@ $("filter").addEventListener("change",renderCodes);
 $("expiredToggle").addEventListener("click",()=>{expiredRevealed=!(expiredRevealed||$("filter").value==="expired");$("filter").value="all";renderCodes();});
 
 refreshPublicPacks();
-$("starterSelect").addEventListener("change",()=>showPack("starterSelect",starterPacks,"starterRewards"));
+$("starterSelect").addEventListener("change",()=>{showPack("starterSelect",starterPacks,"starterRewards");renderPackShowcaseGroup("starter",starterPacks,"starterPackCards",true);updateGenerator();});
 $("bonusSelect").addEventListener("change",()=>showPack("bonusSelect",bonusPacks,"bonusRewards"));
 renderCodes();
 
 function updateGenerator(){
- $("generateBtn").disabled=!($("freshCheck").checked && $("playCheck").checked);
+ const isSurgeSelected=$("starterSelect").value==="Surge";
+ const notesAcknowledged=$("freshCheck").checked&&$("playCheck").checked;
+ $("generateBtn").disabled=!(isSurgeSelected&&notesAcknowledged);
+ $("generatorNotice").textContent=!isSurgeSelected
+  ?"Only the Surge Starter Pack currently has a linked Plarium offer. Select Surge to continue."
+  :notesAcknowledged
+   ?"Surge offer is ready. Plarium controls eligibility, availability and final offer terms."
+   :"Select Surge and acknowledge both eligibility notes to enable its offer link.";
 }
 $("freshCheck").addEventListener("change",updateGenerator);
 $("playCheck").addEventListener("change",updateGenerator);
 $("generateBtn").addEventListener("click",()=>{
- $("generatorNotice").textContent="Your selected packs are shown in this preview. A genuine offer URL is not configured, so no working link has been generated.";
+ const isSurgeSelected=$("starterSelect").value==="Surge";
+ const notesAcknowledged=$("freshCheck").checked&&$("playCheck").checked;
+ if(!isSurgeSelected||!notesAcknowledged){updateGenerator();return;}
+ window.open(packOfferLinks.starter.Surge,"_blank","noopener,noreferrer");
+ $("generatorNotice").textContent="Surge Plarium offer opened in a new tab. Check Plarium's eligibility and offer terms.";
 });
+updateGenerator();
 
 // Google Translate provides a broad set of visitor languages.
 function googleTranslateElementInit(){
