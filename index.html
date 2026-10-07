@@ -431,6 +431,7 @@
       <label>Existing Pack<select id="cmsPackSelect"></select></label>
       <label>Pack Name<input id="cmsPackName" maxlength="80" placeholder="Enter pack name"></label>
       <label>Pack Image URL<input id="cmsPackImage" type="text" placeholder="https://...image.jpg"><small class="upload-help">Public HTTPS URL या images/banner.jpg जैसा path दें।</small></label>
+      <label>Promo Code (Bonus Pack)<input id="cmsPackPromoCode" type="text" maxlength="80" placeholder="BLASTZONE"><small class="upload-help">Bonus Pack image पर click करने पर यही code नीचे दिखाई देगा. Starter Pack में optional.</small></label>
       <label style="grid-column:1/-1">Rewards (one reward per line)<textarea id="cmsPackRewards" rows="5" maxlength="1500" placeholder="200 A-Coins&#10;100,000 Credits&#10;1 Prodigy Crate"></textarea></label>
       <label class="check-row" style="display:flex;align-items:center;gap:8px"><input id="cmsPackVisible" type="checkbox" checked> Show this pack on public website</label>
       <div class="admin-actions" style="grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap">
@@ -541,6 +542,15 @@ let bonusPacks = {
  "Redeemer":["100,000 Credits","200 A-Coins","1 Prodigy Crate","Promo Code: BACKTRACK"],
  "Vartex":["100,000 Credits","200 A-Coins","1 Prodigy Crate","Promo Code: WARTEX"]
 };
+const defaultBonusPromoCodes = {
+ "Guardian":"BLASTZONE",
+ "Blockhorn":"BIGMECH",
+ "Lacewing":"GRASSHOPER",
+ "Aegis":"ROSHAN1",
+ "Redeemer":"BACKTRACK",
+ "Vartex":"WARTEX"
+};
+let bonusPackCodes = {...defaultBonusPromoCodes};
 
 const $ = id => document.getElementById(id);
 const labels = {allplayers:"ALL PLAYERS",newplayers:"NEW PLAYERS",expired:"EXPIRED"};
@@ -659,7 +669,10 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
  names.forEach((name,index)=>{
   const card=document.createElement("article");card.className="showcase-pack-card"+(type==="bonus"?" is-bonus":"")+(select&&select.value===name?" is-selected":"");
   const art=document.createElement("div");art.className="showcase-pack-art";
-  const bonusPromoEntry=type==="bonus"&&Array.isArray(data[name])?data[name].map(String).find(item=>item.toLowerCase().startsWith("promo code:")):"";const bonusPromoCode=bonusPromoEntry?bonusPromoEntry.replace(/^promo code:\s*/i,"").trim():"";let bonusCodeButton=null;let bonusCodeReveal=null;
+  const bonusPromoEntry=type==="bonus"&&Array.isArray(data[name])?data[name].map(String).find(item=>item.toLowerCase().startsWith("promo code:")):"";
+  const inlineBonusPromoCode=bonusPromoEntry?bonusPromoEntry.replace(/^promo code:\s*/i,"").trim():"";
+  const bonusPromoCode=type==="bonus"?(String(bonusPackCodes[name]||inlineBonusPromoCode||"").trim()):"";
+  let bonusCodeButton=null;let bonusCodeReveal=null;
   if(index<2){const badge=document.createElement("span");badge.className="showcase-pack-badge";badge.textContent="FEATURED";art.append(badge);}
   const imageUrl=safeImageSrc(packImages[name]);const offerUrl=type==="starter"?packOfferLinks.starter[name]:"";let offerLink=null;
   if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};
@@ -668,7 +681,7 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
    else art.append(img);
   }
   else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
-  if(type==="bonus"&&bonusPromoCode){bonusCodeReveal=document.createElement("div");bonusCodeReveal.className="showcase-bonus-code";bonusCodeReveal.hidden=true;bonusCodeReveal.textContent="Promo Code: "+bonusPromoCode;bonusCodeReveal.style.cssText="margin:6px 8px;padding:8px 10px;border:1px solid #35d8ff66;border-radius:8px;background:#071a2d;color:#52e6ff;font-size:12px;font-weight:800;text-align:center;letter-spacing:.04em";}
+  if(type==="bonus"&&bonusPromoCode){bonusCodeReveal=document.createElement("div");bonusCodeReveal.className="showcase-bonus-code";bonusCodeReveal.hidden=true;bonusCodeReveal.textContent="Promo Code: "+bonusPromoCode;bonusCodeReveal.style.cssText="margin:6px 8px;padding:9px 10px;border:1px solid #35d8ff66;border-radius:8px;background:#071a2d;color:#52e6ff;font-size:12px;font-weight:800;text-align:center;letter-spacing:.04em";}
   const title=document.createElement("button");title.type="button";title.className="showcase-pack-name";title.textContent=type==="starter"&&!/\b(?:mech|pilot|pack|bundle)\b/i.test(name)?name+" Mech":name;title.setAttribute("aria-pressed",String(Boolean(select&&select.value===name)));title.style.width="100%";title.style.border="0";title.style.textAlign="left";title.style.fontFamily="inherit";title.style.cursor="pointer";
   const rewards=document.createElement("div");rewards.className="showcase-reward-icons";rewards.setAttribute("role","group");rewards.setAttribute("aria-label","Included rewards for "+title.textContent);
   (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
@@ -691,7 +704,7 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
   title.addEventListener("click",choose);
   card.addEventListener("click",event=>{if(!event.target.closest("a,button"))choose();});
   if(offerLink)offerLink.addEventListener("click",choose);
-  if(bonusCodeButton&&bonusCodeReveal)bonusCodeButton.addEventListener("click",()=>{choose();bonusCodeReveal.hidden=false;bonusCodeButton.setAttribute("aria-expanded","true");});
+  if(bonusCodeButton&&bonusCodeReveal)bonusCodeButton.addEventListener("click",()=>{choose();const revealNow=bonusCodeReveal.hidden;bonusCodeReveal.hidden=!revealNow;bonusCodeButton.setAttribute("aria-expanded",String(revealNow));bonusCodeButton.setAttribute("aria-label",(revealNow?"Hide":"Reveal")+" the promo code for "+name);});
   target.append(card);
  });
  if(!names.length){const empty=document.createElement("p");empty.className="sub";empty.textContent="No packs currently available.";target.append(empty);}
@@ -707,6 +720,7 @@ function refreshPublicPacks(){
 function applyPackSettings(raw={}){
  if(raw.starterPacks&&typeof raw.starterPacks==="object")starterPacks=raw.starterPacks;
  if(raw.bonusPacks&&typeof raw.bonusPacks==="object")bonusPacks=raw.bonusPacks;
+ if(raw.bonusPackCodes&&typeof raw.bonusPackCodes==="object")bonusPackCodes={...defaultBonusPromoCodes,...raw.bonusPackCodes};
  if(raw.packImages&&typeof raw.packImages==="object")packImages={...raw.packImages,...defaultPackImages};
  if(raw.packVisibility&&typeof raw.packVisibility==="object")packVisibility.starter=raw.packVisibility.starter||{},packVisibility.bonus=raw.packVisibility.bonus||{};
  refreshPublicPacks();
@@ -995,13 +1009,14 @@ function loadPackEditorFields(){
  $("cmsPackName").value=name||"";
  $("cmsPackRewards").value=name&&Array.isArray(data[name])?data[name].join("\n"):"";
  $("cmsPackImage").value=name?(packImages[name]||""):"";
+ $("cmsPackPromoCode").value=type==="bonus"&&name?(bonusPackCodes[name]||""):"";
  $("cmsPackVisible").checked=!name||packVisibility[type]?.[name]!==false;
  $("cmsPackDelete").disabled=!name;
 }
-function startNewPack(){packEditorOriginalName=null;$("cmsPackSelect").value="";$("cmsPackName").value="";$("cmsPackRewards").value="";$("cmsPackImage").value="";$("cmsPackVisible").checked=true;$("cmsPackDelete").disabled=true;$("cmsPackName").focus();}
+function startNewPack(){packEditorOriginalName=null;$("cmsPackSelect").value="";$("cmsPackName").value="";$("cmsPackRewards").value="";$("cmsPackImage").value="";$("cmsPackPromoCode").value="";$("cmsPackVisible").checked=true;$("cmsPackDelete").disabled=true;$("cmsPackName").focus();}
 async function persistPackSettings(){
  if(!auth.currentUser||auth.currentUser.uid!==ADMIN_UID)throw new Error("Only the authorized admin can save packs.");
- await db.collection("siteSettings").doc("public").set({starterPacks,bonusPacks,packImages,packVisibility},{merge:true});
+ await db.collection("siteSettings").doc("public").set({starterPacks,bonusPacks,bonusPackCodes,packImages,packVisibility},{merge:true});
  refreshPublicPacks();refreshPackEditorSelect($("cmsPackName").value.trim());
 }
 document.querySelectorAll("[data-pack-new]").forEach(button=>button.addEventListener("click",()=>{$("cmsPackType").value=button.dataset.packNew;startNewPack();$("cmsPackName").scrollIntoView({behavior:"smooth",block:"center"});}));
@@ -1010,13 +1025,18 @@ $("cmsPackSelect").addEventListener("change",loadPackEditorFields);
 $("cmsPackNew").addEventListener("click",startNewPack);
 $("cmsPackReload").addEventListener("click",async()=>{try{const snap=await db.collection("siteSettings").doc("public").get();applyPackSettings(snap.exists?snap.data():{});refreshPackEditorSelect();setAdminStatus("Saved packs reloaded from Firestore.");}catch(err){setAdminStatus(err.message||"Could not reload packs.",true);}});
 $("cmsPackSave").addEventListener("click",async()=>{
- const type=currentPackType(),data=currentPackData(),oldName=packEditorOriginalName,name=$("cmsPackName").value.trim(),rewards=$("cmsPackRewards").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),img=$("cmsPackImage").value.trim();
+ const type=currentPackType(),data=currentPackData(),oldName=packEditorOriginalName,name=$("cmsPackName").value.trim(),rewards=$("cmsPackRewards").value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean),img=$("cmsPackImage").value.trim(),promoCode=$("cmsPackPromoCode").value.trim().toUpperCase();
  if(!name){setAdminStatus("Enter a pack name.",true);return;}
  if(!rewards.length){setAdminStatus("Add at least one reward, one per line.",true);return;}
  if(img&&!safeImageSrc(img)){setAdminStatus("Use a public HTTPS image URL or a valid images/filename.png path.",true);return;}
  if(oldName&&oldName!==name&&data[name]){setAdminStatus("A pack with this name already exists.",true);return;}
- if(oldName&&oldName!==name){delete data[oldName];delete packVisibility[type][oldName];}
+ if(oldName&&oldName!==name){delete data[oldName];delete packVisibility[type][oldName];if(type==="bonus")delete bonusPackCodes[oldName];}
  data[name]=rewards;packVisibility[type][name]=$("cmsPackVisible").checked;
+ if(type==="bonus"){
+   const cleanedRewards=rewards.filter(item=>!/^promo code:\s*/i.test(item));
+   if(promoCode){cleanedRewards.push("Promo Code: "+promoCode);bonusPackCodes[name]=promoCode;}else{delete bonusPackCodes[name];}
+   data[name]=cleanedRewards;
+ }
  if(img)packImages[name]=img;else delete packImages[name];
  try{await persistPackSettings();setAdminStatus("Pack saved to Firestore and public preview updated.");}
  catch(err){setAdminStatus("Pack was not saved: "+(err.message||"Check Firestore Rules."),true);}
@@ -1025,7 +1045,7 @@ $("cmsPackDelete").addEventListener("click",async()=>{
  const type=currentPackType(),data=currentPackData(),name=packEditorOriginalName;
  if(!name||!data[name])return;
  if(!confirm("Delete pack "+name+"?"))return;
- delete data[name];delete packVisibility[type][name];delete packImages[name];
+ delete data[name];delete packVisibility[type][name];delete packImages[name];if(type==="bonus")delete bonusPackCodes[name];
  try{await persistPackSettings();startNewPack();setAdminStatus("Pack deleted.");}
  catch(err){setAdminStatus("Pack deletion was not saved: "+(err.message||"Check Firestore Rules."),true);}
 });
