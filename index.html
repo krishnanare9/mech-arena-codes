@@ -659,13 +659,16 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
  names.forEach((name,index)=>{
   const card=document.createElement("article");card.className="showcase-pack-card"+(type==="bonus"?" is-bonus":"")+(select&&select.value===name?" is-selected":"");
   const art=document.createElement("div");art.className="showcase-pack-art";
+  const bonusPromoEntry=type==="bonus"&&Array.isArray(data[name])?data[name].map(String).find(item=>item.toLowerCase().startsWith("promo code:")):"";const bonusPromoCode=bonusPromoEntry?bonusPromoEntry.replace(/^promo code:\s*/i,"").trim():"";let bonusCodeButton=null;let bonusCodeReveal=null;
   if(index<2){const badge=document.createElement("span");badge.className="showcase-pack-badge";badge.textContent="FEATURED";art.append(badge);}
   const imageUrl=safeImageSrc(packImages[name]);const offerUrl=type==="starter"?packOfferLinks.starter[name]:"";let offerLink=null;
   if(imageUrl){const img=document.createElement("img");img.src=imageUrl;img.alt=name+" mech";img.loading="lazy";img.onerror=()=>{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();ph.setAttribute("aria-label",name+" image unavailable");img.replaceWith(ph);};
    if(offerUrl){offerLink=document.createElement("a");offerLink.className="showcase-pack-offer-link";offerLink.href=offerUrl;offerLink.target="_blank";offerLink.rel="sponsored noopener noreferrer";offerLink.setAttribute("aria-label","Open the "+name+" offer on Plarium in a new tab");offerLink.style.display="grid";offerLink.style.placeItems="center";offerLink.style.width="100%";offerLink.style.height="100%";offerLink.append(img);art.append(offerLink);}
+   else if(type==="bonus"&&bonusPromoCode){bonusCodeButton=document.createElement("button");bonusCodeButton.type="button";bonusCodeButton.className="showcase-bonus-code-image";bonusCodeButton.setAttribute("aria-label","Reveal the promo code for "+name);bonusCodeButton.setAttribute("aria-expanded","false");bonusCodeButton.style.cssText="display:grid;place-items:center;width:100%;height:100%;padding:0;border:0;background:transparent;cursor:pointer";bonusCodeButton.append(img);art.append(bonusCodeButton);}
    else art.append(img);
   }
   else{const ph=document.createElement("div");ph.className="showcase-pack-placeholder";ph.textContent=name.slice(0,3).toUpperCase();art.append(ph);}
+  if(type==="bonus"&&bonusPromoCode){bonusCodeReveal=document.createElement("div");bonusCodeReveal.className="showcase-bonus-code";bonusCodeReveal.hidden=true;bonusCodeReveal.textContent="Promo Code: "+bonusPromoCode;bonusCodeReveal.style.cssText="margin:6px 8px;padding:8px 10px;border:1px solid #35d8ff66;border-radius:8px;background:#071a2d;color:#52e6ff;font-size:12px;font-weight:800;text-align:center;letter-spacing:.04em";}
   const title=document.createElement("button");title.type="button";title.className="showcase-pack-name";title.textContent=type==="starter"&&!/\b(?:mech|pilot|pack|bundle)\b/i.test(name)?name+" Mech":name;title.setAttribute("aria-pressed",String(Boolean(select&&select.value===name)));title.style.width="100%";title.style.border="0";title.style.textAlign="left";title.style.fontFamily="inherit";title.style.cursor="pointer";
   const rewards=document.createElement("div");rewards.className="showcase-reward-icons";rewards.setAttribute("role","group");rewards.setAttribute("aria-label","Included rewards for "+title.textContent);
   (Array.isArray(data[name])?data[name]:[]).forEach(item=>{
@@ -682,12 +685,13 @@ function renderPackShowcaseGroup(type,data,targetId,clearTarget=true){
    const quantity=document.createElement("small");quantity.className="showcase-reward-quantity";quantity.textContent=amount;itemWrap.append(quantity);
    rewards.append(itemWrap);
   });
-  card.append(art,title);
+  card.append(art);if(bonusCodeReveal)card.append(bonusCodeReveal);card.append(title);
   if(rewards.childElementCount)card.append(rewards);
   const choose=()=>{if(select){select.value=name;showPack(type==="starter"?"starterSelect":"bonusSelect",data,type==="starter"?"starterRewards":"bonusRewards");}target.querySelectorAll(".showcase-pack-card").forEach(c=>{c.classList.remove("is-selected");const button=c.querySelector(".showcase-pack-name");if(button)button.setAttribute("aria-pressed","false");});card.classList.add("is-selected");title.setAttribute("aria-pressed","true");updateGenerator();};
   title.addEventListener("click",choose);
   card.addEventListener("click",event=>{if(!event.target.closest("a,button"))choose();});
   if(offerLink)offerLink.addEventListener("click",choose);
+  if(bonusCodeButton&&bonusCodeReveal)bonusCodeButton.addEventListener("click",()=>{choose();bonusCodeReveal.hidden=false;bonusCodeButton.setAttribute("aria-expanded","true");});
   target.append(card);
  });
  if(!names.length){const empty=document.createElement("p");empty.className="sub";empty.textContent="No packs currently available.";target.append(empty);}
