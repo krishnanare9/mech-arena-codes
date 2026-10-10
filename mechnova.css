@@ -870,3 +870,16 @@ footer{font-size:13px;line-height:1.9}
 .support-qr-link{display:block;width:min(100%,300px);margin-inline:auto;padding:8px;border:1px solid #8b75bf;border-radius:14px;background:#090909;box-shadow:0 8px 22px #0006;line-height:0}
 .support-qr-link img{display:block;width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:8px}
 @media(max-width:640px){.support-qr-card{grid-template-columns:minmax(0,1fr);gap:16px;padding:16px;text-align:center}.support-qr-copy p{margin-inline:auto}.support-qr-link{width:min(100%,280px)}}
+
+
+/* Clickable product image cards for the Special / affiliate panel */
+.portal-sidebar .special-affiliate-intro{font-size:12px;line-height:1.4;margin:0 0 10px}
+.portal-sidebar .special-affiliate-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:10px 0 12px}
+.portal-sidebar .special-affiliate-card{display:flex;min-width:0;flex-direction:column;gap:6px;padding:8px;border:1px solid #245578;border-radius:12px;background:linear-gradient(155deg,#0d2944,#061526);color:#f4f8ff;text-decoration:none;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.portal-sidebar .special-affiliate-card:hover{transform:translateY(-3px);border-color:#58d5ff;box-shadow:0 8px 20px #0005}
+.portal-sidebar .special-affiliate-card img{display:block;width:100%;height:96px;object-fit:contain;border-radius:8px;background:#f3f6fa}
+.portal-sidebar .special-affiliate-card strong{font-size:11px;line-height:1.25;overflow-wrap:anywhere}
+.portal-sidebar .special-affiliate-card span{font-size:10px;font-weight:800;color:#71dcff}
+.portal-sidebar .special-affiliate-all{display:block;text-align:center;margin-top:7px}
+.portal-sidebar .special-affiliate-disclosure{display:block;margin-top:9px;font-size:9px;line-height:1.4;color:#9bb6ca}
+@media(max-width:420px){.portal-sidebar .special-affiliate-card{padding:6px}.portal-sidebar .special-affiliate-card img{height:82px}.portal-sidebar .special-affiliate-card strong{font-size:10px}}
