@@ -1017,3 +1017,103 @@ footer{font-size:13px;line-height:1.9}
 @media(prefers-reduced-motion:reduce){
  .mn-promo-quick *, .mn-faq-redesign *, .mn-promo-quick *::before, .mn-faq-redesign *::before{animation:none!important;scroll-behavior:auto!important;transition:none!important}
 }
+
+
+/* Compact left-aligned promo guide revision */
+.promo-help-band{width:100%;max-width:100%;margin-left:0;padding:18px 0 24px;background:transparent;border:0;color:#f7f4ff}
+#promo-code-types,#faq{width:100%;max-width:780px;margin:0;scroll-margin-top:82px}
+.mn-guide-heading{max-width:none;text-align:left;margin:0 0 13px;padding:0}
+.mn-guide-kicker{padding:5px 9px;font-size:9px;letter-spacing:1.2px}
+.mn-guide-heading h2{margin:8px 0 5px;font-size:clamp(22px,2.2vw,29px);line-height:1.1;text-wrap:initial}
+.mn-guide-heading p{max-width:650px;font-size:12px;line-height:1.5}
+.mn-code-type-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.mn-code-type-card{grid-template-columns:70px minmax(0,1fr);gap:10px;padding:12px;border-radius:13px;box-shadow:0 7px 18px rgba(0,0,0,.18)}
+.mn-code-type-card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.2)}
+.mn-type-art{width:66px;height:75px}
+.mn-type-art svg{width:56px;height:56px}
+.mn-ring-one{width:55px;height:55px}
+.mn-ring-two{width:68px;height:68px}
+.mn-type-label{font-size:8px;letter-spacing:.8px}
+.mn-type-copy h3{font-size:22px;margin:4px 0 5px}
+.mn-type-copy>p{font-size:10px;line-height:1.45;margin-bottom:8px}
+.mn-type-fact{gap:6px;margin-top:6px}
+.mn-type-fact>span{width:22px;height:22px;flex-basis:22px;border-radius:6px;font-size:11px}
+.mn-type-fact strong{font-size:10px}
+.mn-type-fact small{font-size:9px;line-height:1.35}
+.mn-vs-burst{width:32px;height:32px;border-radius:9px;box-shadow:0 0 0 3px rgba(8,22,38,.85),0 0 15px rgba(50,213,255,.2)}
+.mn-vs-burst span{font-size:11px}
+.mn-code-flow{gap:6px;margin:12px 0}
+.mn-flow-step{gap:7px;padding:9px 8px;border-radius:10px}
+.mn-flow-number{font-size:8px}
+.mn-flow-icon{width:29px;height:29px;flex-basis:29px;border-radius:8px;font-size:14px}
+.mn-flow-step strong{font-size:10px}
+.mn-flow-step small{font-size:8px}
+.mn-flow-arrow{font-size:15px}
+.mn-guide-alert{gap:9px;padding:10px 12px;border-radius:11px}
+.mn-alert-icon{width:25px;height:25px;flex-basis:25px;font-size:14px}
+.mn-guide-alert strong{font-size:11px}
+.mn-guide-alert p{font-size:10px;line-height:1.45}
+.mn-guide-alert>a{padding:7px 9px;font-size:10px}
+.mn-faq-heading{margin-top:17px}
+.mn-redeem-panel{margin-bottom:12px;padding:14px;border-radius:14px;box-shadow:0 9px 22px rgba(0,0,0,.16)}
+.mn-redeem-title{gap:9px;margin-bottom:11px}
+.mn-redeem-bolt{width:34px;height:34px;flex-basis:34px;border-radius:9px;font-size:18px}
+.mn-redeem-title h3{font-size:21px}
+.mn-redeem-title p{font-size:10px}
+.mn-redeem-device-grid{gap:9px}
+.mn-redeem-device{padding:11px;border-radius:11px}
+.mn-device-heading{gap:8px;margin-bottom:8px}
+.mn-device-heading>span{width:31px;height:31px;flex-basis:31px;border-radius:8px;font-size:16px}
+.mn-device-heading h4{font-size:11px}
+.mn-device-heading small{font-size:8px}
+.mn-mini-steps{gap:7px}
+.mn-mini-steps li{gap:7px;font-size:10px;line-height:1.45}
+.mn-mini-steps li>span{width:18px;height:18px;flex-basis:18px;border-radius:5px;font-size:9px}
+.mn-safety-note{margin-top:10px;padding-top:9px;font-size:9px}
+.mn-faq-list{gap:7px}
+.mn-faq-item{border-radius:10px}
+.mn-faq-item summary{min-height:43px;gap:9px;padding:8px 11px;font-size:11px}
+.mn-faq-icon{width:25px;height:25px;flex-basis:25px;border-radius:7px;font-size:13px}
+.mn-faq-plus{width:21px;height:21px;flex-basis:21px;font-size:16px}
+.mn-faq-answer{padding:0 13px 11px 45px}
+.mn-faq-answer p{font-size:10px;line-height:1.6}
+@media(max-width:760px){
+ .promo-help-band{padding:15px 0 20px}
+ #promo-code-types,#faq{max-width:100%;margin:0}
+ .mn-code-type-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .mn-code-type-card{grid-template-columns:minmax(0,1fr);gap:4px;padding:11px}
+ .mn-type-art{width:100%;height:58px}
+ .mn-type-art svg{width:49px;height:49px}
+ .mn-ring-one{width:46px;height:46px}.mn-ring-two{width:58px;height:58px}
+ .mn-vs-burst{top:50%;width:28px;height:28px}
+ .mn-vs-burst span{font-size:9px}
+ .mn-code-flow{grid-template-columns:minmax(0,1fr) 17px minmax(0,1fr) 17px minmax(0,1fr);gap:4px}
+ .mn-flow-step{flex-wrap:wrap;gap:5px;padding:8px 6px}
+ .mn-flow-number{width:100%}
+ .mn-flow-icon{width:25px;height:25px;flex-basis:25px;font-size:12px}
+ .mn-flow-step strong{font-size:9px}
+ .mn-flow-step small{font-size:8px}
+ .mn-flow-arrow{transform:none;font-size:13px}
+ .mn-guide-alert>a{margin-left:34px}
+ .mn-redeem-device-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px){
+ .mn-guide-heading h2{font-size:23px}
+ .mn-code-type-grid{grid-template-columns:minmax(0,1fr);gap:9px}
+ .mn-code-type-card{grid-template-columns:56px minmax(0,1fr);padding:10px}
+ .mn-type-art{width:54px;height:62px}
+ .mn-type-art svg{width:45px;height:45px}
+ .mn-ring-one{width:43px;height:43px}.mn-ring-two{width:53px;height:53px}
+ .mn-type-copy h3{font-size:20px}
+ .mn-vs-burst{display:none}
+ .mn-code-flow{grid-template-columns:minmax(0,1fr);gap:5px}
+ .mn-flow-step{flex-wrap:nowrap;gap:8px;padding:8px 9px}
+ .mn-flow-number{width:auto}
+ .mn-flow-icon{width:28px;height:28px;flex-basis:28px}
+ .mn-flow-step strong{font-size:10px}
+ .mn-flow-arrow{transform:rotate(90deg);font-size:13px;line-height:1}
+ .mn-guide-alert{align-items:flex-start;flex-wrap:wrap}
+ .mn-guide-alert>div{flex:1 1 calc(100% - 40px)}
+ .mn-guide-alert>a{margin-left:34px}
+ .mn-redeem-device-grid{grid-template-columns:minmax(0,1fr)}
+}
