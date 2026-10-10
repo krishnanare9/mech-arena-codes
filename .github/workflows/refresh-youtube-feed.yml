@@ -1,0 +1,37 @@
+name: Refresh YouTube video feed
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-youtube-feed
+  cancel-in-progress: false
+
+jobs:
+  refresh-feed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out website
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Refresh latest uploads
+        run: python scripts/update_youtube_feed.py
+      - name: Commit feed if changed
+        run: |
+          if git diff --quiet -- data/youtube-videos.json; then
+            echo "No video feed changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/youtube-videos.json
+          git commit -m "chore: refresh latest YouTube videos"
+          git push
