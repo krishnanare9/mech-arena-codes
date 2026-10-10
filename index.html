@@ -477,6 +477,7 @@
 <script>
 const codes = [
  {code:"IMBACKBABY",type:"allplayers",reward:"Rank-14 Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
+  {code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Check in-game for the current reward and eligibility"},
  {code:"SPOOKYSHOT",type:"allplayers",reward:"Skins for Fury, Amber, Brachyura, Hidezo and Killshot"},
  {code:"BIGMECH",type:"newplayers",reward:"Blockhorn, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
  {code:"GRASSHOPER",type:"newplayers",reward:"Lacewing, 100,000 Credits, 200 A-Coins, 1 Prodigy Crate"},
@@ -923,7 +924,11 @@ async function refreshAdminCodes(){
     const seeded=await db.collection("promoCodes").get();
     adminDocs=seeded.docs.map(doc=>({...doc.data(),id:doc.id}));
   }
-  codes.splice(0,codes.length,...adminDocs.filter(c=>c.code && c.type && c.reward));
+  const firestoreCodes=adminDocs.filter(c=>c.code && c.type && c.reward);
+  if(!firestoreCodes.some(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL")){
+    firestoreCodes.push({code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Check in-game for the current reward and eligibility"});
+  }
+  codes.splice(0,codes.length,...firestoreCodes);
   renderCodes(); renderAdminList();
 }
 
