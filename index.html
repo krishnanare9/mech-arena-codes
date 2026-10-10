@@ -381,6 +381,11 @@
      <select id="editType" required><option value="allplayers">All Players</option><option value="newplayers">New Players</option><option value="expired">Expired</option></select>
      <input id="editReward" placeholder="Reward details" maxlength="500" required>
      <div class="code-check-field">
+      <label for="editExpiresAt">Expiry date <span>(optional)</span></label>
+      <input id="editExpiresAt" type="date" aria-describedby="codeExpiryHelp">
+      <small class="code-check-help" id="codeExpiryHelp">The public list automatically marks this code expired the day after this date. Leave blank for no listed expiry.</small>
+     </div>
+     <div class="code-check-field">
       <label for="editLastChecked">Last checked <span>(after testing in-game)</span></label>
       <div class="code-check-row"><input id="editLastChecked" type="date" aria-describedby="codeCheckHelp"><button class="btn secondary" id="setCodeCheckedToday" type="button">Set today</button></div>
       <small class="code-check-help" id="codeCheckHelp">Record a date only after manually confirming the code in-game. Leave blank when no check has been made.</small>
@@ -630,10 +635,22 @@ function codeReportHref(code){
  ].join("\n");
  return "mailto:krishnanare9@gmail.com?subject="+encodeURIComponent("Promo code issue: "+String(code.code||""))+"&body="+encodeURIComponent(body);
 }
+function getEffectiveCodeType(code){
+ const type=String(code&&code.type||"allplayers").toLowerCase();
+ if(type==="expired")return "expired";
+ const expiry=String(code&&code.expiresAt||"").slice(0,10);
+ if(/^\d{4}-\d{2}-\d{2}$/.test(expiry)){
+  const now=new Date();
+  const today=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
+  // A code remains valid through its listed expiry date and expires the next day.
+  if(today>expiry)return "expired";
+ }
+ return type;
+}
 function renderRunningCodeTicker(){
  const track=document.querySelector(".ticker-track");
  if(!track)return;
- const running=codes.filter(c=>c&&c.code&&c.type!=="expired");
+ const running=codes.filter(c=>c&&c.code&&getEffectiveCodeType(c)!=="expired");
  if(!running.length)return;
  const lineText=running.map(c=>{
   const code=String(c.code).toUpperCase();
@@ -647,32 +664,32 @@ function renderRunningCodeTicker(){
   track.appendChild(item);
  });
  const ticker=track.closest(".nav-code-ticker");
- if(ticker)ticker.setAttribute("aria-label","Running promo codes. MIDGAMECHANNEL4ALL works for all players and expires December 1, 2026. Click to view codes.");
+ if(ticker)ticker.setAttribute("aria-label",running.some(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL")?"Running promo codes. MIDGAMECHANNEL4ALL works for all players and expires December 1, 2026. Click to view codes.":"Running promo codes. Click to view code eligibility, status and rewards.");
 }
 function renderCodes(){
  renderRunningCodeTicker();
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
- const active=codes.filter(c=>c.type!=="expired");
+ const active=codes.filter(c=>getEffectiveCodeType(c)!=="expired");
  $("activeCount").textContent=active.length;
- $("expiredCount").textContent=codes.filter(c=>c.type==="expired").length;
- $("allPlayersActiveCount").textContent=codes.filter(c=>c.type==="allplayers").length+" ACTIVE";
- $("newPlayersActiveCount").textContent=codes.filter(c=>c.type==="newplayers").length+" ACTIVE";
+ $("expiredCount").textContent=codes.filter(c=>getEffectiveCodeType(c)==="expired").length;
+ $("allPlayersActiveCount").textContent=codes.filter(c=>getEffectiveCodeType(c)==="allplayers").length+" ACTIVE";
+ $("newPlayersActiveCount").textContent=codes.filter(c=>getEffectiveCodeType(c)==="newplayers").length+" ACTIVE";
  const groups=[{type:"allplayers",grid:"allPlayersGrid",section:"allPlayersSection"},{type:"newplayers",grid:"newPlayersGrid",section:"newPlayersSection"},{type:"expired",grid:"expiredGrid",section:"expiredSection"}];
  groups.forEach(group=>{
   const root=$(group.grid);root.replaceChildren();
   const visible=group.type==="expired"?(expiredRevealed||filter==="expired"):(filter==="all"||filter===group.type);
   $(group.section).hidden=!visible;
   if(!visible)return;
-  const list=codes.filter(c=>c.type===group.type&&(c.code.toLowerCase().includes(term)||c.reward.toLowerCase().includes(term)));
+  const list=codes.filter(c=>getEffectiveCodeType(c)===group.type&&(c.code.toLowerCase().includes(term)||c.reward.toLowerCase().includes(term)));
   if(!list.length){const empty=document.createElement("div");empty.className="empty";empty.textContent=currentLang==="hi"?"इस श्रेणी में कोई मिलता-जुलता कोड नहीं है।":"No matching codes in this category.";root.append(empty);return;}
   list.forEach(c=>{
    const card=document.createElement("article");card.className="code-card";
    const top=document.createElement("div");top.className="code-top";
    const name=document.createElement("div");name.className="code-name";name.textContent=c.code;
-   const badge=document.createElement("span");badge.className="pill promo-code-status "+c.type;badge.textContent=c.type==="expired"?"EXPIRED":c.type==="newplayers"?"NEW":"ACTIVE";
+   const effectiveType=getEffectiveCodeType(c);\n   const badge=document.createElement("span");badge.className="pill promo-code-status "+effectiveType;badge.textContent=effectiveType==="expired"?"EXPIRED":effectiveType==="newplayers"?"NEW":"ACTIVE";
    top.append(name,badge);
-   if(c.type!=="expired"){
+   if(effectiveType!=="expired"){
     const btn=document.createElement("button");btn.className="card-btn promo-code-copy";btn.type="button";btn.setAttribute("aria-label","Copy promo code "+c.code);btn.textContent="⧉";
     btn.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(c.code);btn.textContent="✓";btn.setAttribute("aria-label","Copied "+c.code);setTimeout(()=>{btn.textContent="⧉";btn.setAttribute("aria-label","Copy promo code "+c.code);},1400);}catch(e){window.prompt("Copy this code:",c.code);}});
     top.append(btn);
@@ -949,7 +966,7 @@ async function loadPublicCodes(){
 }
 
 function resetCodeForm(){
-  editingDocId=null; $("codeForm").reset(); $("editLastChecked").value=""; $("saveCodeBtn").textContent="Add Code"; $("cancelEdit").hidden=true;
+  editingDocId=null; $("codeForm").reset(); $("editLastChecked").value=""; $("editExpiresAt").value=""; $("saveCodeBtn").textContent="Add Code"; $("cancelEdit").hidden=true;
 }
 function renderAdminList(){
   const root=$("adminCodeList"); root.replaceChildren();
@@ -957,12 +974,12 @@ function renderAdminList(){
     const row=document.createElement("div"); row.className="admin-row";
     const info=document.createElement("div");
     const name=document.createElement("strong"); name.textContent=item.code||"(No code)";
-    const detail=document.createElement("div"); detail.className="small"; detail.textContent=(labels[item.type]||item.type||"Uncategorized")+" · "+(item.reward||"");
+    const detail=document.createElement("div"); detail.className="small"; detail.textContent=(labels[item.type]||item.type||"Uncategorized")+" · "+(item.reward||"")+(item.expiresAt?" · Expires "+dateInputValue(item.expiresAt):"");
     info.append(name,detail);
     const actions=document.createElement("div"); actions.className="admin-actions";
     const edit=document.createElement("button"); edit.type="button"; edit.textContent="Edit";
     edit.addEventListener("click",()=>{
-      editingDocId=item.id; $("editCode").value=item.code||""; $("editType").value=item.type||"allplayers"; $("editReward").value=item.reward||""; $("editLastChecked").value=dateInputValue(item.lastCheckedAt);
+      editingDocId=item.id; $("editCode").value=item.code||""; $("editType").value=item.type||"allplayers"; $("editReward").value=item.reward||""; $("editLastChecked").value=dateInputValue(item.lastCheckedAt); $("editExpiresAt").value=dateInputValue(item.expiresAt)||(String(item.code||"").toUpperCase()==="MIDGAMECHANNEL4ALL"?"2026-12-01":"");
       $("saveCodeBtn").textContent="Save Changes"; $("cancelEdit").hidden=false; $("editCode").focus();
     });
     const del=document.createElement("button"); del.type="button"; del.textContent="Delete"; del.className="delete";
@@ -981,7 +998,7 @@ async function refreshAdminCodes(){
   if(!snap.size){
     // Seed the current built-in code list once, from the signed-in admin session only.
     const batch=db.batch();
-    codes.forEach(c=>{const ref=db.collection("promoCodes").doc(codeDocId(c.code));batch.set(ref,{code:c.code,type:c.type,reward:c.reward});});
+    codes.forEach(c=>{const ref=db.collection("promoCodes").doc(codeDocId(c.code));batch.set(ref,{code:c.code,type:c.type,reward:c.reward,...(c.expiresAt?{expiresAt:c.expiresAt}:{})});});
     await batch.commit();
     const seeded=await db.collection("promoCodes").get();
     adminDocs=seeded.docs.map(doc=>({...doc.data(),id:doc.id}));
@@ -1028,7 +1045,7 @@ $("codeForm").addEventListener("submit",async event=>{
     const previous=adminDocs.find(item=>item.id===id);
     const sameCode=previous&&String(previous.code||"").toUpperCase()===code;
     const lastCheckedAt=$("editLastChecked").value||(sameCode?dateInputValue(previous.lastCheckedAt):"");
-    const payload={code,type,reward};
+    const expiresAt=$("editExpiresAt").value;\n    const payload={code,type,reward,expiresAt:expiresAt||null};
     if(lastCheckedAt)payload.lastCheckedAt=lastCheckedAt;
     else if(previous&&!sameCode&&Object.prototype.hasOwnProperty.call(previous,"lastCheckedAt"))payload.lastCheckedAt=firebase.firestore.FieldValue.delete();
     await db.collection("promoCodes").doc(id).set(payload,{merge:true});
@@ -1159,7 +1176,7 @@ auth.onAuthStateChanged(async user=>{
     if(user) setAdminStatus("This account is not authorized as the site admin.",true);
   }
 });
-loadPublicCodes();
+renderCodes();\nloadPublicCodes();
 loadSiteSettings();
 
 // Auto-hide public sidebar: open from menu button; close on outside click, link selection or Escape
