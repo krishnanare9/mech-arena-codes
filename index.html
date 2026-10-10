@@ -68,7 +68,7 @@
    <a href="#about" data-en="About" data-hi="हमारे बारे में">About</a>
   </nav>
   <div class="nav-right"><button class="public-menu-toggle" id="publicMenuToggle" type="button" aria-label="Open website menu" aria-expanded="false">☰ Menu</button></div>
-  <a class="nav-code-ticker" href="#codes" aria-label="Listed promo codes, click to view codes"><span class="ticker-label">RUNNING CODES</span><span class="ticker-window"><span class="ticker-track"><span>IMBACKBABY&nbsp; ✦ &nbsp;SPOOKYSHOT&nbsp; ✦ &nbsp;BIGMECH&nbsp; ✦ &nbsp;GRASSHOPER&nbsp; ✦ &nbsp;ROSHAN1&nbsp; ✦ &nbsp;BACKTRACK&nbsp; ✦ &nbsp;WARTEX&nbsp; ✦ &nbsp;</span><span aria-hidden="true">IMBACKBABY&nbsp; ✦ &nbsp;SPOOKYSHOT&nbsp; ✦ &nbsp;BIGMECH&nbsp; ✦ &nbsp;GRASSHOPER&nbsp; ✦ &nbsp;ROSHAN1&nbsp; ✦ &nbsp;BACKTRACK&nbsp; ✦ &nbsp;WARTEX&nbsp; ✦ &nbsp;</span></span></span></a>
+  <a class="nav-code-ticker" href="#codes" aria-label="Listed promo codes, click to view codes"><span class="ticker-label">RUNNING CODES</span><span class="ticker-window"><span class="ticker-track"><span>MIDGAMECHANNEL4ALL&nbsp; · &nbsp;ALL PLAYERS&nbsp; · &nbsp;EXPIRES DEC 1, 2026&nbsp; ✦ &nbsp;IMBACKBABY&nbsp; ✦ &nbsp;SPOOKYSHOT&nbsp; ✦ &nbsp;BIGMECH&nbsp; ✦ &nbsp;GRASSHOPER&nbsp; ✦ &nbsp;ROSHAN1&nbsp; ✦ &nbsp;BACKTRACK&nbsp; ✦ &nbsp;WARTEX&nbsp; ✦ &nbsp;</span><span aria-hidden="true">MIDGAMECHANNEL4ALL&nbsp; · &nbsp;ALL PLAYERS&nbsp; · &nbsp;EXPIRES DEC 1, 2026&nbsp; ✦ &nbsp;IMBACKBABY&nbsp; ✦ &nbsp;SPOOKYSHOT&nbsp; ✦ &nbsp;BIGMECH&nbsp; ✦ &nbsp;GRASSHOPER&nbsp; ✦ &nbsp;ROSHAN1&nbsp; ✦ &nbsp;BACKTRACK&nbsp; ✦ &nbsp;WARTEX&nbsp; ✦ &nbsp;</span></span></span></a>
  </div>
 </header>
 
@@ -592,7 +592,27 @@ function codeReportHref(code){
  ].join("\n");
  return "mailto:krishnanare9@gmail.com?subject="+encodeURIComponent("Promo code issue: "+String(code.code||""))+"&body="+encodeURIComponent(body);
 }
+function renderRunningCodeTicker(){
+ const track=document.querySelector(".ticker-track");
+ if(!track)return;
+ const running=codes.filter(c=>c&&c.code&&c.type!=="expired");
+ if(!running.length)return;
+ const lineText=running.map(c=>{
+  const code=String(c.code).toUpperCase();
+  return code==="MIDGAMECHANNEL4ALL"?code+" · ALL PLAYERS · EXPIRES DEC 1, 2026":code;
+ }).join("  ✦  ")+"  ✦  ";
+ track.replaceChildren();
+ [false,true].forEach(duplicate=>{
+  const item=document.createElement("span");
+  item.textContent=lineText;
+  if(duplicate)item.setAttribute("aria-hidden","true");
+  track.appendChild(item);
+ });
+ const ticker=track.closest(".nav-code-ticker");
+ if(ticker)ticker.setAttribute("aria-label","Running promo codes. MIDGAMECHANNEL4ALL works for all players and expires December 1, 2026. Click to view codes.");
+}
 function renderCodes(){
+ renderRunningCodeTicker();
  const term=$("search").value.trim().toLowerCase();
  const filter=$("filter").value;
  const active=codes.filter(c=>c.type!=="expired");
@@ -879,8 +899,12 @@ async function loadPublicCodes(){
   try{
     const snap=await db.collection("promoCodes").get();
     if(!snap.empty){
-      const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id}));
-      codes.splice(0,codes.length,...remote.filter(c=>c.code && c.type && c.reward));
+      const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id})).filter(c=>c.code && c.type && c.reward);
+      const midgameCode={code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Working for all players · Expires December 1, 2026",expiresAt:"2026-12-01"};
+      const midgameIndex=remote.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
+      if(midgameIndex>=0)remote[midgameIndex]={...remote[midgameIndex],...midgameCode};
+      else remote.push(midgameCode);
+      codes.splice(0,codes.length,...remote);
       renderCodes();
     }
   }catch(err){ console.warn("Firestore read unavailable; showing built-in list.",err); }
