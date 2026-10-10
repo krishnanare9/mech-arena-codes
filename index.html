@@ -968,8 +968,10 @@ async function loadPublicCodes(){
       const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id})).filter(c=>c.code && c.type && c.reward);
       const midgameCode={code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Working for all players · Expires December 1, 2026",expiresAt:"2026-12-01"};
       const midgameIndex=remote.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
-      if(midgameIndex>=0){\n       const saved=remote[midgameIndex];\n       remote[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type&&saved.type!=="expired"?saved.type:midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};\n      }
-      else remote.push(midgameCode);
+      if(midgameIndex>=0){
+       const saved=remote[midgameIndex];
+       remote[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type&&saved.type!=="expired"?saved.type:midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};
+      } else remote.push(midgameCode);
       codes.splice(0,codes.length,...remote);
       renderCodes();
     }
