@@ -652,7 +652,7 @@ function renderRunningCodeTicker(){
  const track=document.querySelector(".ticker-track");
  if(!track)return;
  const running=codes.filter(c=>c&&c.code&&getEffectiveCodeType(c)!=="expired");
- if(!running.length)return;
+ if(!running.length){track.replaceChildren();const ticker=track.closest(".nav-code-ticker");if(ticker)ticker.setAttribute("aria-label","No running promo codes listed. Check the code list for updates.");return;}
  const lineText=running.map(c=>{
   const code=String(c.code).toUpperCase();
   const expiry=dateInputValue(c.expiresAt);
@@ -996,7 +996,7 @@ function renderAdminList(){
     const row=document.createElement("div"); row.className="admin-row";
     const info=document.createElement("div");
     const name=document.createElement("strong"); name.textContent=item.code||"(No code)";
-    const detail=document.createElement("div"); detail.className="small"; detail.textContent=(labels[item.type]||item.type||"Uncategorized")+" · "+(item.reward||"")+(item.expiresAt?" · Expires "+dateInputValue(item.expiresAt):"");
+    const detail=document.createElement("div"); detail.className="small"; detail.textContent=(labels[getEffectiveCodeType(item)]||getEffectiveCodeType(item)||"Uncategorized")+" · "+(item.reward||"")+(item.expiresAt?" · Expires "+dateInputValue(item.expiresAt):"");
     info.append(name,detail);
     const actions=document.createElement("div"); actions.className="admin-actions";
     const edit=document.createElement("button"); edit.type="button"; edit.textContent="Edit";
