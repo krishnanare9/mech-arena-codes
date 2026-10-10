@@ -148,8 +148,8 @@
     }
 
     const affiliateCard = target.closest(".special-affiliate-card,.affiliate-card");
-    if (affiliateCard) {
-      const productLink = target.closest("a[href]") || affiliateCard.querySelector("a[href]") || affiliateCard;
+    const productLink = affiliateCard && target.closest("a[href]");
+    if (affiliateCard && productLink) {
       const title = affiliateCard.querySelector("strong,h2,h3");
       window.mechnovaTrackEvent("affiliate_product_click", {
         product_name: title ? title.textContent.trim().slice(0, 100) : "Gaming gear",
