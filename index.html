@@ -1135,7 +1135,7 @@ document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListen
     if(!response.ok)throw new Error('Feed data unavailable');
     const videos=await response.json();
     if(!Array.isArray(videos)||!videos.length)return;
-    const valid=videos.filter(video=>video&&typeof video.id==='string'&&typeof video.title==='string');
+    const valid=videos.filter(video=>video&&typeof video.id==='string'&&typeof video.title==='string').map(video=>({...video,kind:video.kind==='short'||video.kind==='video'?video.kind:(/#shorts?\b|\bshorts\b/i.test(video.title)?'short':'video')}));
     const shorts=valid.filter(video=>video.kind==='short').slice(0,4);
     const longs=valid.filter(video=>video.kind==='video').slice(0,4);
     if(!shorts.length&&!longs.length)return;
