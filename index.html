@@ -27,11 +27,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="preload" href="/mechnova.css?v=20261010-left-anchored" as="style">
+<link rel="preload" href="/mechnova.css?v=20261010-site-motion" as="style">
 <link rel="preload" href="/images/MechNova-bannarnew.webp?v=4" as="image" fetchpriority="high">
 <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://translate.google.com" crossorigin>
-<link rel="stylesheet" href="/mechnova.css?v=20261010-left-anchored">
+<link rel="stylesheet" href="/mechnova.css?v=20261010-site-motion">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -1209,6 +1209,60 @@ document.querySelectorAll('.public-side-link').forEach(link=>link.addEventListen
   }catch(error){console.info('Showing saved MechNova video cards until the feed refreshes.',error);}
 })();
 
+ 
+// Scroll reveal for key content. Dynamic code, pack and video cards are watched too.
+(function initMechNovaScrollReveal(){
+  const reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduceMotion||!("IntersectionObserver" in window))return;
+  const selector=[
+    "#mech-arena-promo-codes-2026 .panel",
+    "#packs .section-head",
+    "#packShowcase .pack-showcase-group",
+    "#packShowcase .showcase-pack-card",
+    "#codes .section-head",
+    "#codes .promo-code-hub",
+    "#allPlayersGrid .code-card",
+    "#newPlayersGrid .code-card",
+    "#expiredGrid .code-card",
+    "#redeem .section-head",
+    "#redeem .redeem-platform-card",
+    "#promo-code-types .mn-code-type-card",
+    "#promo-code-types .mn-flow-step",
+    "#promo-code-types .mn-guide-alert",
+    "#faq .mn-redeem-panel",
+    "#faq .mn-faq-item",
+    "#videos .video-card",
+    "#videos.creator-side",
+    "#special.creator-side",
+    "#special .special-affiliate-card"
+  ].join(",");
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add("mn-in-view");
+      revealObserver.unobserve(entry.target);
+    });
+  },{threshold:0.12,rootMargin:"0px 0px -28px 0px"});
+  function watchElement(element){
+    if(!(element instanceof Element)||element.classList.contains("mn-scroll-reveal"))return;
+    element.classList.add("mn-scroll-reveal");
+    revealObserver.observe(element);
+  }
+  function scan(root){
+    if(!root)return;
+    if(root instanceof Element&&root.matches(selector))watchElement(root);
+    if(root.querySelectorAll)root.querySelectorAll(selector).forEach(watchElement);
+  }
+  scan(document);
+  if(!("MutationObserver" in window))return;
+  const dynamicRoots=["#starterPackCards","#bonusPackCards","#allPlayersGrid","#newPlayersGrid","#expiredGrid",".creator-videos"];
+  const mutationObserver=new MutationObserver(records=>{
+    records.forEach(record=>record.addedNodes.forEach(node=>{if(node instanceof Element)scan(node);}));
+  });
+  dynamicRoots.forEach(selectorText=>{
+    document.querySelectorAll(selectorText).forEach(root=>mutationObserver.observe(root,{childList:true,subtree:true}));
+  });
+})();
 </script>
 <script>window.googleTranslateElementInit=googleTranslateElementInit;</script>
 <script defer src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
