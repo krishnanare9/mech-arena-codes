@@ -1177,3 +1177,10 @@ footer{font-size:13px;line-height:1.9}
  .mn-scroll-reveal{opacity:1!important;translate:none!important;transition:none!important}
  #allPlayersGrid .code-card::before,#newPlayersGrid .code-card::before,.portal-sidebar .special-affiliate-card::after{display:none!important}
 }
+
+
+/* Visible expiry date for promo-code cards */
+.code-expires-at{display:inline-flex;align-items:center;gap:4px;max-width:100%;color:#a6d8ef;font-size:10px;line-height:1.4;font-weight:700;overflow-wrap:anywhere}
+.code-expires-at::before{content:"◷";color:#66dfff;font-size:12px}
+.code-card:has(.promo-code-status.expired) .code-expires-at{color:#ff9eaa}
+.code-card:has(.promo-code-status.expired) .code-expires-at::before{color:#ff8191}
