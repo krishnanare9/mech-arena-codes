@@ -639,7 +639,7 @@ function codeReportHref(code){
 function getEffectiveCodeType(code){
  const type=String(code&&code.type||"allplayers").toLowerCase();
  if(type==="expired")return "expired";
- const expiry=String(code&&code.expiresAt||"").slice(0,10);
+ const expiry=dateInputValue(code&&code.expiresAt)||"";
  if(/^\d{4}-\d{2}-\d{2}$/.test(expiry)){
   const now=new Date();
   const today=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
@@ -701,7 +701,16 @@ function renderCodes(){
    const checked=document.createElement("span");checked.className="code-last-checked";checked.textContent=formatLastChecked(c.lastCheckedAt);
    const report=document.createElement("a");report.className="code-report-link";report.href=codeReportHref(c);report.textContent=currentLang==="hi"?"कोड रिपोर्ट करें":"Report issue";
    report.setAttribute("aria-label",(currentLang==="hi"?"इस कोड में समस्या रिपोर्ट करें: ":"Report an issue with promo code: ")+c.code);
-   meta.append(checked,report);
+   meta.append(checked);
+   const expiryValue=dateInputValue(c.expiresAt);
+   if(expiryValue){
+    const expiryLabel=document.createElement("span");expiryLabel.className="code-expires-at";
+    const expiryDate=new Date(expiryValue+"T00:00:00");
+    const niceDate=Number.isNaN(expiryDate.getTime())?expiryValue:new Intl.DateTimeFormat("en-IN",{day:"numeric",month:"short",year:"numeric"}).format(expiryDate);
+    expiryLabel.textContent=effectiveType==="expired"?"Expired on "+niceDate:"Expires "+niceDate;
+    meta.append(expiryLabel);
+   }
+   meta.append(report);
    card.append(top,reward,meta);root.append(card);
   });
  });
@@ -959,7 +968,7 @@ async function loadPublicCodes(){
       const remote=snap.docs.map(doc=>({...doc.data(), id:doc.id})).filter(c=>c.code && c.type && c.reward);
       const midgameCode={code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Working for all players · Expires December 1, 2026",expiresAt:"2026-12-01"};
       const midgameIndex=remote.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
-      if(midgameIndex>=0)remote[midgameIndex]={...remote[midgameIndex],...midgameCode};
+      if(midgameIndex>=0){\n       const saved=remote[midgameIndex];\n       remote[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type&&saved.type!=="expired"?saved.type:midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};\n      }
       else remote.push(midgameCode);
       codes.splice(0,codes.length,...remote);
       renderCodes();
@@ -1008,7 +1017,7 @@ async function refreshAdminCodes(){
   const firestoreCodes=adminDocs.filter(c=>c.code && c.type && c.reward);
   const midgameIndex=firestoreCodes.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
   const midgameCode={code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Working for all players · Expires December 1, 2026",expiresAt:"2026-12-01"};
-  if(midgameIndex>=0) firestoreCodes[midgameIndex]={...firestoreCodes[midgameIndex],...midgameCode};
+  if(midgameIndex>=0){const saved=firestoreCodes[midgameIndex];firestoreCodes[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type&&saved.type!=="expired"?saved.type:midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};}
   else firestoreCodes.push(midgameCode);
   codes.splice(0,codes.length,...firestoreCodes);
   renderCodes(); renderAdminList();
