@@ -1117,3 +1117,11 @@ footer{font-size:13px;line-height:1.9}
  .mn-guide-alert>a{margin-left:34px}
  .mn-redeem-device-grid{grid-template-columns:minmax(0,1fr)}
 }
+
+
+/* Final left-edge alignment: keep the existing compact visual design */
+.promo-help-band{display:block!important;width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important}
+#promo-code-types,#faq{display:block!important;width:100%!important;max-width:none!important;margin-left:0!important;margin-right:auto!important;text-align:left!important}
+#promo-code-types .mn-guide-heading,#faq .mn-guide-heading{width:100%;max-width:none!important;margin-left:0!important;margin-right:auto!important;text-align:left!important}
+#promo-code-types .mn-guide-heading h2,#promo-code-types .mn-guide-heading p,#faq .mn-guide-heading h2,#faq .mn-guide-heading p{text-align:left!important;margin-left:0}
+.mn-code-type-grid,.mn-code-flow,.mn-guide-alert,.mn-redeem-panel,.mn-faq-list{margin-left:0;margin-right:0}
