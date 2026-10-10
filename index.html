@@ -925,9 +925,10 @@ async function refreshAdminCodes(){
     adminDocs=seeded.docs.map(doc=>({...doc.data(),id:doc.id}));
   }
   const firestoreCodes=adminDocs.filter(c=>c.code && c.type && c.reward);
-  if(!firestoreCodes.some(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL")){
-    firestoreCodes.push({code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Check in-game for the current reward and eligibility"});
-  }
+  const midgameIndex=firestoreCodes.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
+  const midgameCode={code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Working for all players · Expires December 1, 2026",expiresAt:"2026-12-01"};
+  if(midgameIndex>=0) firestoreCodes[midgameIndex]={...firestoreCodes[midgameIndex],...midgameCode};
+  else firestoreCodes.push(midgameCode);
   codes.splice(0,codes.length,...firestoreCodes);
   renderCodes(); renderAdminList();
 }
