@@ -636,12 +636,12 @@ function codeReportHref(code){
  ].join("\n");
  return "mailto:krishnanare9@gmail.com?subject="+encodeURIComponent("Promo code issue: "+String(code.code||""))+"&body="+encodeURIComponent(body);
 }
-function getEffectiveCodeType(code){
+function getEffectiveCodeType(code,currentDate=new Date()){
  const type=String(code&&code.type||"allplayers").toLowerCase();
  if(type==="expired")return "expired";
  const expiry=dateInputValue(code&&code.expiresAt)||"";
  if(/^\d{4}-\d{2}-\d{2}$/.test(expiry)){
-  const now=new Date();
+  const now=currentDate instanceof Date?currentDate:new Date(currentDate);
   const today=now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0")+"-"+String(now.getDate()).padStart(2,"0");
   // A code remains valid through its listed expiry date and expires the next day.
   if(today>expiry)return "expired";
@@ -970,7 +970,7 @@ async function loadPublicCodes(){
       const midgameIndex=remote.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
       if(midgameIndex>=0){
        const saved=remote[midgameIndex];
-       remote[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type&&saved.type!=="expired"?saved.type:midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};
+       remote[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type||midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};
       } else remote.push(midgameCode);
       codes.splice(0,codes.length,...remote);
       renderCodes();
@@ -1019,7 +1019,7 @@ async function refreshAdminCodes(){
   const firestoreCodes=adminDocs.filter(c=>c.code && c.type && c.reward);
   const midgameIndex=firestoreCodes.findIndex(c=>String(c.code).toUpperCase()==="MIDGAMECHANNEL4ALL");
   const midgameCode={code:"MIDGAMECHANNEL4ALL",type:"allplayers",reward:"Working for all players · Expires December 1, 2026",expiresAt:"2026-12-01"};
-  if(midgameIndex>=0){const saved=firestoreCodes[midgameIndex];firestoreCodes[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type&&saved.type!=="expired"?saved.type:midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};}
+  if(midgameIndex>=0){const saved=firestoreCodes[midgameIndex];firestoreCodes[midgameIndex]={...midgameCode,...saved,code:midgameCode.code,type:saved.type||midgameCode.type,reward:saved.reward||midgameCode.reward,expiresAt:dateInputValue(saved.expiresAt)||midgameCode.expiresAt};}
   else firestoreCodes.push(midgameCode);
   codes.splice(0,codes.length,...firestoreCodes);
   renderCodes(); renderAdminList();
