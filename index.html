@@ -688,7 +688,8 @@ function renderCodes(){
    const card=document.createElement("article");card.className="code-card";
    const top=document.createElement("div");top.className="code-top";
    const name=document.createElement("div");name.className="code-name";name.textContent=c.code;
-   const effectiveType=getEffectiveCodeType(c);\n   const badge=document.createElement("span");badge.className="pill promo-code-status "+effectiveType;badge.textContent=effectiveType==="expired"?"EXPIRED":effectiveType==="newplayers"?"NEW":"ACTIVE";
+   const effectiveType=getEffectiveCodeType(c);
+   const badge=document.createElement("span");badge.className="pill promo-code-status "+effectiveType;badge.textContent=effectiveType==="expired"?"EXPIRED":effectiveType==="newplayers"?"NEW":"ACTIVE";
    top.append(name,badge);
    if(effectiveType!=="expired"){
     const btn=document.createElement("button");btn.className="card-btn promo-code-copy";btn.type="button";btn.setAttribute("aria-label","Copy promo code "+c.code);btn.textContent="⧉";
@@ -1046,7 +1047,8 @@ $("codeForm").addEventListener("submit",async event=>{
     const previous=adminDocs.find(item=>item.id===id);
     const sameCode=previous&&String(previous.code||"").toUpperCase()===code;
     const lastCheckedAt=$("editLastChecked").value||(sameCode?dateInputValue(previous.lastCheckedAt):"");
-    const expiresAt=$("editExpiresAt").value;\n    const payload={code,type,reward,expiresAt:expiresAt||null};
+    const expiresAt=$("editExpiresAt").value;
+    const payload={code,type,reward,expiresAt:expiresAt||null};
     if(lastCheckedAt)payload.lastCheckedAt=lastCheckedAt;
     else if(previous&&!sameCode&&Object.prototype.hasOwnProperty.call(previous,"lastCheckedAt"))payload.lastCheckedAt=firebase.firestore.FieldValue.delete();
     await db.collection("promoCodes").doc(id).set(payload,{merge:true});
@@ -1177,7 +1179,8 @@ auth.onAuthStateChanged(async user=>{
     if(user) setAdminStatus("This account is not authorized as the site admin.",true);
   }
 });
-renderCodes();\nloadPublicCodes();
+renderCodes();
+loadPublicCodes();
 loadSiteSettings();
 
 // Auto-hide public sidebar: open from menu button; close on outside click, link selection or Escape
