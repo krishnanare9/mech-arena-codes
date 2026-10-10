@@ -1,19 +1,31 @@
-MECHNOVA YOUTUBE AUTO-FEED PACKAGE
+MECHNOVA WEBSITE — MAINTENANCE NOTES
 
-Included:
-- index.html: site HTML with latest public YouTube uploads rendered from data/youtube-videos.json
-- scripts/update_youtube_feed.py: fetches and parses the channel's public YouTube feed
-- .github/workflows/update-youtube-feed.yml: refreshes feed data every 6 hours and commits changes
-- data/youtube-videos.json: generated data file (starts empty; existing manually configured cards remain as fallback)
+Live site:
+https://mechnovaofficial.github.io/
 
-SETUP
-1. Back up your current website file.
-2. Copy index.html into your website repository as the site's main HTML file (commonly index.html), replacing the current version only after reviewing it.
-3. Copy the scripts/, .github/workflows/, and data/ folders into the same repository, preserving folder paths.
-4. In GitHub, open Settings > Actions > General > Workflow permissions and select "Read and write permissions". Save.
-5. Push the files to the default branch. In the repository's Actions tab, run "Update MechNova YouTube Videos" once using Run workflow.
-6. Once the workflow succeeds and the site redeploys, the latest public uploads should appear in the MechNova Videos & Gameplay area. The scheduled workflow refreshes about every 6 hours. YouTube feed outages can delay a refresh; a failed run leaves the prior JSON untouched.
+Repository:
+https://github.com/mechnovaofficial/mechnovaofficial.github.io
 
-No YouTube API key or Firebase Storage is used. This reads the public channel feed and embeds thumbnails from YouTube. Channel feed endpoint may occasionally be unavailable.
+YOUTUBE VIDEO FEED
+- The homepage reads latest public uploads from data/youtube-videos.json.
+- scripts/update_youtube_feed.py fetches the channel's public YouTube RSS feed and writes the latest entries.
+- The single scheduled workflow is .github/workflows/refresh-youtube-feed.yml.
+- It runs every 3 hours and can also be started manually from GitHub Actions with "Run workflow".
+- If YouTube's feed is unavailable or returns no usable entries, the script fails without overwriting the existing JSON.
+- GitHub Actions needs repository Actions write permission for the workflow to commit changed feed data.
+- After a successful commit, GitHub Pages may take a short time to publish the update. A browser hard refresh can help bypass cached page assets.
 
-Brand assets: The channel ID does not provide downloadable logo/banner image files to this package. Set logo/banner in the site's existing editor using a public HTTPS image URL or images stored in your GitHub repository. Keep the fan-project disclaimer.
+PROMO CODES
+- Promo codes are displayed from the built-in list, with Firestore used for optional remote updates.
+- MIDGAMECHANNEL4ALL is listed for all players with a stated expiry of December 1, 2026.
+- The website does not guarantee live redemption; the game publisher determines eligibility and validity.
+- Never add account passwords, OTPs, or other secrets to website code or promo-code reports.
+
+PRIVACY AND ANALYTICS
+- analytics.js loads Google Analytics only after a visitor accepts optional analytics consent.
+- Keep the privacy policy and consent controls aligned if analytics behavior changes.
+
+MAINTENANCE
+- Keep the independent Mech Arena fan-project disclaimer.
+- Check internal navigation and mobile layout after significant HTML/CSS changes.
+- Do not change sitemap.xml unless the sitemap task is explicitly being worked on.
